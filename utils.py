@@ -139,7 +139,8 @@ def generate_metrics_given_config(train_config):
 def merge_metrics(parent_metrics, child_metrics):
 
     for k in parent_metrics.keys():
-        parent_metrics[k].append(child_metrics[k])
+        if k in child_metrics.keys():
+            parent_metrics[k].append(child_metrics[k])
 
 
 def run_simulation_given_parameter(simulator, parameter_preds, train=False):

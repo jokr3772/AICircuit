@@ -353,6 +353,7 @@ def generate_plot_loss_given_result(loss, train_config, visual_config, save_fold
 
 def plot_loss(multi_loss_mean, multi_loss_upper_bounds, multi_loss_lower_bounds, visual_config, train_config, save_name):
 
+    print(save_name)
     font_size = visual_config["font_size"]
     plt.rcParams.update({'font.size': font_size})
 
@@ -380,7 +381,6 @@ def plot_loss(multi_loss_mean, multi_loss_upper_bounds, multi_loss_lower_bounds,
         ax.legend()
         plt.ylabel("{} {} Loss".format(save_name, "L1"))
         plt.xlabel("Epochs")
-
         plt.savefig(save_name, dpi=250)
 
 def plot_accuracy(multi_accuracy_mean, multi_accuracy_upper_bounds, multi_accuracy_lower_bounds, visual_config, train_config, save_name):

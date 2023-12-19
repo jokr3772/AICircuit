@@ -1,8 +1,12 @@
 test_netlist: two_stage/TwoStageAmplifier-Test.sp
 parameter_list:
-  - ts-w0
-  - ts-w1
-  - ts-w2
+  - ts-c0
+  - ts-c1
+  - ts-wnout
+  - ts-wpout
+  - ts-wcs
+  - ts-wn1
+  - ts-wp1
 performance_list:
   - ts-bw
   - ts-pw

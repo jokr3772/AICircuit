@@ -6,7 +6,7 @@ import subprocess
 import re
 import time
 import math
-from alive_progress import alive_bar
+# from alive_progress import alive_bar
 
 from multiprocessing import Pool
 from functools import partial
@@ -39,14 +39,15 @@ class Simulator:
         self.multiprocessing = simulator_config['multiprocessing'] 
         print(f'Number of Workers, {self.num_workers}')
         print(f'MAX_SIM_SIZE, {self.MAX_SIM_SIZE}')
+        # print(self.arguments)
 
         # validate arguments
-        for p in parameter_list:
+        # for p in parameter_list:
 
-            assert (str(p) + "_start" in arguments.keys()), ("{} paramater must have a start index".format(p), arguments.keys())
-            assert (str(p) + "_stop" in arguments.keys()), ("{} paramater must have a start index".format(p), arguments.keys())
-            assert (str(p) + "_change" in arguments.keys()), (
-                "{} paramater must have a start index".format(p), arguments.keys())
+        #     assert (str(p) + "_start" in arguments.keys()), ("{} paramater must have a start index".format(p), arguments.keys())
+        #     assert (str(p) + "_stop" in arguments.keys()), ("{} paramater must have a start index".format(p), arguments.keys())
+        #     assert (str(p) + "_change" in arguments.keys()), (
+        #         "{} paramater must have a start index".format(p), arguments.keys())
 
         self.save_error_log = False
         self.order = order
@@ -99,7 +100,7 @@ class Simulator:
         if not train:
             argumentMap["out"] = tmp_out_path
             
-        delete_testing_files(argumentMap["out"], [self.perform_filenames, self.param_filenames])
+        # delete_testing_files(argumentMap["out"], [self.perform_filenames, self.param_filenames])
         size = math.ceil(num_params_to_sim / self.MAX_SIM_SIZE)
         start = time.time()
         # pbar = alive_bar(total=len(tasks))

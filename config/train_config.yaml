@@ -1,11 +1,11 @@
 dataset:
-  - type: Argmax
+  - type: Base
 model_config:
-  - model: RandomForestRegressor
+  - model: Model500GELU
 metric: absolute
 rerun_training: False
 device: cpu
-check_circuit: True
+check_circuit: False
 num_sample_check: 8
 random_sample_scale: 1.5
 log_experiments: False
@@ -17,10 +17,12 @@ epsilon: 0.3
 subset:
   - 0.9
 circuits:
-  - cascode
+  - two_stage
 compare_dataset: False
 compare_method: False
 subset_percentage: 0.3
 mode: replace
 subset_parameter_check: False
 independent_sample: True
+test_accuracy_per_epoch: False
+test_margin_accuracy: False

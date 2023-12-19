@@ -274,6 +274,9 @@ def pipeline(configpath):
                 cur_time = str(datetime.now().strftime('%Y-%m-%d %H-%M'))
                 pipeline_save_name = "{}-circuit-{}-dataset-{}-method-{}".format(circuit,
                                                                                  dataset_type_config["type"], model_template_config["model"], cur_time)
+                
+                # pipeline_save_name = "{}-circuit-{}-dataset-{}-method-{}".format(circuit,
+                #                                                                  dataset_type_config["type"], model_template_config["model"], cur_time)
                 print("Pipeline save name is {}".format(pipeline_save_name))
                 result = model_pipeline.eval()
                 visual_result = generate_visual_given_result(result, new_train_config,
