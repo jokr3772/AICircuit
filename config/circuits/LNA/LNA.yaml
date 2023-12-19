@@ -1,9 +1,12 @@
 test_netlist: LNA/LNA_Pooya.sp
 parameter_list:
-  - LNA-ls
+  - LNA-c1
+  - LNA-c2
   - LNA-ld
   - LNA-lg
-  - LNA-w
+  - LNA-ls
+  - LNA-wn1
+  - LNA-wn2
 performance_list:
   - LNA-Gt
   - LNA-s11
