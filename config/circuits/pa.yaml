@@ -1,4 +1,3 @@
-test_netlist: pa/pa-test.sp
 parameter_list:
   - pa-vb1
   - pa-vb2
@@ -17,19 +16,6 @@ sign:
   - 1
   - 1
 arguments:
-  model_path: config/model/45nm_CS.pm
-  pa-vb1_start: 785m
-  pa-vb1_stop: 815m
-  pa-vb1_change: 5m
-  pa-vb2_start: 760m
-  pa-vb2_stop: 790m
-  pa-vb2_change: 5m
-  pa-w1_start: 18u
-  pa-w1_stop: 22u
-  pa-w1_change: 0.5u
-  pa-w2_start: 27u
-  pa-w2_stop: 34.5u
-  pa-w2_change: 1u
   out: data/pa
 
 
