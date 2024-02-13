@@ -1,0 +1,22 @@
+parameter_list:
+  - ts-c0
+  - ts-c1
+  - ts-wnout
+  - ts-wpout
+  - ts-wcs
+  - ts-wn1
+  - ts-wp1
+performance_list:
+  - ts-bw
+  - ts-pw
+  - ts-a0
+order:
+  - 0
+  - 2
+  - 1
+sign:
+  - 1
+  - -1
+  - 1
+arguments:
+  out: data/two_stage

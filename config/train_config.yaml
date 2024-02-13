@@ -17,7 +17,7 @@ epsilon: 0.3
 subset:
   - 0.9
 circuits:
-  - two_stage
+  - SingleStageAmplifier
 compare_dataset: False
 compare_method: False
 subset_percentage: 0.3

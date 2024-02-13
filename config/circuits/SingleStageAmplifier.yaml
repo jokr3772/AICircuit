@@ -1,0 +1,19 @@
+parameter_list:
+  - SingleStageAmplifier-vdd
+  - SingleStageAmplifier-vg
+  - SingleStageAmplifier-w
+  - SingleStageAmplifier-r
+performance_list:
+  - SingleStageAmplifier-bw
+  - SingleStageAmplifier-pw
+  - SingleStageAmplifier-a0
+order:
+  - 0
+  - 2
+  - 1
+sign:
+  - 1
+  - -1
+  - 1
+arguments:
+  out: data/SingleStageAmplifier
