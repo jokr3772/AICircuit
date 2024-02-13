@@ -1,11 +1,12 @@
 parameter_list:
-  - cascode-r
-  - cascode-w0
-  - cascode-w1
+  - Cascode-wbias
+  - Cascode-r
+  - Cascode-w0
+  - Cascode-w1
 performance_list:
-  - cascode-bw
-  - cascode-pw
-  - cascode-a0
+  - Cascode-bw
+  - Cascode-pw
+  - Cascode-a0
 order:
   - 0
   - 2
@@ -15,4 +16,4 @@ sign:
   - -1
   - 1
 arguments:
-  out: data/cascode
+  out: data/Cascode
