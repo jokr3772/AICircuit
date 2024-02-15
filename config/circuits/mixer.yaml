@@ -1,19 +1,22 @@
 parameter_list:
-  - Mixer-vbrf
-  - Mixer-rl
-  - Mixer-wn
-  - Mixer-wt
+  - Mixer-c
+  - Mixer-r
+  - Mixer-wlo  
+  - Mixer-wrf
 performance_list:
-  - Mixer-PowerConsumption
-  - Mixer-Swing
-  - Mixer-Conversion_Gain
+  - Mixer-pw
+  - Mixer-swing
+  - Mixer-conversiongain
+  - Mixer-noisefigure
 order:
   - 0
-  - 2
+  - 3
   - 1
+  - 2
 sign:
   - -1
   - 1
   - 1
+  - -1
 arguments:
   out: data/Mixer

@@ -9,15 +9,11 @@ check_circuit: False
 num_sample_check: 8
 random_sample_scale: 1.5
 log_experiments: False
-simulator_config:
-  num_workers: 8
-  sim_size: 100
-  multiprocessing: True
 epsilon: 0.3
 subset:
   - 0.9
 circuits:
-  - Cascode
+  - TwoStage
 compare_dataset: False
 compare_method: False
 subset_percentage: 0.3

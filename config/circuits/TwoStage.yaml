@@ -19,4 +19,4 @@ sign:
   - -1
   - 1
 arguments:
-  out: data/two_stage
+  out: data/TwoStage
