@@ -198,9 +198,9 @@ def plot_multiple_loss_with_confidence_entrypoint(train_config, visual_config, r
     plt.clf()
 
     multi_train_loss, multi_train_loss_lower_bounds, multi_train_loss_upper_bounds = generate_plot_loss_given_result(result["train_loss"],
-                                                                                                                        train_config, visual_config, save_name, "train")
+                                                                                                                        train_config, visual_config, save_name, "Train")
     multi_test_loss, multi_test_loss_lower_bounds, multi_test_loss_upper_bounds = generate_plot_loss_given_result(result["validation_loss"],
-                                                                                                                     train_config, visual_config, save_name, "test")
+                                                                                                                     train_config, visual_config, save_name, "Test")
 
     result_dict = dict()
     result_dict["multi_train_loss"] = multi_train_loss
@@ -347,13 +347,12 @@ def generate_plot_loss_given_result(loss, train_config, visual_config, save_fold
         multi_loss_lower_bounds.append(temp_loss_mean - temp_loss_std)
         multi_loss_upper_bounds.append(temp_loss_mean + temp_loss_std)
 
-    plot_loss(multi_loss, multi_loss_upper_bounds, multi_loss_lower_bounds, visual_config, train_config, save_path)
+    plot_loss(multi_loss, multi_loss_upper_bounds, multi_loss_lower_bounds, visual_config, train_config, save_path, save_folder.split("-")[0], save_name)
 
     return multi_loss, multi_loss_lower_bounds, multi_loss_upper_bounds
 
-def plot_loss(multi_loss_mean, multi_loss_upper_bounds, multi_loss_lower_bounds, visual_config, train_config, save_name):
+def plot_loss(multi_loss_mean, multi_loss_upper_bounds, multi_loss_lower_bounds, visual_config, train_config, save_name, data_name, data_type):
 
-    print(save_name)
     font_size = visual_config["font_size"]
     plt.rcParams.update({'font.size': font_size})
 
@@ -372,14 +371,14 @@ def plot_loss(multi_loss_mean, multi_loss_upper_bounds, multi_loss_lower_bounds,
             fold = int(100 / split_size)
             temp_label = "{}-fold".format(fold)
 
-        ax.plot(np.arange(epochs), multi_loss_mean[i], label=temp_label, color=color[i])
+        ax.plot(np.arange(epochs), multi_loss_mean[i], label=temp_label, color=color[i], linewidth=3)
         ax.fill_between(np.arange(epochs), multi_loss_lower_bounds[i], multi_loss_upper_bounds[i], alpha=.3, color=color[i])
 
-
-        ax.set_xlim([0, None])
+        ax.set_xlim([0, epochs + 1])
         ax.set_ylim([0, None])
-        ax.legend()
-        plt.ylabel("{} {} Loss".format(save_name, "L1"))
+        # ax.legend()
+        plt.title(f'{data_name}')
+        plt.ylabel(f'{data_type} Loss')
         plt.xlabel("Epochs")
         plt.savefig(save_name, dpi=250)
 

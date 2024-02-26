@@ -28,22 +28,23 @@ def load_circuit(circuit_name):
     """Load circuit"""
     config_folder = join("config", "circuits")
     folder = join(config_folder, circuit_name)
+    print(folder)
     config = load_yaml(folder)
 
     ##Loading ngspice config
-    folder = join('config', 'ngspice.yaml')
-    config_ngspice = load_yaml(folder)
+    # folder = join('config', 'ngspice.yaml')
+    # config_ngspice = load_yaml(folder)
 
-    config.update(config_ngspice)
+    # config.update(config_ngspice)
 
-    system = platform.system()
-    if system == "Windows":
-        config["ngspice_exec"] = config["ngspice_exec_path"]
-    else:
-        config["ngspice_exec"] = config["ngspice_exec_direct"]
+    # system = platform.system()
+    # if system == "Windows":
+    #     config["ngspice_exec"] = config["ngspice_exec_path"]
+    # else:
+    #     config["ngspice_exec"] = config["ngspice_exec_direct"]
 
-    del config["ngspice_exec_path"]
-    del config["ngspice_exec_direct"]
+    # del config["ngspice_exec_path"]
+    # del config["ngspice_exec_direct"]
     return config
 
 def load_train_config(configpath=DEFAULT_TRAIN_CONFIG_PATH):
@@ -143,8 +144,8 @@ def merge_metrics(parent_metrics, child_metrics):
             parent_metrics[k].append(child_metrics[k])
 
 
-def run_simulation_given_parameter(simulator, parameter_preds, train=False):
-    return simulator.runSimulation(parameter_preds, train=train)
+# def run_simulation_given_parameter(simulator, parameter_preds, train=False):
+#     return simulator.runSimulation(parameter_preds, train=train)
 
 def generate_performance_diff_metrics(performance_prediction, test_performance, simulator, train=False):
     margin_error = get_margin_error(performance_prediction, test_performance, simulator.sign)
@@ -172,27 +173,27 @@ def save_result(result, pipeline_save_name, config_path=None):
         shutil.copyfile(config_path, os.path.join(save_folder, "train_config.yaml"))
 
 
-def check_save_data_status(circuit_config):
-    save_path = circuit_config["arguments"]["out"]
+# def check_save_data_status(circuit_config):
+#     save_path = circuit_config["arguments"]["out"]
 
-    metadata_path = os.path.join(save_path, "metadata.txt")
-    if not os.path.exists(metadata_path):
-        print("metadata not exist")
-        return False
-    else:
-        return_dict = parsetxtToDict(metadata_path)
-        keys = set(list(circuit_config["arguments"].keys()) + list(return_dict.keys()))
+#     metadata_path = os.path.join(save_path, "metadata.txt")
+#     if not os.path.exists(metadata_path):
+#         print("metadata not exist")
+#         return False
+#     else:
+#         return_dict = parsetxtToDict(metadata_path)
+#         keys = set(list(circuit_config["arguments"].keys()) + list(return_dict.keys()))
 
-        for key in keys:
-            try:
-                if circuit_config["arguments"][key] != return_dict[key]:
-                    print("Train Config Not Match")
-                    return False
-            except KeyError:
-                print("Train Config Not Match, Additional Parameter")
-                return False
+#         for key in keys:
+#             try:
+#                 if circuit_config["arguments"][key] != return_dict[key]:
+#                     print("Train Config Not Match")
+#                     return False
+#             except KeyError:
+#                 print("Train Config Not Match, Additional Parameter")
+#                 return False
 
-    return True
+#     return True
 
 def parsetxtToDict(file_path):
     with open(file_path, "r") as file:
@@ -248,22 +249,22 @@ def checkAlias(parameter, performance):
     if duplicate_amount > 0:
         raise ValueError("THERE ARE ALIASING IN THE RESULT")
 
-def evalCircuit(num_sample_check, simulator, scaler, random_scale):
+# def evalCircuit(num_sample_check, simulator, scaler, random_scale):
 
-    num_parameter = len(simulator.parameter_list)
-    num_performance = len(simulator.performance_list)
+#     num_parameter = len(simulator.parameter_list)
+#     num_performance = len(simulator.performance_list)
 
-    random_parameter = np.random.uniform(-1 * random_scale,random_scale,size=(num_sample_check, num_parameter))
-    random_performance = np.random.uniform(-1 * random_scale, random_scale,size=(num_sample_check, num_performance))
+#     random_parameter = np.random.uniform(-1 * random_scale,random_scale,size=(num_sample_check, num_parameter))
+#     random_performance = np.random.uniform(-1 * random_scale, random_scale,size=(num_sample_check, num_performance))
 
-    scale_back_parameter, _ = BaseDataset.inverse_transform(random_parameter, random_performance, scaler)
+#     scale_back_parameter, _ = BaseDataset.inverse_transform(random_parameter, random_performance, scaler)
 
-    simulate_parameter, simulate_performance = simulator.runSimulation(scale_back_parameter, train=False)
+#     simulate_parameter, simulate_performance = simulator.runSimulation(scale_back_parameter, train=False)
 
-    print("The parameter been sampled is")
-    print(simulate_parameter)
-    print("The simulated performance is")
-    print(simulate_performance)
+#     print("The parameter been sampled is")
+#     print(simulate_parameter)
+#     print("The simulated performance is")
+#     print(simulate_performance)
 
 
 def generate_train_config_for_single_pipeline(train_config, model_config, dataset_config):

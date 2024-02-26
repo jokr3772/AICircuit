@@ -1,11 +1,11 @@
-from circuit import prepare_data
+# from circuit import prepare_data
 from dataset import *
 import os
 
 from models import ModelEvaluator
-from simulator import load_simulator
+from data import data_config_creator
 from utils import load_circuit, load_train_config, load_visual_config, \
-    save_result, check_save_data_status, saveDictToTxt, checkAlias, \
+    save_result, saveDictToTxt, checkAlias, \
     generate_train_config_for_single_pipeline, update_train_config_given_model_type, check_comparison_value_diff
 from metrics import get_margin_error, get_relative_margin_error
 from eval_model import *
@@ -15,7 +15,7 @@ from visualutils import plot_multiple_margin_with_confidence_entrypoint, \
     plot_multiple_accuracy_per_epochs_with_confidence_comparison, \
     plot_multiple_subset_parameter_margin_accuracy_with_confidence_entrypoint
 from datetime import datetime
-import time
+# import time
 
 def generate_dataset_given_config(train_config, circuit_config, dataset_config):
     epsilon = train_config["epsilon"]
@@ -62,13 +62,13 @@ def generate_dataset_given_config(train_config, circuit_config, dataset_config):
 def generate_circuit_given_config(circuit_name):
     config_path = os.path.join(os.path.join(os.getcwd(), "config"), "circuits")
     circuit_mapping = {
-        "nmos": os.path.join(os.path.join(config_path, "nmos"), "nmos.yaml"),
-        "cascode": os.path.join(os.path.join(config_path, "cascode"), "cascode.yaml"),
-        "lna": os.path.join(os.path.join(config_path, "LNA"), "LNA.yaml"),
-        "mixer": os.path.join(os.path.join(config_path, "mixer"), "mixer.yaml"),
-        "two_stage": os.path.join(os.path.join(config_path, "two_stage"), "two_stage.yaml"),
-        "vco": os.path.join(os.path.join(config_path, "VCO"), "VCO.yaml"),
-        "pa": os.path.join(os.path.join(config_path, "pa"), "pa.yaml"),
+        "singlestageamplifier": os.path.join(config_path, "SingleStageAmplifier.yaml"),
+        "cascode": os.path.join(config_path, "Cascode.yaml"),
+        "lna": os.path.join(config_path, "LNA.yaml"),
+        "mixer": os.path.join(config_path, "Mixer.yaml"),
+        "twostage": os.path.join(config_path, "TwoStage.yaml"),
+        "vco": os.path.join(config_path, "VCO.yaml"),
+        "pa": os.path.join(config_path, "PA.yaml"),
     }
 
     if circuit_name.lower() in circuit_mapping:
@@ -213,11 +213,10 @@ def pipeline(configpath):
 
                 new_train_config = generate_train_config_for_single_pipeline(train_config, model_template_config, dataset_type_config)
 
-                simulator = load_simulator(circuit_config=circuit_config,
-                                            simulator_config=new_train_config['simulator_config'])
+                data_config = data_config_creator(circuit_config=circuit_config)
 
-                model, model_type = generate_model_given_config(dict(model_template_config),num_params=simulator.num_params,
-                                                                 num_perf=simulator.num_perf)
+                model, model_type = generate_model_given_config(dict(model_template_config),num_params=data_config.num_params,
+                                                                 num_perf=data_config.num_perf)
 
                 update_train_config_given_model_type(model_type, new_train_config)
                 if train_config["compare_dataset"] or train_config["compare_method"] or dataset_type_config[
@@ -235,24 +234,25 @@ def pipeline(configpath):
                 elif new_train_config["loss_per_epoch"]:
                     epochs = check_comparison_value_diff(new_train_config, epochs, "epochs")
 
-                if new_train_config["rerun_training"] or not check_save_data_status(circuit_config):
-                    data_for_evaluation = prepare_data(simulator.parameter_list, simulator.arguments)
+                # if new_train_config["rerun_training"] or not check_save_data_status(circuit_config):
+                #     data_for_evaluation = prepare_data(simulator.parameter_list, simulator.arguments)
 
-                    start =time.time()
-                    print('start sim')
-                    parameter, performance = simulator.runSimulation(data_for_evaluation, True)
-                    print('took for sim', time.time()-start)
-                    print('Params shape', parameter.shape)
-                    print('Perfomance shape',performance.shape)
+                #     start =time.time()
+                #     print('start sim')
+                #     parameter, performance = simulator.runSimulation(data_for_evaluation, True)
+                #     print('took for sim', time.time()-start)
+                #     print('Params shape', parameter.shape)
+                #     print('Perfomance shape',performance.shape)
 
 
-                    print("Saving metadata for this simulation")
-                    metadata_path = os.path.join(circuit_config["arguments"]["out"], "metadata.txt")
-                    saveDictToTxt(circuit_config["arguments"], metadata_path)
-                else:
-                    print("Load from saved data")
-                    parameter= np.load(os.path.join(simulator.arguments["out"], "x.npy"))
-                    performance =np.load(os.path.join(simulator.arguments["out"], "y.npy"))
+                #     print("Saving metadata for this simulation")
+                #     metadata_path = os.path.join(circuit_config["arguments"]["out"], "metadata.txt")
+                #     saveDictToTxt(circuit_config["arguments"], metadata_path)
+                # else:
+                    
+                print("Load from saved data")
+                parameter= np.load(os.path.join(data_config.arguments["out"], "x.npy"), allow_pickle=True)
+                performance =np.load(os.path.join(data_config.arguments["out"], "y.npy"), allow_pickle=True)
 
                 print("Check Alias Problem")
                 checkAlias(parameter, performance)
@@ -268,7 +268,7 @@ def pipeline(configpath):
                 else:
                     use_metric = get_relative_margin_error
 
-                model_pipeline = ModelEvaluator(parameter, performance, dataset, metric=use_metric, simulator=simulator,
+                model_pipeline = ModelEvaluator(parameter, performance, dataset, metric=use_metric, simulator=data_config,
                                           train_config=new_train_config, model=model)
 
                 cur_time = str(datetime.now().strftime('%Y-%m-%d %H-%M'))

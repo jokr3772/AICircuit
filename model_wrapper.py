@@ -5,8 +5,8 @@ import torch.optim as optim
 import torch
 import numpy as np
 # import wandb
-from utils import run_simulation_given_parameter, generate_performance_diff_metrics
-from sklearn.utils.validation import check_is_fitted
+from utils import generate_performance_diff_metrics
+# from sklearn.utils.validation import check_is_fitted
 
 class SklearnModelWrapper:
     def __init__(self, model):

@@ -1,14 +1,17 @@
 import numpy as np
 from dataset import BaseDataset
 
-from utils import generate_metrics_given_config, merge_metrics, run_simulation_given_parameter, \
-    generate_performance_diff_metrics, evalCircuit
+from utils import generate_metrics_given_config, merge_metrics
 from model_wrapper import SklearnModelWrapper, PytorchModelWrapper, LookupWrapper
+
+import os
+
 
 def subset_split(X,y,train_percentage, independent = False):
 
     split_size = np.gcd(int(train_percentage * 100), 100)
     split_time = int(100 / split_size)
+    # split_time = 1
     X_size = X.shape[1]
     combine = np.hstack((X, y))
     
@@ -25,6 +28,7 @@ def subset_split(X,y,train_percentage, independent = False):
                 train_data = split_array[0]
                 validate_data = np.concatenate(concat_list)
             yield train_data[:,:X_size], validate_data[:,:X_size], train_data[:,X_size:], validate_data[:,X_size:]
+            break
 
     else:
         np.random.shuffle(combine)
@@ -53,18 +57,17 @@ class EvalModel:
     def eval(self):
         
         train_result = self.model.fit(self.train_performance, self.train_parameter, self.test_performance, self.test_parameter, self.scaler)
-        if self.train_config["test_margin_accuracy"]:
-            parameter_prediction = self.model.predict(self.test_performance)
-            inverse_transform_parameter, inverse_transform_performance = BaseDataset.inverse_transform(parameter_prediction, self.test_performance, self.scaler)
-            _, mapping_performance_prediction = run_simulation_given_parameter(self.simulator, inverse_transform_parameter, train=False)
-            validate_test_result = generate_performance_diff_metrics(mapping_performance_prediction, inverse_transform_performance, self.simulator, train=False)
-            train_result.update(validate_test_result)
-        if self.train_config["train_margin_accuracy"]:
-            parameter_prediction = self.model.predict(self.train_performance)
-            inverse_transform_parameter, inverse_transform_performance = BaseDataset.inverse_transform(parameter_prediction, self.train_performance, self.scaler)
-            _, mapping_performance_prediction = run_simulation_given_parameter(self.simulator, inverse_transform_parameter, train=False)
-            validate_train_result = generate_performance_diff_metrics(mapping_performance_prediction, inverse_transform_performance, self.simulator, train=True)
-            train_result.update(validate_train_result)
+
+        test_parameter_prediction = self.model.predict(self.test_performance)
+        train_parameter_prediction = self.model.predict(self.train_performance)
+        inverse_test_parameter, inverse_test_performance = BaseDataset.inverse_transform(test_parameter_prediction, self.test_performance, self.scaler)
+        inverse_train_parameter, inverse_train_performance = BaseDataset.inverse_transform(train_parameter_prediction, self.train_performance, self.scaler)
+
+        np.save(os.path.join(self.simulator.arguments["out"], "test_x.npy"), inverse_test_parameter)
+        np.save(os.path.join(self.simulator.arguments["out"], "test_y.npy"), inverse_test_performance)
+        np.save(os.path.join(self.simulator.arguments["out"], "train_x.npy"), inverse_train_parameter)
+        np.save(os.path.join(self.simulator.arguments["out"], "train_y.npy"), inverse_train_performance)
+        
         self.model.reset()
         return train_result
 
@@ -99,8 +102,6 @@ class ModelEvaluator:
         subset = self.train_config["subset"]
         metrics_dict = generate_metrics_given_config(self.train_config)
         
-        if self.train_config["check_circuit"]:
-            evalCircuit(self.train_config["num_sample_check"], self.simulator, self.scaler, self.train_config["random_sample_scale"])
 
         for index, percentage in enumerate(subset):
             print("Running with percentage {}".format(percentage))
