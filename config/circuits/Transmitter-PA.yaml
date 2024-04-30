@@ -1,0 +1,36 @@
+parameter_list:
+  - PA-l1p
+  - PA-l1s
+  - PA-l3p
+  - PA-l3s
+  - PA-wn1
+  - PA-wn2
+performance_list:
+  - PA-cPowerConsumption/W
+  - PA-3dB_Bandwidth/Hz
+  - PA-OutputPower/dBm
+  - PA-VoltageSwing/V
+  - PA-largesignalpowergain
+  - PA-DE
+  - PA-PAE
+order:
+  - 3
+  - 6
+  - 4
+  - 5
+  - 0
+  - 1
+  - 2
+sign:
+  - -1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+arguments:
+  out: data/Transmitter-PA
+
+
+

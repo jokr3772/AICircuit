@@ -1,0 +1,45 @@
+parameter_list:
+  - vco_pa-c1vco
+  - vco_pa-l1vco
+  - vco_pa-rpvco
+  - vco_pa-wnvco
+  - vco_pa-wn6vco
+  - vco_pa-wvarvco
+  - vco_pa-l1ppa
+  - vco_pa-l1spa
+  - vco_pa-l3ppa
+  - vco_pa-l3spa
+  - vco_pa-wn1pa
+  - vco_pa-wn2pa
+performance_list:
+  - vco_pa-dcPowerConsumption/W
+  - vco_pa-3dB_Bandwidth/Hz
+  - vco_pa-OutputPower/dBm
+  - vco_pa-VoltageSwing/V
+  - vco_pa-TuningRange_VCO/Hz
+  - vco_pa-PhaseNoise_VCO/(dBc/Hz)
+  - vco_pa-LargeSignal_PowerGain_PA/dB
+  - vco_pa-DrainEfficiency_PA/%
+  - vco_pa-PAE_PA/%
+order: 
+  - 0
+  - 3
+  - 1
+  - 2
+  - 5
+  - 6
+  - 4
+  - 7
+  - 8
+sign:
+  - -1
+  - 1
+  - 1
+  - 1
+  - 1
+  - -1
+  - 1
+  - 1
+  - 1
+arguments:
+  out: data/VCO_PA
