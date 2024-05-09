@@ -1,4 +1,4 @@
-from dataset import BasePytorchModelDataset, BaseDataset
+from dataset import BasePytorchModelDataset
 from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch.optim as optim
