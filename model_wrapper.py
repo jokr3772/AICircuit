@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch
 import numpy as np
-# import wandb
+import wandb
 from sklearn.multioutput import RegressorChain
 from sklearn.svm import SVR
 
