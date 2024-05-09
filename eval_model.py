@@ -1,21 +1,39 @@
 from sklearn.ensemble import RandomForestRegressor
+   
+from sklearn.multioutput import RegressorChain
+from sklearn.svm import SVR
+
 import torch.nn as nn
 
-class SklearnModel():
-    def __init__(self,parameter_count=2, output_count=2, model=RandomForestRegressor()):
-        self.model = model
+
+class RandomForest():
+    def __init__(self):
+        self.model = RandomForestRegressor()
+
     def fit(self,x,y):
         self.model.fit(x,y)
         return self.model
+    
     def predict(self,x):
         #Never called
         return self.model.predict(x)
-        
+    
+
+class SupportVector():
+    def __init__(self):
+        self.model = RegressorChain(SVR(kernel="rbf"))
+
+    def fit(self,x,y):
+        self.model.fit(x,y)
+        return self.model
+    
+    def predict(self,x):
+        #Never called
+        return self.model.predict(x)
 
 
 class Model500GELU(nn.Module):
     def __init__(self, parameter_count=2, output_count=2):
-
         super(Model500GELU, self).__init__()
         self.network = nn.Sequential(
             nn.Linear(parameter_count, 200),
