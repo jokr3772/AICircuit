@@ -5,8 +5,9 @@ import torch.optim as optim
 import torch
 import numpy as np
 # import wandb
-from utils import generate_performance_diff_metrics
-# from sklearn.utils.validation import check_is_fitted
+from sklearn.multioutput import RegressorChain
+from sklearn.svm import SVR
+
 
 class SklearnModelWrapper:
     def __init__(self, model):
@@ -22,7 +23,11 @@ class SklearnModelWrapper:
 
     def reset(self,):
         print('Reset The model')
-        self.model = self.model.__class__()
+        if isinstance(self.model, RegressorChain):
+            self.model = self.model.__class__(SVR(kernel="rbf"))
+        else:
+            self.model = self.model.__class__()
+
 
 class LookupWrapper:
     def __init__(self, sign):
@@ -104,20 +109,9 @@ class PytorchModelWrapper:
         train_loss = nn.L1Loss()
         optimizer = optim.Adam(self.model.parameters())
 
-
-        train_accs = []
-        val_accs = []
         losses = []
         val_losses = []
         device = self.train_config["device"]
-
-        if (self.train_config["test_accuracy_per_epoch"] or self.train_config["train_accuracy_per_epoch"]) and self.train_config["first_eval"] == 0:
-            if self.train_config["train_accuracy_per_epoch"]:
-                train_accuracy = self.eval_epoch_accuracy(train_X, scaler)
-                train_accs.append(train_accuracy)
-            if self.train_config["test_accuracy_per_epoch"]:
-                test_accuracy = self.eval_epoch_accuracy(test_X, scaler)
-                val_accs.append(test_accuracy)
 
         for epoch in range(self.train_config["epochs"]):
             print('epoch: ', epoch, '')
@@ -158,49 +152,9 @@ class PytorchModelWrapper:
             if self.logging:
                 wandb.log({'train_loss': avg_loss, 'val_loss': val_avg_loss, 'epoch': epoch, })
 
-            if self.train_config["test_accuracy_per_epoch"] or self.train_config["train_accuracy_per_epoch"]:
-                if (epoch + 1) == self.train_config["first_eval"] or (epoch + 1) % self.train_config["check_every"] == 0:
-                    if self.train_config["train_accuracy_per_epoch"]:
-                        train_accuracy = self.eval_epoch_accuracy(train_X, scaler)
-                        train_accs.append(train_accuracy)
-                        print('train',train_accuracy)
-
-                        if self.logging:
-                            wandb.log({'train_accuracy': train_accuracy, 'epoch': epoch,})
-
-                    if self.train_config["test_accuracy_per_epoch"]:
-                        test_accuracy = self.eval_epoch_accuracy(test_X, scaler)
-                        val_accs.append(test_accuracy)
-                        print('test',test_accuracy)
-
-                        if self.logging:
-                            wandb.log({ 'test_accuracy': test_accuracy, 'epoch': epoch,})
-
-
         result_dict = dict()
 
         result_dict["train_loss"] = losses
         result_dict["validation_loss"] = val_losses
-        if self.train_config["train_accuracy_per_epoch"]:
-            result_dict["train_accuracy_per_epoch"] = train_accs
-        if self.train_config["test_accuracy_per_epoch"]:
-            result_dict["validation_accuracy_per_epoch"] = val_accs
 
         return result_dict
-
-    def eval_epoch_accuracy(self, X, scaler):
-        unique_x = np.unique(X, axis=0)
-
-        parameter_preds = self.predict(unique_x)
-        inverse_transform_parameter, inverse_transform_performance = BaseDataset.inverse_transform(parameter_preds,
-                                                                                                   unique_x,
-                                                                                                   scaler)
-        _, mapping_performance_prediction = run_simulation_given_parameter(self.simulator, inverse_transform_parameter, train=False)
-        validate_result = generate_performance_diff_metrics(mapping_performance_prediction, inverse_transform_performance,
-                                                            self.simulator, train=False)
-        max_err = validate_result["test_margins"]
-        accuracy_threshold = self.train_config["accuracy_per_epoch_threshold"]
-
-        accuracy_boolean = max_err <= accuracy_threshold
-
-        return accuracy_boolean.sum() / len(accuracy_boolean)
