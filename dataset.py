@@ -3,21 +3,25 @@ from sklearn.preprocessing import MinMaxScaler
 from torch.utils.data import Dataset
 
 
+def data_config_creator(circuit_config):
 
-def scale_down_data(parameter, performance, epsilon, sign):
-    random_scale = np.random.uniform(0, epsilon, size=performance.shape)
-    absolute_performance = np.absolute(performance)
-
-    scale_down_value = random_scale * absolute_performance
-    scale_down_performance = np.copy(performance)
-    for idx_axis in range(len(sign)):
-        if sign[idx_axis] == 1:
-            scale_down_performance[:,idx_axis] -= scale_down_value[:,idx_axis]
-        else:
-            scale_down_performance[:,idx_axis] += scale_down_value[:, idx_axis]
-    return parameter, scale_down_performance, {}
+    return Data(**circuit_config)
 
 
+class Data:
+    def __init__(self, parameter_list, performance_list, arguments, order, sign,):
+
+        self.arguments = dict(arguments)
+        self.performance_list = list(performance_list)
+        self.parameter_list = list(parameter_list)
+
+        self.num_params = len(parameter_list)
+        self.num_perf = len(performance_list)
+
+        self.order = order
+        self.sign = sign
+
+        
 class BasePytorchModelDataset(Dataset):
     def __init__(self, performance, parameters):
         self.parameters = np.array(parameters)
@@ -34,7 +38,7 @@ class BasePytorchModelDataset(Dataset):
 
 
 class BaseDataset:
-    def __init__(self, order,sign, dataset_config) -> None:
+    def __init__(self, order, sign, dataset_config) -> None:
         self.order = order
         self.sign = np.array(sign)
         self.dataset_config = dataset_config
@@ -81,220 +85,3 @@ class BaseDataset:
             return train_parameter, train_performance, {}
         else:
             return test_parameter, test_performance, {}
-
-
-class SoftBaseDataset(BaseDataset):
-    def __init__(self, order, sign, dataset_config, epsilon=0.0):
-        super().__init__(order, sign, dataset_config)
-        self.epsilon = epsilon
-    def modify_data(self, train_parameter, train_performance, test_parameter, test_performance, train=True, extra_args=None):
-        if train:
-            return train_parameter, train_performance, {}
-        else:
-            return scale_down_data(test_parameter, test_performance, self.epsilon, self.sign)
-
-
-class LorencoDataset(BaseDataset):
-    def __init__(self, order, sign, n, K, dataset_config, epsilon=0.0) -> None:
-        super().__init__(order,sign, dataset_config)
-        self.n = n
-        self.K = K
-        self.epsilon = epsilon
-
-    def modify_data(self, train_parameter, train_performance, test_parameter, test_performance, train=True, extra_args=None):
-        if train:
-            return self.LourencoMethod(train_parameter, train_performance)
-        else:
-            return scale_down_data(test_parameter, test_performance, self.epsilon, self.sign)
-
-    def LourencoMethod(self, parameter, performance):
-        new_param = []
-        new_perform = []
-        average_perform = np.average(performance, axis=0)
-
-        for index in range(len(parameter)):
-            new_param.append(parameter[index])
-            new_perform.append(performance[index])
-
-        for k in range(self.K):
-            rand_delta = np.random.rand(*performance.shape)
-            random_sample = (rand_delta * self.n) * average_perform
-
-            temp_perfm = np.copy(performance)
-            for idx_axis in range(len(self.sign)):
-                if self.sign[idx_axis] == 1:
-                    temp_perfm[:,idx_axis] -= random_sample[:,idx_axis]
-                else:
-                    temp_perfm[:,idx_axis] += random_sample[:, idx_axis]
-
-            new_perform.append(temp_perfm)
-            new_param.append(parameter)
-
-
-        return np.vstack(new_param), np.vstack(new_perform), {}
-
-
-class ArgMaxDataset(BaseDataset):
-    def __init__(self, order, sign, dataset_config, epsilon=0.0, subset_parameter_mode="replace") -> None:
-        super().__init__(order, sign, dataset_config)
-        self.epsilon = epsilon
-        self.subset_parameter_mode = subset_parameter_mode
-
-    def find_best_performance(self, parameter, performance):
-        """
-        Sorts the vectors according to the best perfomance from left to right
-        """
-        if parameter.shape[0] == 0:
-            return -1, -1, False
-        fit_parameter, fit_performance = self.fit(parameter, performance)
-
-        for idx_axis in range(performance.shape[1]):
-
-            res = np.argwhere(fit_performance[:,idx_axis] == np.amax(fit_performance[:,idx_axis])).reshape(-1)
-
-            fit_performance = fit_performance[res]
-            fit_parameter = fit_parameter[res]
-            if len(res) == 1:
-                return fit_parameter.reshape(-1), fit_performance.reshape(-1), True
-
-    def find_max(self, parameter, performance, temp_performance):
-        # find x' =  argmax (y) from pairs of (x,y)
-        # Generate New pair of (x',y) and put them into new dataset
-
-        candidates_vector_parameter, candidates_vector_performance = self.find_feasible(parameter, performance, temp_performance)
-        sort_vector_parameter, sort_vector_performance, find_max_boolean = self.find_best_performance(candidates_vector_parameter,
-                                                                           candidates_vector_performance)
-        return sort_vector_parameter, sort_vector_performance, find_max_boolean
-
-    def find_closest_max(self, parameter, performance, temp_performance):
-        sign_performance = np.array(self.sign * performance)
-        sign_temp_performance = np.array(self.sign * temp_performance)
-        minimum_err = None
-        minimum_index = None
-        for data_index in range(len(sign_performance)):
-            temp_err = (np.abs(sign_performance[data_index] - sign_temp_performance))
-            temp_diff = np.abs(np.divide(temp_err, sign_temp_performance,
-                                         where=sign_temp_performance != 0))
-
-            temp_max_diff = np.max(temp_diff)
-
-            if minimum_err is None or temp_max_diff < minimum_err:
-                minimum_index = data_index
-                minimum_err = temp_max_diff
-
-        return parameter[minimum_index]
-
-
-    def find_feasible(self,parameter, performance, temp_performance):
-        # slow ... calls for each point in the dataset
-
-        _, fit_performance = self.fit(parameter, performance)
-
-        fit_temp_performance = (temp_performance*self.sign)[self.order]
-
-        comparison_matrix = (fit_temp_performance <= fit_performance).all(axis=1)
-
-        return parameter[comparison_matrix], performance[comparison_matrix]
-
-
-    def modify_data(self, train_parameter, train_performance, test_parameter, test_performance, train=True, extra_args=None):
-        if train:
-            return self.argmaxModifyData(train_parameter, train_performance, extra_args)
-        else:
-            return scale_down_data(test_parameter, test_performance, self.epsilon, self.sign)
-
-    def argmaxModifyData(self, parameter, performance, subsample_args):
-        new_parameter = []
-        new_performance = []
-        argmax_ratio = 0
-
-        target_performance = performance
-        target_parameter = parameter
-
-        if subsample_args is not None:
-            target_performance = subsample_args["performance"]
-            target_parameter = subsample_args["parameter"]
-
-        for (temp_performance,temp_parameter) in zip(target_performance,target_parameter):
-
-            new_temp_parameter, _, find_max_boolean = self.find_max(target_parameter, target_performance, temp_performance)
-            if not find_max_boolean:
-                if self.subset_parameter_mode == "drop":
-                    continue
-                else:
-                    new_temp_parameter = self.find_closest_max(target_parameter, target_performance, temp_performance)
-
-            if (new_temp_parameter != temp_parameter).any():
-                argmax_ratio += 1
-
-            new_parameter.append(new_temp_parameter)
-            new_performance.append(temp_performance)
-
-        # Argmax ratio might be not useful anymore
-        print(f'Argmax ratio is {argmax_ratio/len(parameter)} with argmax replaced {argmax_ratio} times')
-
-        extra_info = dict()
-        extra_info["Argmax_ratio"] = argmax_ratio / len(parameter)
-        extra_info["Argmax_modify_num"] = argmax_ratio
-
-        return np.array(new_parameter),np.array(new_performance), extra_info
-
-
-class SoftArgMaxDataset(ArgMaxDataset):
-    def __init__(self, order, sign, dataset_config, epsilon=0.0, subset_parameter_mode="replace") -> None:
-        super().__init__(order, sign, dataset_config, epsilon, subset_parameter_mode)
-        print(f'Epsilon is {epsilon}')
-
-
-    def modify_data(self, train_parameter, train_performance, test_parameter, test_performance, train=True, extra_args=None):
-        if train:
-            parameter, scale_down_performance,_ = scale_down_data(train_parameter, train_performance, self.epsilon, self.sign)
-            return super().argmaxModifyData(parameter, scale_down_performance, extra_args)
-        else:
-            return scale_down_data(test_parameter, test_performance, self.epsilon, self.sign)
-
-
-class AblationDuplicateDataset(SoftArgMaxDataset):
-    def __init__(self, order, sign, duplication, dataset_config, epsilon=0.2, subset_parameter_mode="replace") -> None:
-        super().__init__(order, sign, dataset_config, epsilon, subset_parameter_mode)
-        self.duplication = duplication
-
-    def sort_vectors(self, parameter, performance):
-
-        # We stack performance first because of self.order
-        data = np.hstack((performance, parameter))
-
-        for i in range(len(self.order) - 1, -1, -1):
-            data = sorted(data, key=lambda x: x[self.order[i]], reverse=True)
-        data = np.array(data)
-        return data[:, performance.shape[1]:], data[:, :performance.shape[1]]
-
-    def generate_duplication_data(self, parameter, performance, temp_performance, train):
-        candidates_vector_parameter, candidates_vector_performance = self.find_feasible(parameter, performance,
-                                                                                        temp_performance)
-
-        sort_vector_parameter, sort_vector_performance = self.sort_vectors(candidates_vector_parameter, candidates_vector_performance)
-
-        if train:
-            num_sample = self.duplication + 1
-        else:
-            num_sample = 1
-        return sort_vector_parameter[:num_sample], sort_vector_performance[:num_sample]
-
-    def modify_data(self, train_parameter, train_performance, test_parameter, test_performance, train=True, extra_args=None):
-        if train:
-            return self.ablationModifyData(train_parameter, train_performance)
-        else:
-            return scale_down_data(test_parameter, test_performance, self.epsilon, self.sign)
-
-    def ablationModifyData(self, parameter, performance, train=True):
-        scale_down_parameter, scale_down_performance,_ = scale_down_data(parameter, performance, self.epsilon, self.sign)
-
-        new_parameter, new_performance = [], []
-        for temp_performance in scale_down_performance:
-            new_temp_parameters, new_temp_performances = self.generate_duplication_data(parameter, performance, temp_performance, train)
-
-            new_parameter += list(new_temp_parameters)
-            new_performance += list(new_temp_performances)
-
-        return np.array(new_parameter), np.array(new_performance), {}
