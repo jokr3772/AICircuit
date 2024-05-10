@@ -63,10 +63,11 @@ class EvalModel:
         inverse_test_parameter, inverse_test_performance = BaseDataset.inverse_transform(test_parameter_prediction, self.test_performance, self.scaler)
         inverse_train_parameter, inverse_train_performance = BaseDataset.inverse_transform(train_parameter_prediction, self.train_performance, self.scaler)
 
-        np.save(os.path.join(self.simulator.arguments["out"], "test_x.npy"), inverse_test_parameter)
-        np.save(os.path.join(self.simulator.arguments["out"], "test_y.npy"), inverse_test_performance)
-        np.save(os.path.join(self.simulator.arguments["out"], "train_x.npy"), inverse_train_parameter)
-        np.save(os.path.join(self.simulator.arguments["out"], "train_y.npy"), inverse_train_performance)
+        # print(self.train_config)
+        np.save(os.path.join(self.simulator.arguments["out"], self.train_config["model_name"], "test_x.npy"), inverse_test_parameter)
+        np.save(os.path.join(self.simulator.arguments["out"], self.train_config["model_name"], "test_y.npy"), inverse_test_performance)
+        np.save(os.path.join(self.simulator.arguments["out"], self.train_config["model_name"], "train_x.npy"), inverse_train_parameter)
+        np.save(os.path.join(self.simulator.arguments["out"], self.train_config["model_name"], "train_y.npy"), inverse_train_performance)
         
         self.model.reset()
         return train_result

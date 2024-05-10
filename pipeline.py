@@ -1,62 +1,21 @@
-# from circuit import prepare_data
 from dataset import *
 import os
 
 from models import ModelEvaluator
-from data import data_config_creator
 from utils import load_circuit, load_train_config, load_visual_config, \
-    save_result, saveDictToTxt, checkAlias, \
-    generate_train_config_for_single_pipeline, update_train_config_given_model_type, check_comparison_value_diff
-from metrics import get_margin_error, get_relative_margin_error
+    save_result, saveDictToTxt, checkAlias, generate_train_config_for_single_pipeline, \
+    update_train_config_given_model_type, check_comparison_value_diff
+from utils import get_margin_error, get_relative_margin_error
 from eval_model import *
-from visualutils import plot_multiple_margin_with_confidence_entrypoint, \
-    plot_multiple_loss_with_confidence_entrypoint, plot_multiple_accuracy_with_confidence_entrypoint, \
-    plot_multiple_margin_with_confidence_comparison, plot_multiple_loss_with_confidence_comparison, \
-    plot_multiple_accuracy_per_epochs_with_confidence_comparison, \
-    plot_multiple_subset_parameter_margin_accuracy_with_confidence_entrypoint
+from visualutils import plot_multiple_loss_with_confidence_entrypoint, \
+    plot_multiple_loss_with_confidence_comparison
 from datetime import datetime
 # import time
 
-def generate_dataset_given_config(train_config, circuit_config, dataset_config):
-    epsilon = train_config["epsilon"]
-    dataset_type = dataset_config["type"]
-    subset_parameter_mode = train_config["mode"]
+def generate_dataset_given_config(circuit_config, dataset_config):
 
-    if subset_parameter_mode not in ("drop", "replace"):
-        raise ValueError("Provided Parameter argmax replace policy is not defined")
-
-    if dataset_type == "Lourenco":
-        print("Return Lourenco Dataset")
-        dataset_config["n"] = 0.15 if "n" not in dataset_config else dataset_config["n"]
-        dataset_config["K"] = 15 if "K" not in dataset_config else dataset_config["K"]
-
-        return LorencoDataset(circuit_config["order"], circuit_config["sign"], dataset_config["n"], dataset_config["K"], dataset_config, epsilon)
-
-    if dataset_type =="Base":
-        print("Return Base Dataset")
-        return BaseDataset(circuit_config["order"], circuit_config["sign"], dataset_config)
-
-    if dataset_type =='SoftArgmax':
-        print("Return SoftArgMax Dataset")
-
-        return SoftArgMaxDataset(circuit_config["order"], circuit_config["sign"],
-                                 dataset_config, epsilon, subset_parameter_mode)
-
-    if dataset_type =='SoftBase':
-        print("Return Soft Base Dataset")
-        return SoftBaseDataset(circuit_config["order"], circuit_config["sign"], dataset_config, epsilon)
-
-    if dataset_type =='Ablation':
-        print("Return Ablation Duplication Dataset")
-        dataset_config["duplication"] = 20 if "duplication" not in dataset_config else dataset_config["duplication"]
-        return AblationDuplicateDataset(circuit_config["order"], circuit_config["sign"],
-                                        dataset_config["duplication"],
-                                        dataset_config, epsilon, subset_parameter_mode)
-
-    if dataset_type =='Argmax':
-        print("Return Argmax Dataset")
-        return ArgMaxDataset(circuit_config["order"], circuit_config["sign"],
-                             dataset_config, epsilon, subset_parameter_mode)
+    print("Return Dataset")
+    return BaseDataset(circuit_config["order"], circuit_config["sign"], dataset_config)
 
 
 def generate_circuit_given_config(circuit_name):
@@ -69,6 +28,10 @@ def generate_circuit_given_config(circuit_name):
         "twostage": os.path.join(config_path, "TwoStage.yaml"),
         "vco": os.path.join(config_path, "VCO.yaml"),
         "pa": os.path.join(config_path, "PA.yaml"),
+        "vco_pa": os.path.join(config_path, "VCO_PA.yaml"),
+        "receiver": os.path.join(config_path, "Receiver.yaml"),
+        "transmitter-pa": os.path.join(config_path, "Transmitter-PA.yaml"),
+        "transmitter-vco": os.path.join(config_path, "Transmitter-VCO.yaml"),
     }
 
     if circuit_name.lower() in circuit_mapping:
@@ -83,12 +46,12 @@ def generate_model_given_config(model_config,num_params,num_perf):
 
     
     sklearn_model_mapping = {
-        "RandomForestRegressor": SklearnModel,
-
+        "RandomForestRegressor": RandomForest,
+        "SupportVectorRegressor": SupportVector,
     }
 
     dl_model_mapping = {
-        "Model500GELU": Model500GELU,
+        "MultiLayerPerceptron": Model500GELU,
     }
 
     lookup_model_mapping = {
@@ -123,42 +86,20 @@ def generate_visual_given_result(result, train_config, visual_config, pipeline_s
         pass #if less than a minute passed
     result_dict = dict()
 
-    if train_config["test_margin_accuracy"] or train_config["train_margin_accuracy"]:
-        margin_plot_result = plot_multiple_margin_with_confidence_entrypoint(train_config, visual_config, result, pipeline_save_name, dataset_type)
-        result_dict.update(margin_plot_result)
-    if train_config["test_accuracy_per_epoch"] or train_config["train_accuracy_per_epoch"]:
-        accuracy_plot_result = plot_multiple_accuracy_with_confidence_entrypoint(train_config, visual_config, result, pipeline_save_name)
-        result_dict.update(accuracy_plot_result)
     if train_config["loss_per_epoch"]:
         loss_plot_result = plot_multiple_loss_with_confidence_entrypoint(train_config, visual_config, result, pipeline_save_name)
         result_dict.update(loss_plot_result)
-    if train_config["subset_parameter_check"]:
-        subset_parameter_plot_result = plot_multiple_subset_parameter_margin_accuracy_with_confidence_entrypoint(train_config,
-                                                                                                                 visual_config, result, pipeline_save_name)
-        result_dict.update(subset_parameter_plot_result)
     return result_dict
 
 
-def generate_circuit_status(circuit_config, parameter, performance, train_config, path):
+def generate_circuit_status(parameter, performance, path):
 
     circuit_dict = dict()
     circuit_dict["num_parameter"] = parameter.shape[1]
     circuit_dict["num_performance"] = performance.shape[1]
     circuit_dict["data_size"] = performance.shape[0]
 
-    argmax_dataset = ArgMaxDataset(circuit_config["order"], circuit_config["sign"], train_config)
-
-    modified_parameter, modified_performance, extra_info = argmax_dataset.modify_data(parameter, performance, None, None, True)
-
-    circuit_dict["argmax_ratio"] = extra_info["Argmax_ratio"]
-    circuit_dict["argmax_modify_num"] = extra_info["Argmax_modify_num"]
-
-    circuit_dict["unique_param"] = np.unique(modified_parameter, axis=0).shape[0]
-
-    print(np.argmax(performance, axis=0))
-
     saveDictToTxt(circuit_dict, path)
-
 
 
 def pipeline(configpath):
@@ -183,33 +124,21 @@ def pipeline(configpath):
             save_path = os.path.join(os.getcwd(), "out_plot", pipeline_cur_time + "-" + "compare-method-" + circuit)
         print("Save comparison folder is {}".format(save_path))
 
-        compare_margin_error_mean_list = []
-        compare_margin_error_upper_bound_list = []
-        compare_margin_error_lower_bound_list = []
-
         compare_loss_mean_list = []
         compare_loss_upper_bound_list = []
         compare_loss_lower_bound_list = []
 
-        compare_accuracy_per_epochs_mean_list = []
-        compare_accuracy_per_epochs_upper_bound_list = []
-        compare_accuracy_per_epochs_lower_bound_list = []
-
         label = []
 
         epochs = None
-        check_every = None
-        first_eval = None
-        test_margin_accuracy = None
         loss_per_epoch = None
-        test_accuracy_per_epoch = None
 
         for model_template_config in train_config["model_config"]:
             print("Pipeline with {} model".format(model_template_config["model"]))
             for dataset_type_config in train_config["dataset"]:
-
                 circuit_config = generate_circuit_given_config(circuit)
-                dataset = generate_dataset_given_config(train_config, circuit_config, dataset_type_config)
+
+                dataset = generate_dataset_given_config(circuit_config, dataset_type_config)
 
                 new_train_config = generate_train_config_for_single_pipeline(train_config, model_template_config, dataset_type_config)
 
@@ -217,38 +146,17 @@ def pipeline(configpath):
 
                 model, model_type = generate_model_given_config(dict(model_template_config),num_params=data_config.num_params,
                                                                  num_perf=data_config.num_perf)
-
                 update_train_config_given_model_type(model_type, new_train_config)
                 if train_config["compare_dataset"] or train_config["compare_method"] or dataset_type_config[
                     "type"] not in ("SoftArgmax", "Argmax"):
                     new_train_config["subset_parameter_check"] = False
                 new_train_config["model_type"] = model_type
-                test_margin_accuracy = check_comparison_value_diff(new_train_config, test_margin_accuracy, "test_margin_accuracy")
+                new_train_config["model_name"] = model_template_config["model"]
+
                 loss_per_epoch = check_comparison_value_diff(new_train_config, loss_per_epoch, "loss_per_epoch")
-                test_accuracy_per_epoch = check_comparison_value_diff(new_train_config, test_accuracy_per_epoch, "test_accuracy_per_epoch")
 
-                if new_train_config["test_accuracy_per_epoch"]:
+                if new_train_config["loss_per_epoch"]:
                     epochs = check_comparison_value_diff(new_train_config, epochs, "epochs")
-                    check_every = check_comparison_value_diff(new_train_config, check_every, "check_every")
-                    first_eval = check_comparison_value_diff(new_train_config, first_eval, "first_eval")
-                elif new_train_config["loss_per_epoch"]:
-                    epochs = check_comparison_value_diff(new_train_config, epochs, "epochs")
-
-                # if new_train_config["rerun_training"] or not check_save_data_status(circuit_config):
-                #     data_for_evaluation = prepare_data(simulator.parameter_list, simulator.arguments)
-
-                #     start =time.time()
-                #     print('start sim')
-                #     parameter, performance = simulator.runSimulation(data_for_evaluation, True)
-                #     print('took for sim', time.time()-start)
-                #     print('Params shape', parameter.shape)
-                #     print('Perfomance shape',performance.shape)
-
-
-                #     print("Saving metadata for this simulation")
-                #     metadata_path = os.path.join(circuit_config["arguments"]["out"], "metadata.txt")
-                #     saveDictToTxt(circuit_config["arguments"], metadata_path)
-                # else:
                     
                 print("Load from saved data")
                 parameter= np.load(os.path.join(data_config.arguments["out"], "x.npy"), allow_pickle=True)
@@ -260,7 +168,7 @@ def pipeline(configpath):
                 print("Generate Circuit Status")
                 circuit_status_path = os.path.join(os.getcwd(), circuit_config["arguments"]["out"], "circuit_stats.txt")
                 if not os.path.exists(circuit_status_path):
-                    generate_circuit_status(circuit_config, parameter, performance, new_train_config, circuit_status_path)
+                    generate_circuit_status(parameter, performance, circuit_status_path)
 
                 print("Pipeline Start")
                 if new_train_config["metric"] == "absolute":
@@ -272,8 +180,7 @@ def pipeline(configpath):
                                           train_config=new_train_config, model=model)
 
                 cur_time = str(datetime.now().strftime('%Y-%m-%d %H-%M'))
-                pipeline_save_name = "{}-circuit-{}-dataset-{}-method-{}".format(circuit,
-                                                                                 dataset_type_config["type"], model_template_config["model"], cur_time)
+                pipeline_save_name = "{}-circuit-{}-method-{}".format(circuit, model_template_config["model"], cur_time)
                 
                 # pipeline_save_name = "{}-circuit-{}-dataset-{}-method-{}".format(circuit,
                 #                                                                  dataset_type_config["type"], model_template_config["model"], cur_time)
@@ -289,35 +196,13 @@ def pipeline(configpath):
                         compare_loss_mean_list.append(result["multi_train_loss"])
                         compare_loss_upper_bound_list.append(result["multi_train_loss_upper_bound"])
                         compare_loss_lower_bound_list.append(result["multi_train_loss_lower_bound"])
-                    if new_train_config["test_accuracy_per_epoch"]:
-                        compare_accuracy_per_epochs_mean_list.append(result["multi_test_accuracy"])
-                        compare_accuracy_per_epochs_upper_bound_list.append(result["multi_test_accuracy_upper_bound"])
-                        compare_accuracy_per_epochs_lower_bound_list.append(result["multi_test_accuracy_lower_bound"])
-                    if new_train_config["test_margin_accuracy"]:
-                        compare_margin_error_mean_list.append(result["multi_test_mean"])
-                        compare_margin_error_lower_bound_list.append(result["multi_test_lower_bound"])
-                        compare_margin_error_upper_bound_list.append(result["multi_test_upper_bound"])
                 if new_train_config["compare_dataset"]:
                     label.append(dataset_type_config["type"])
                 if new_train_config["compare_method"]:
                     label.append(model_template_config["model"])
 
         if train_config["compare_dataset"] or train_config["compare_method"]:
-            if test_margin_accuracy:
-                plot_multiple_margin_with_confidence_comparison(compare_margin_error_mean_list,
-                                                                compare_margin_error_upper_bound_list,
-                                                                compare_margin_error_lower_bound_list,
-                                                                label, train_config["subset"], save_path, visual_config)
             if loss_per_epoch:
                 plot_multiple_loss_with_confidence_comparison(compare_loss_mean_list, compare_loss_upper_bound_list,
                                                               compare_loss_lower_bound_list, label, train_config["subset"],
                                                               save_path, visual_config, epochs)
-
-            if test_accuracy_per_epoch:
-                plot_multiple_accuracy_per_epochs_with_confidence_comparison(compare_accuracy_per_epochs_mean_list,
-                                                                             compare_accuracy_per_epochs_upper_bound_list,
-                                                                             compare_accuracy_per_epochs_lower_bound_list,
-                                                                             label, train_config["subset"], save_path,
-                                                                             visual_config, epochs, check_every, first_eval)
-
-
