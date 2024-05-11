@@ -88,9 +88,13 @@ class PytorchModelWrapper:
     def reset(self,):
         print('Reset The model')
         for layers in self.model.children():
-            for layer in layers:
-                if hasattr(layer, 'reset_parameters'):
-                    layer.reset_parameters()
+            if isinstance(layers, nn.Sequential):
+                for layer in layers:
+                    if hasattr(layer, 'reset_parameters'):
+                        layer.reset_parameters()
+            else:
+                if hasattr(layers, 'reset_parameters'):
+                    layers.reset_parameters()
 
     def fit(self, train_X, train_y, test_X, test_y, scaler):
         train_dataset = BasePytorchModelDataset(train_X, train_y)
