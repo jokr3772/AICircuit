@@ -10,7 +10,7 @@ from eval_model import *
 from visualutils import plot_multiple_loss_with_confidence_entrypoint, \
     plot_multiple_loss_with_confidence_comparison
 from datetime import datetime
-# import time
+
 
 def generate_dataset_given_config(circuit_config, dataset_config):
 
@@ -52,6 +52,7 @@ def generate_model_given_config(model_config,num_params,num_perf):
 
     dl_model_mapping = {
         "MultiLayerPerceptron": Model500GELU,
+        "Transformer": Transformer
     }
 
     lookup_model_mapping = {
