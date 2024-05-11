@@ -5,6 +5,9 @@ from sklearn.svm import SVR
 
 import torch.nn as nn
 
+from torch.nn import TransformerEncoder, TransformerEncoderLayer
+import math
+
 
 class RandomForest():
     def __init__(self):
@@ -53,3 +56,41 @@ class Model500GELU(nn.Module):
 
     def forward(self, x):
         return self.network(x)
+    
+
+class Transformer(nn.Module):
+
+    def __init__(
+        self,
+        parameter_count=2, 
+        output_count=2,
+        dim_model=200,
+        num_heads=2,
+        num_encoder_layers=6,
+        dim_hidden=200,
+        dropout_p=0.1,
+    ):
+        super(Transformer, self).__init__()
+
+        self.model_type = "Transformer"
+        self.dim_model = dim_model
+
+        self.embedding = nn.Linear(parameter_count, dim_model)
+
+        encoder_layers = TransformerEncoderLayer(dim_model, num_heads, dim_hidden, dropout_p)
+        self.transformer = TransformerEncoder(encoder_layers, num_encoder_layers)
+
+        self.out = nn.Linear(dim_model, output_count)
+
+
+    def forward(self, src, src_mask=None):
+
+        src = self.embedding(src) * math.sqrt(self.dim_model)
+
+        if src_mask is None:
+            src_mask = nn.Transformer.generate_square_subsequent_mask(len(src))
+
+        transformer_out = self.transformer(src, src_mask)
+        out = self.out(transformer_out)
+
+        return out
