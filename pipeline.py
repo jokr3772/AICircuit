@@ -48,6 +48,7 @@ def generate_model_given_config(model_config,num_params,num_perf):
     sklearn_model_mapping = {
         "RandomForestRegressor": RandomForest,
         "SupportVectorRegressor": SupportVector,
+        "KNeighborsRegressor": KNeighbors,
     }
 
     dl_model_mapping = {

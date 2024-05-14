@@ -1,7 +1,9 @@
 from sklearn.ensemble import RandomForestRegressor
    
-from sklearn.multioutput import RegressorChain
+from sklearn.multioutput import RegressorChain, MultiOutputRegressor
 from sklearn.svm import SVR
+
+from sklearn.neighbors import KNeighborsRegressor
 
 import torch.nn as nn
 
@@ -24,7 +26,8 @@ class RandomForest():
 
 class SupportVector():
     def __init__(self):
-        self.model = RegressorChain(SVR(kernel="rbf"))
+        # self.model = RegressorChain(SVR(kernel="rbf"))
+        self.model = MultiOutputRegressor(SVR(kernel="rbf"))
 
     def fit(self,x,y):
         self.model.fit(x,y)
@@ -34,6 +37,19 @@ class SupportVector():
         #Never called
         return self.model.predict(x)
 
+
+class KNeighbors():
+    def __init__(self):
+        self.model = KNeighborsRegressor()()
+
+    def fit(self,x,y):
+        self.model.fit(x,y)
+        return self.model
+    
+    def predict(self,x):
+        #Never called
+        return self.model.predict(x)
+    
 
 class Model500GELU(nn.Module):
     def __init__(self, parameter_count=2, output_count=2):
