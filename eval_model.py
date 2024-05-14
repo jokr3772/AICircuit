@@ -93,7 +93,7 @@ class Transformer(nn.Module):
 
         self.embedding = nn.Linear(parameter_count, dim_model)
 
-        encoder_layers = TransformerEncoderLayer(dim_model, num_heads, dim_hidden, dropout_p)
+        encoder_layers = TransformerEncoderLayer(dim_model, num_heads, dim_hidden, dropout_p, batch_first=True)
         self.transformer = TransformerEncoder(encoder_layers, num_encoder_layers)
 
         self.out = nn.Linear(dim_model, output_count)
@@ -101,7 +101,7 @@ class Transformer(nn.Module):
 
     def forward(self, src, src_mask=None):
 
-        src = self.embedding(src) * math.sqrt(self.dim_model)
+        src = self.embedding(src)
 
         if src_mask is None:
             src_mask = nn.Transformer.generate_square_subsequent_mask(len(src))
