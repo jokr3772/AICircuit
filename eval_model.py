@@ -39,7 +39,7 @@ class SupportVector():
 
 class KNeighbors():
     def __init__(self):
-        self.model = KNeighborsRegressor()()
+        self.model = KNeighborsRegressor()
 
     def fit(self,x,y):
         self.model.fit(x,y)
