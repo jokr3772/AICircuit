@@ -14,7 +14,6 @@ def subset_split(X,y,train_percentage, independent = False):
     # split_time = 1
     X_size = X.shape[1]
     combine = np.hstack((X, y))
-    
 
     if independent:
         for _ in range(split_time):
@@ -42,6 +41,7 @@ def subset_split(X,y,train_percentage, independent = False):
                 train_data = split_array[st]
                 validate_data = np.concatenate(concat_list)
             yield train_data[:,:X_size], validate_data[:,:X_size], train_data[:,X_size:], validate_data[:,X_size:]
+
 
 class EvalModel:
     def __init__(self, train_config, model, train_parameter, train_performance, test_parameter, test_performance, simulator, scaler):
@@ -71,8 +71,6 @@ class EvalModel:
         
         self.model.reset()
         return train_result
-
-
 
 
 class ModelEvaluator:
