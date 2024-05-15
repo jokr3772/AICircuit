@@ -38,10 +38,9 @@ class BasePytorchModelDataset(Dataset):
 
 
 class BaseDataset:
-    def __init__(self, order, sign, dataset_config) -> None:
+    def __init__(self, order, sign) -> None:
         self.order = order
         self.sign = np.array(sign)
-        self.dataset_config = dataset_config
 
     @staticmethod
     def transform_data(parameter, performance):
