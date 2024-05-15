@@ -56,7 +56,7 @@ class EvalModel:
 
     def eval(self):
         
-        train_result = self.model.fit(self.train_performance, self.train_parameter, self.test_performance, self.test_parameter, self.scaler)
+        train_result = self.model.fit(self.train_performance, self.train_parameter, self.test_performance, self.test_parameter)
 
         test_parameter_prediction = self.model.predict(self.test_performance)
         train_parameter_prediction = self.model.predict(self.train_performance)
@@ -103,7 +103,6 @@ class ModelEvaluator:
         subset = self.train_config["subset"]
         metrics_dict = generate_metrics_given_config(self.train_config)
         
-
         for index, percentage in enumerate(subset):
             print("Running with percentage {}".format(percentage))
             if percentage == 1 or percentage > 1:
