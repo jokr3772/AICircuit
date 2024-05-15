@@ -124,7 +124,9 @@ def pipeline(configpath):
             save_path = os.path.join(os.getcwd(), "out_plot", pipeline_cur_time + "-" + "compare-dataset-" + circuit)
         else:
             save_path = os.path.join(os.getcwd(), "out_plot", pipeline_cur_time + "-" + "compare-method-" + circuit)
-        print("Save comparison folder is {}".format(save_path))
+        
+        if train_config["compare_dataset"] or train_config["compare_method"]:
+            print("Save comparison folder is {}".format(save_path))
 
         compare_loss_mean_list = []
         compare_loss_upper_bound_list = []
