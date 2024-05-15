@@ -76,9 +76,8 @@ def generate_plot_loss_given_result(loss, train_config, visual_config, save_fold
 
         temp_loss = [loss[percentage_loss_index][i][nested_subset_data_index] for i
                      in range(len(loss[percentage_loss_index]))]
-
         temp_loss_mean = np.average(temp_loss, axis=0)
-        temp_loss_std = stats.sem(temp_loss, axis=0)
+        temp_loss_std = stats.sem(temp_loss, axis=0) if len(temp_loss) > 1 else [np.nan for i in range(len(temp_loss[0]))]
 
         multi_loss.append(temp_loss_mean)
         multi_loss_lower_bounds.append(temp_loss_mean - temp_loss_std)
