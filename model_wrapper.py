@@ -5,15 +5,17 @@ import torch.optim as optim
 import torch
 import numpy as np
 import wandb
-from sklearn.multioutput import RegressorChain
+from sklearn.multioutput import RegressorChain, MultiOutputRegressor
 from sklearn.svm import SVR
+
+from eval_model import Transformer
 
 
 class SklearnModelWrapper:
     def __init__(self, model):
         self.model = model
 
-    def fit(self, train_X, train_y, test_X, test_y, scaler):
+    def fit(self, train_X, train_y, test_X, test_y):
         self.model = self.model.fit(train_X, train_y)
         return {}
 
@@ -23,7 +25,7 @@ class SklearnModelWrapper:
 
     def reset(self,):
         print('Reset The model')
-        if isinstance(self.model, RegressorChain):
+        if isinstance(self.model, MultiOutputRegressor):
             self.model = self.model.__class__(SVR(kernel="rbf"))
         else:
             self.model = self.model.__class__()
@@ -35,7 +37,7 @@ class LookupWrapper:
         self.train_parameter = None
         self.sign = sign
 
-    def fit(self, train_X, train_y, test_X, test_y, scaler):
+    def fit(self, train_X, train_y, test_X, test_y):
         self.train_performance = train_X
         self.train_parameter = train_y
         return {}
@@ -96,22 +98,24 @@ class PytorchModelWrapper:
                 if hasattr(layers, 'reset_parameters'):
                     layers.reset_parameters()
 
-    def fit(self, train_X, train_y, test_X, test_y, scaler):
+    def fit(self, train_X, train_y, test_X, test_y):
         train_dataset = BasePytorchModelDataset(train_X, train_y)
         test_dataset = BasePytorchModelDataset(test_X, test_y)
         train_dataloader = DataLoader(train_dataset, batch_size=100)
         test_dataloader = DataLoader(test_dataset, batch_size=100)
-        train_result = self.model_train(train_X, test_X, train_dataloader, test_dataloader, scaler)
+        train_result = self.model_train(train_X, test_X, train_dataloader, test_dataloader)
         return train_result
-
 
     def predict(self, X):
         self.model.eval()
         return self.model(torch.Tensor(X).to(self.train_config["device"])).to('cpu').detach().numpy()
 
-    def model_train(self,  train_X, test_X, train_dataloader, test_dataloader, scaler):
+    def model_train(self, train_X, test_X, train_dataloader, test_dataloader):
         train_loss = nn.L1Loss()
-        optimizer = optim.Adam(self.model.parameters())
+        if isinstance(self.model, Transformer):
+            optimizer = optim.Adam(self.model.parameters(), lr=0.0005)
+        else:
+            optimizer = optim.Adam(self.model.parameters())
 
         losses = []
         val_losses = []
