@@ -26,7 +26,7 @@ def setup():
     print("\n")
 
     circuits = ["SingleStageAmplifier", "Cascode", "LNA", "Mixer", "TwoStage", "VCO", "PA", "VCO_PA", "Receiver"] 
-    models = ["MultiLayerPerceptron", "RandomForest", "SupportVectorRegressor", "Transformer"]
+    models = ["MultiLayerPerceptron", "RandomForest", "SupportVectorRegressor", "Transformer", "KNeighborsRegressor"]
 
     for circuit in circuits:
         p = os.path.join(data_folder, circuit)
