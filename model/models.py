@@ -1,8 +1,8 @@
 import numpy as np
 from dataset import BaseDataset
 
-from utils import generate_metrics_given_config, merge_metrics
-from model_wrapper import SklearnModelWrapper, PytorchModelWrapper, LookupWrapper
+from utils.utils import generate_metrics_given_config, merge_metrics
+from model.model_wrapper import SklearnModelWrapper, PytorchModelWrapper, LookupWrapper
 
 import os
 

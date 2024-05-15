@@ -8,7 +8,7 @@ import wandb
 from sklearn.multioutput import RegressorChain, MultiOutputRegressor
 from sklearn.svm import SVR
 
-from eval_model import Transformer
+from model.eval_model import Transformer
 
 
 class SklearnModelWrapper:
