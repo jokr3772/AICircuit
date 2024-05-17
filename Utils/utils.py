@@ -126,7 +126,6 @@ def generate_train_config_for_single_pipeline(train_config, model_config):
     new_train_config = dict(train_config)
 
     del new_train_config["circuits"]
-    del new_train_config["dataset"]
     del new_train_config["model_config"]
 
     if "extra_args" in model_config.keys():
