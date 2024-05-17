@@ -18,4 +18,4 @@ sign:
   - -1
   - 1
 arguments:
-  out: data/TwoStage
+  out: data/TwoStageAmplifier
