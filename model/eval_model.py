@@ -1,6 +1,6 @@
 from sklearn.ensemble import RandomForestRegressor
    
-from sklearn.multioutput import RegressorChain, MultiOutputRegressor
+from sklearn.multioutput import MultiOutputRegressor
 from sklearn.svm import SVR
 
 from sklearn.neighbors import KNeighborsRegressor
@@ -25,7 +25,6 @@ class RandomForest():
 
 class SupportVector():
     def __init__(self):
-        # self.model = RegressorChain(SVR(kernel="rbf"))
         self.model = MultiOutputRegressor(SVR(kernel="rbf"))
 
     def fit(self,x,y):
@@ -86,9 +85,6 @@ class Transformer(nn.Module):
         dropout_p=0.1,
     ):
         super(Transformer, self).__init__()
-
-        self.model_type = "Transformer"
-        self.dim_model = dim_model
 
         self.embedding = nn.Linear(parameter_count, dim_model)
 
