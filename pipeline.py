@@ -1,21 +1,21 @@
-from dataset import *
+from Dataset.dataset import *
 import os
 
-from models import ModelEvaluator
-from utils import load_circuit, load_train_config, load_visual_config, \
+from Model.models import ModelEvaluator
+from utils.utils import load_circuit, load_train_config, load_visual_config, \
     save_result, saveDictToTxt, checkAlias, generate_train_config_for_single_pipeline, \
     update_train_config_given_model_type, check_comparison_value_diff
-from utils import get_margin_error, get_relative_margin_error
-from eval_model import *
-from visualutils import plot_multiple_loss_with_confidence_entrypoint, \
+from utils.utils import get_margin_error, get_relative_margin_error
+from Model.eval_model import *
+from utils.visualutils import plot_multiple_loss_with_confidence_entrypoint, \
     plot_multiple_loss_with_confidence_comparison
 from datetime import datetime
 
 
-def generate_dataset_given_config(circuit_config, dataset_config):
+def generate_dataset_given_config(circuit_config):
 
     print("Return Dataset")
-    return BaseDataset(circuit_config["order"], circuit_config["sign"], dataset_config)
+    return BaseDataset(circuit_config["order"], circuit_config["sign"])
 
 
 def generate_circuit_given_config(circuit_name):
@@ -80,7 +80,7 @@ def generate_model_given_config(model_config,num_params,num_perf):
         raise KeyError("The model you defined does not exist")
 
 
-def generate_visual_given_result(result, train_config, visual_config, pipeline_save_name, dataset_type):
+def generate_visual_given_result(result, train_config, visual_config, pipeline_save_name):
     folder_path = os.path.join(os.path.join(os.getcwd(), "out_plot"), pipeline_save_name)
     try:
         os.mkdir(folder_path)
@@ -142,7 +142,7 @@ def pipeline(configpath):
             for dataset_type_config in train_config["dataset"]:
                 circuit_config = generate_circuit_given_config(circuit)
 
-                dataset = generate_dataset_given_config(circuit_config, dataset_type_config)
+                dataset = generate_dataset_given_config(circuit_config)
 
                 new_train_config = generate_train_config_for_single_pipeline(train_config, model_template_config, dataset_type_config)
 
@@ -151,9 +151,7 @@ def pipeline(configpath):
                 model, model_type = generate_model_given_config(dict(model_template_config),num_params=data_config.num_params,
                                                                  num_perf=data_config.num_perf)
                 update_train_config_given_model_type(model_type, new_train_config)
-                if train_config["compare_dataset"] or train_config["compare_method"] or dataset_type_config[
-                    "type"] not in ("SoftArgmax", "Argmax"):
-                    new_train_config["subset_parameter_check"] = False
+                new_train_config["subset_parameter_check"] = False
                 new_train_config["model_type"] = model_type
                 new_train_config["model_name"] = model_template_config["model"]
 
@@ -185,13 +183,11 @@ def pipeline(configpath):
 
                 cur_time = str(datetime.now().strftime('%Y-%m-%d %H-%M'))
                 pipeline_save_name = "{}-circuit-{}-method-{}".format(circuit, model_template_config["model"], cur_time)
-                
-                # pipeline_save_name = "{}-circuit-{}-dataset-{}-method-{}".format(circuit,
-                #                                                                  dataset_type_config["type"], model_template_config["model"], cur_time)
+
                 print("Pipeline save name is {}".format(pipeline_save_name))
                 result = model_pipeline.eval()
                 visual_result = generate_visual_given_result(result, new_train_config,
-                                                             visual_config, pipeline_save_name, dataset_type_config["type"])
+                                                             visual_config, pipeline_save_name)
                 result.update(visual_result)
                 save_result(result, pipeline_save_name, configpath)
 

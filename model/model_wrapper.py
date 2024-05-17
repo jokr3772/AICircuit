@@ -1,4 +1,4 @@
-from dataset import BasePytorchModelDataset
+from Dataset.dataset import BasePytorchModelDataset
 from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch.optim as optim
@@ -8,7 +8,7 @@ import wandb
 from sklearn.multioutput import RegressorChain, MultiOutputRegressor
 from sklearn.svm import SVR
 
-from model.eval_model import Transformer
+from Model.eval_model import Transformer
 
 
 class SklearnModelWrapper:
