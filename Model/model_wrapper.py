@@ -7,7 +7,6 @@ import wandb
 
 from sklearn.multioutput import MultiOutputRegressor
 from sklearn.svm import SVR
-from Model.models import Transformer
 
 
 class SklearnModelWrapper:
@@ -64,10 +63,8 @@ class PytorchModelWrapper:
 
     def model_train(self, train_X, test_X, train_dataloader, test_dataloader):
         train_loss = nn.L1Loss()
-        if isinstance(self.model, Transformer):
-            optimizer = optim.Adam(self.model.parameters(), lr=0.0005)
-        else:
-            optimizer = optim.Adam(self.model.parameters())
+
+        optimizer = optim.Adam(self.model.parameters())
 
         losses = []
         val_losses = []
