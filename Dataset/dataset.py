@@ -9,7 +9,7 @@ def data_config_creator(circuit_config):
 
 
 class Data:
-    def __init__(self, parameter_list, performance_list, arguments, order, sign,):
+    def __init__(self, parameter_list, performance_list, arguments, order, sign):
 
         self.arguments = dict(arguments)
         self.performance_list = list(performance_list)
