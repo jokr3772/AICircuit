@@ -1,7 +1,7 @@
 dataset:
   - type: Base
 model_config:
-  - model: SupportVectorRegressor
+  - model: MultiLayerPerceptron
 metric: absolute
 rerun_training: False
 device: cpu
