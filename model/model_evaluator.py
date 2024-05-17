@@ -1,10 +1,8 @@
 import numpy as np
 from Dataset.dataset import BaseDataset
 
-from Utils.utils import generate_metrics_given_config, merge_metrics
+from Utils.utils import generate_metrics_given_config, merge_metrics, save_numpy
 from Model.model_wrapper import *
-
-import os
 
 
 def subset_split(X, y, train_percentage, independent = False):
@@ -63,11 +61,10 @@ class EvalModel:
         inverse_test_parameter, inverse_test_performance = BaseDataset.inverse_transform(test_parameter_prediction, self.test_performance, self.scaler)
         inverse_train_parameter, inverse_train_performance = BaseDataset.inverse_transform(train_parameter_prediction, self.train_performance, self.scaler)
 
-        # print(self.train_config)
-        np.save(os.path.join(self.simulator.arguments["out"], self.train_config["model_name"], "test_x.npy"), inverse_test_parameter)
-        np.save(os.path.join(self.simulator.arguments["out"], self.train_config["model_name"], "test_y.npy"), inverse_test_performance)
-        np.save(os.path.join(self.simulator.arguments["out"], self.train_config["model_name"], "train_x.npy"), inverse_train_parameter)
-        np.save(os.path.join(self.simulator.arguments["out"], self.train_config["model_name"], "train_y.npy"), inverse_train_performance)
+        save_numpy(inverse_test_parameter, "test_x.npy", self.simulator, self.train_config["model_name"])
+        save_numpy(inverse_test_performance, "test_y.npy", self.simulator, self.train_config["model_name"])
+        save_numpy(inverse_train_parameter, "train_x.npy", self.simulator, self.train_config["model_name"])
+        save_numpy(inverse_train_performance, "train_y.npy", self.simulator, self.train_config["model_name"])
         
         self.model.reset()
         return train_result

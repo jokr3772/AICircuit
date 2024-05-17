@@ -1,20 +1,15 @@
 import yaml
 import os
 from os.path import join
-import pandas as pd
 import numpy as np
-import itertools
-import re
 from torch.cuda import is_available
 import shutil
-import time
 
 
 CONFIG_PATH = os.path.join(os.path.join(os.getcwd(), "config"))
 
 DEFAULT_TRAIN_CONFIG_PATH = os.path.join(CONFIG_PATH, "train_config.yaml")
 DEFAULT_VISUAL_CONFIG_PATH = os.path.join(CONFIG_PATH, "visual_config.yaml")
-DEFAULT_MODEL_CONFIG_PATH = os.path.join(CONFIG_PATH, "model.yaml")
 
 
 def load_yaml(yaml_path):
@@ -44,63 +39,9 @@ def load_train_config(configpath=DEFAULT_TRAIN_CONFIG_PATH):
 
     return train_config
 
+
 def load_visual_config(configpath=DEFAULT_VISUAL_CONFIG_PATH):
     return load_yaml(configpath)
-
-
-def load_model_config(configpath=DEFAULT_MODEL_CONFIG_PATH):
-    return load_yaml(configpath)
-
-
-def updateFile(trainingFilePath, outputFilePath, argumentMap,batch_index,path):
-    file_name = outputFilePath+f'{batch_index}.sp'
-    
-    with open(trainingFilePath, 'r') as read_file:
-        file_content = read_file.read()
-        for key, val in argumentMap.items():
-            
-            if key == 'out':
-                val = path
-            
-            temp_pattern = "{" + str(key) + "}"
-            file_content = file_content.replace(temp_pattern, str(val))
-        with open(file_name, 'w') as write_file:
-            write_file.write(file_content)
-    return file_name
-
-
-def convert2numpy(filenames):
-    files = []
-    for file in filenames:
-        file_data = pd.read_csv(file, header=None)
-        file_data = file_data.apply(lambda x: re.split(r"\s+", str(x).replace("=", ""))[2], axis=1)
-        files.append(file_data)
-
-    combine = pd.concat(files, axis=1)
-    return np.array(combine, dtype=float)
-
-
-def getData(param_outfile_names, perform_outfile_names, out):
-    
-    param_fullname = [os.path.join(out, file) for file in param_outfile_names]
-    perform_fullname = [os.path.join(out, file) for file in perform_outfile_names]
-    x = convert2numpy(param_fullname)
-    y = convert2numpy(perform_fullname)
-    return x, y
-
-
-def delete_testing_files(out_directory, names):
-    out = out_directory
-    names = list(itertools.chain(*names))
-    dirs = os.listdir(out)
-    for dir in dirs:
-        if not(dir.startswith("batch")):
-            continue
-        try:
-            shutil.rmtree(os.path.join(out, dir))
-        except PermissionError:
-            time.sleep(5)
-            shutil.rmtree(os.path.join(out, dir))
 
 
 def generate_metrics_given_config(train_config):
@@ -111,6 +52,7 @@ def generate_metrics_given_config(train_config):
         metrics_dict["validation_loss"] = []
 
     return metrics_dict
+
 
 def merge_metrics(parent_metrics, child_metrics):
 
@@ -131,19 +73,10 @@ def save_result(result, pipeline_save_name, config_path=None):
         shutil.copyfile(config_path, os.path.join(save_folder, "train_config.yaml"))
 
 
-def parsetxtToDict(file_path):
-    with open(file_path, "r") as file:
-        file_info = file.readlines()
-        return_dict = dict()
-
-        for line in file_info:
-            line_info = line.strip().split(":")
-            try:
-                return_dict[line_info[0]] = float(line_info[1])
-            except ValueError:
-                return_dict[line_info[0]] = line_info[1]
-        return return_dict
-
+def save_numpy(array, save_name, simulator, model_name):
+    path = join(simulator.arguments["out"], model_name, save_name)
+    np.save(path, array)
+    
 
 def saveDictToTxt(dict, save_path):
     with open(save_path, "w") as file:
@@ -232,7 +165,8 @@ def check_comparison_value_diff(train_config, value, key):
             raise ValueError("The {} across different comparison is not the same".format(key))
         else:
             return value
-        
+
+
 def get_margin_error(y_hat, y, sign):
     """ Get the margin error of the prediction """
     delta = y_hat*sign >= y*sign
