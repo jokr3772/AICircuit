@@ -121,7 +121,7 @@ def checkAlias(parameter, performance):
         raise ValueError("THERE ARE ALIASING IN THE RESULT")
 
 
-def generate_train_config_for_single_pipeline(train_config, model_config, dataset_config):
+def generate_train_config_for_single_pipeline(train_config, model_config):
 
     new_train_config = dict(train_config)
 
@@ -132,9 +132,6 @@ def generate_train_config_for_single_pipeline(train_config, model_config, datase
     if "extra_args" in model_config.keys():
         for k,v in model_config["extra_args"].items():
             new_train_config[k] = v
-
-    for k,v in dataset_config.items():
-        new_train_config[k] = v
 
     return new_train_config
 
