@@ -1,7 +1,7 @@
 import numpy as np
 from Dataset.dataset import BaseDataset
 
-from utils.utils import generate_metrics_given_config, merge_metrics
+from Utils.utils import generate_metrics_given_config, merge_metrics
 from Model.model_wrapper import *
 
 import os
