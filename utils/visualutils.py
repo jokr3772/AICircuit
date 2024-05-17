@@ -87,6 +87,7 @@ def generate_plot_loss_given_result(loss, train_config, visual_config, save_fold
 
     return multi_loss, multi_loss_lower_bounds, multi_loss_upper_bounds
 
+
 def plot_loss(multi_loss_mean, multi_loss_upper_bounds, multi_loss_lower_bounds, visual_config, train_config, save_name, data_name, data_type):
 
     font_size = visual_config["font_size"]
