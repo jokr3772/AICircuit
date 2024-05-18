@@ -44,6 +44,20 @@ def load_visual_config(configpath=DEFAULT_VISUAL_CONFIG_PATH):
     return load_yaml(configpath)
 
 
+def parsetxtToDict(file_path):
+    with open(file_path, "r") as file:
+        file_info = file.readlines()
+        return_dict = dict()
+
+        for line in file_info:
+            line_info = line.strip().split(":")
+            try:
+                return_dict[line_info[0]] = float(line_info[1])
+            except ValueError:
+                return_dict[line_info[0]] = line_info[1]
+        return return_dict
+    
+
 def generate_metrics_given_config(train_config):
 
     metrics_dict = dict()
