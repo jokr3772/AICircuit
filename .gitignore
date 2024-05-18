@@ -5,5 +5,5 @@
 data/
 out_plot/
 out/
-result_out/
+out_result/
 wandb/*
