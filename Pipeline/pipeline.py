@@ -18,22 +18,13 @@ def pipeline(configpath):
     train_config = load_train_config(configpath=configpath)
     visual_config = load_visual_config()
 
-    if train_config["compare_dataset"] and train_config["compare_method"]:
-        raise ValueError("You cannot compare dataset and method at the same time")
-
-    if (train_config["compare_dataset"] or train_config["compare_method"]) and \
-            (len(train_config["model_config"]) > 1 and len(train_config["dataset"]) > 1):
-        raise ValueError("When you are doing comparison testing, dataset and model can not be both greater than 1")
-
     for circuit in train_config['circuits']:
         print("Pipeline with {} circuit".format(circuit))
         pipeline_cur_time = str(datetime.now().strftime('%Y-%m-%d %H-%M'))
-        if train_config["compare_dataset"]:
-            save_path = os.path.join(os.getcwd(), "out_plot", pipeline_cur_time + "-" + "compare-dataset-" + circuit)
-        else:
-            save_path = os.path.join(os.getcwd(), "out_plot", pipeline_cur_time + "-" + "compare-method-" + circuit)
         
-        if train_config["compare_dataset"] or train_config["compare_method"]:
+        save_path = os.path.join(os.getcwd(), "out_plot", pipeline_cur_time + "-" + "compare-method-" + circuit)
+        
+        if train_config["compare_method"]:
             print("Save comparison folder is {}".format(save_path))
 
         compare_loss_mean_list = []
@@ -100,18 +91,15 @@ def pipeline(configpath):
             result.update(visual_result)
             save_result(result, pipeline_save_name, configpath)
 
-            if new_train_config["compare_dataset"] or new_train_config["compare_method"]:
+            if new_train_config["compare_method"]:
+                label.append(model_template_config["model"])
                 if new_train_config["loss_per_epoch"]:
                     compare_loss_mean_list.append(result["multi_train_loss"])
                     compare_loss_upper_bound_list.append(result["multi_train_loss_upper_bound"])
                     compare_loss_lower_bound_list.append(result["multi_train_loss_lower_bound"])
-            if new_train_config["compare_dataset"]:
-                label.append(circuit)
-            if new_train_config["compare_method"]:
-                label.append(model_template_config["model"])
 
-        if train_config["compare_dataset"] or train_config["compare_method"]:
-            if loss_per_epoch:
+
+        if train_config["compare_method"] and loss_per_epoch:
                 plot_multiple_loss_with_confidence_comparison(compare_loss_mean_list, compare_loss_upper_bound_list,
                                                               compare_loss_lower_bound_list, label, train_config["subset"],
                                                               save_path, visual_config, epochs)

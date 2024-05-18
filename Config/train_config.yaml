@@ -1,7 +1,5 @@
-dataset:
-  - type: Base
 model_config:
-  - model: MultiLayerPerceptron
+  - model: Transformer
 metric: absolute
 rerun_training: False
 device: cpu
@@ -13,8 +11,7 @@ epsilon: 0.3
 subset:
   - 0.9
 circuits:
-  - LNA
-compare_dataset: False
+  - VCO
 compare_method: False
 subset_percentage: 0.3
 mode: replace
