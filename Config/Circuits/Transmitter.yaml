@@ -42,4 +42,4 @@ sign:
   - 1
   - 1
 arguments:
-  out: data/VCO_PA
+  out: data/Transmitter
