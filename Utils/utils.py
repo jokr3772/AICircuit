@@ -77,7 +77,7 @@ def merge_metrics(parent_metrics, child_metrics):
 
 def save_result(result, pipeline_save_name, config_path=None):
 
-    save_folder = os.path.join(os.path.join(os.getcwd(), "result_out"), pipeline_save_name)
+    save_folder = os.path.join(os.path.join(os.getcwd(), "out_result"), pipeline_save_name)
     os.mkdir(save_folder)
     for k in result.keys():
         out_variable_save_path = os.path.join(save_folder, k + ".npy")

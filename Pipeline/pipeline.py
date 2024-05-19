@@ -51,7 +51,6 @@ def pipeline(configpath):
             model, model_type = generate_model_given_config(dict(model_template_config),num_params=data_config.num_params,
                                                                 num_perf=data_config.num_perf)
             update_train_config_given_model_type(model_type, new_train_config)
-            new_train_config["subset_parameter_check"] = False
             new_train_config["model_type"] = model_type
             new_train_config["model_name"] = model_template_config["model"]
 

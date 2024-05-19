@@ -69,12 +69,7 @@ def generate_plot_loss_given_result(loss, train_config, visual_config, save_fold
                              save_name + "-loss.png")
 
     for percentage_loss_index in range(len(loss)):
-        if train_config["subset_parameter_check"]:
-            nested_subset_data_index = percentage_loss_index
-        else:
-            nested_subset_data_index = 0
-
-        temp_loss = [loss[percentage_loss_index][i][nested_subset_data_index] for i
+        temp_loss = [loss[percentage_loss_index][i][0] for i
                      in range(len(loss[percentage_loss_index]))]
         temp_loss_mean = np.average(temp_loss, axis=0)
         temp_loss_std = stats.sem(temp_loss, axis=0) if len(temp_loss) > 1 else [np.nan for i in range(len(temp_loss[0]))]
