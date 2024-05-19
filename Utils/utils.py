@@ -156,12 +156,9 @@ def update_train_config_given_model_type(model_type, train_config):
     if model_type == 0:
         #Sklearn model, so no loss and accuracy per epochs
         train_config["loss_per_epoch"] = False
-    elif model_type == 1:
+    else:
         #Pytorch model, so have loss per epoch
         train_config["epochs"] = 100 if "epochs" not in train_config else train_config["epochs"]
-    else:
-        #Lookup model, no loss accuracy and no train margin
-        train_config["loss_per_epoch"] = False
 
 
 def check_comparison_value_diff(train_config, value, key):
