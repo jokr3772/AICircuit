@@ -10,3 +10,4 @@ circuits:
 compare_method: False
 kfold: False
 independent_kfold: True
+save_format: csv
