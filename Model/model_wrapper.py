@@ -104,6 +104,7 @@ class PytorchModelWrapper:
 
             losses.append(avg_loss)
             val_losses.append(val_avg_loss)
+            
             if self.train_config["loss_per_epoch"]:
                 print(f'epoch: {"{:<4}".format(epoch)} train loss: {"{:1.4f}".format(avg_loss, 4)}, validation loss: {"{:1.4f}".format(val_avg_loss, 4)}')
             else:
