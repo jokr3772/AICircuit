@@ -5,11 +5,11 @@ from Utils.utils import generate_metrics_given_config, merge_metrics, save_numpy
 from Model.model_wrapper import *
 
 
-def subset_split(X, y, train_percentage, independent = False):
+def subset_split(X, y, train_percentage, kfold=False, independent=False):
 
     split_size = np.gcd(int(train_percentage * 100), 100)
     split_time = int(100 / split_size)
-    # split_time = 1
+
     X_size = X.shape[1]
     combine = np.hstack((X, y))
 
@@ -25,7 +25,8 @@ def subset_split(X, y, train_percentage, independent = False):
                 train_data = split_array[0]
                 validate_data = np.concatenate(concat_list)
             yield train_data[:,:X_size], validate_data[:,:X_size], train_data[:,X_size:], validate_data[:,X_size:]
-            break
+            if not kfold:
+                break
 
     else:
         np.random.shuffle(combine)
@@ -39,6 +40,9 @@ def subset_split(X, y, train_percentage, independent = False):
                 train_data = split_array[st]
                 validate_data = np.concatenate(concat_list)
             yield train_data[:,:X_size], validate_data[:,:X_size], train_data[:,X_size:], validate_data[:,X_size:]
+
+            if not kfold:
+                break
 
 
 class EvalModel:
@@ -71,7 +75,7 @@ class EvalModel:
 
 
 class ModelEvaluator:
-    def __init__(self, parameter, performance, eval_dataset, metric, simulator, train_config, model):
+    def __init__(self, parameter, performance, eval_dataset, simulator, train_config, model):
 
         if np.any(performance == 0):
             raise ValueError("There is 0 in performance before scaling")
@@ -82,7 +86,6 @@ class ModelEvaluator:
         self.performance = new_performance
         self.simulator = simulator
         self.eval_dataset = eval_dataset
-        self.metric = metric
         self.train_config = train_config
         self.scaler = data_scaler
 
@@ -106,7 +109,9 @@ class ModelEvaluator:
 
             subset_metrics_dict = generate_metrics_given_config(self.train_config)
             count = 0
-            for (parameter_train, parameter_test, performance_train, performance_test) in subset_split(self.parameter, self.performance, percentage, self.train_config["independent_sample"]):
+            for (parameter_train, parameter_test, performance_train, performance_test) in subset_split(self.parameter, self.performance, percentage, 
+                                                                                                       self.train_config["kfold"],
+                                                                                                       self.train_config["independent_kfold"]):
                 count += 1
                 print("Run with {} percentage of training data, Run number {}".format(percentage, count))
                 kfold_metrics_dict = generate_metrics_given_config(self.train_config)
