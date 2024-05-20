@@ -8,5 +8,5 @@ subset:
 circuits:
   - PA
 compare_method: False
-kfold: True
+kfold: False
 independent_kfold: True
