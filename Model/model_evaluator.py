@@ -1,7 +1,7 @@
 import numpy as np
 from Dataset.dataset import BaseDataset
 
-from Utils.utils import generate_metrics_given_config, merge_metrics, save_numpy
+from Utils.utils import generate_metrics_given_config, merge_metrics, save_numpy_results, save_csv_results
 from Model.model_wrapper import *
 
 
@@ -46,14 +46,14 @@ def subset_split(X, y, train_percentage, kfold=False, independent=False):
 
 
 class EvalModel:
-    def __init__(self, train_config, model, train_parameter, train_performance, test_parameter, test_performance, simulator, scaler):
+    def __init__(self, train_config, model, train_parameter, train_performance, test_parameter, test_performance, data_config, scaler):
         self.train_config = train_config
         self.model = model
         self.train_parameter = train_parameter
         self.train_performance = train_performance
         self.test_parameter = test_parameter
         self.test_performance = test_performance
-        self.simulator = simulator
+        self.data_config = data_config
         self.scaler = scaler
 
     def eval(self):
@@ -65,17 +65,21 @@ class EvalModel:
         inverse_test_parameter, inverse_test_performance = BaseDataset.inverse_transform(test_parameter_prediction, self.test_performance, self.scaler)
         inverse_train_parameter, inverse_train_performance = BaseDataset.inverse_transform(train_parameter_prediction, self.train_performance, self.scaler)
 
-        save_numpy(inverse_test_parameter, "test_x.npy", self.simulator, self.train_config["model_name"])
-        save_numpy(inverse_test_performance, "test_y.npy", self.simulator, self.train_config["model_name"])
-        save_numpy(inverse_train_parameter, "train_x.npy", self.simulator, self.train_config["model_name"])
-        save_numpy(inverse_train_performance, "train_y.npy", self.simulator, self.train_config["model_name"])
-        
+        if self.train_config["save_format"] == "csv":
+            save_csv_results(inverse_test_parameter, inverse_test_performance, "test.csv", self.data_config, self.train_config["model_name"])
+            save_csv_results(inverse_train_parameter, inverse_train_performance, "train.csv", self.data_config, self.train_config["model_name"])
+        elif self.train_config["save_format"] == "numpy":
+            save_numpy_results(inverse_test_parameter, "test_x.npy", self.data_config, self.train_config["model_name"])
+            save_numpy_results(inverse_test_performance, "test_y.npy", self.data_config, self.train_config["model_name"])
+            save_numpy_results(inverse_train_parameter, "train_x.npy", self.data_config, self.train_config["model_name"])
+            save_numpy_results(inverse_train_performance, "train_y.npy", self.data_config, self.train_config["model_name"])
+
         self.model.reset()
         return train_result
 
 
 class ModelEvaluator:
-    def __init__(self, parameter, performance, eval_dataset, simulator, train_config, model):
+    def __init__(self, parameter, performance, eval_dataset, data_config, train_config, model):
 
         if np.any(performance == 0):
             raise ValueError("There is 0 in performance before scaling")
@@ -84,7 +88,7 @@ class ModelEvaluator:
 
         self.parameter = new_parameter
         self.performance = new_performance
-        self.simulator = simulator
+        self.data_config = data_config
         self.eval_dataset = eval_dataset
         self.train_config = train_config
         self.scaler = data_scaler
@@ -92,7 +96,7 @@ class ModelEvaluator:
         if train_config["model_type"] == 0:
             self.model_wrapper = SklearnModelWrapper(model)
         else:
-            self.model_wrapper = PytorchModelWrapper(model, train_config, simulator)
+            self.model_wrapper = PytorchModelWrapper(model, train_config, data_config)
 
     def eval(self):
 
@@ -129,7 +133,7 @@ class ModelEvaluator:
 
                 result_eval_model = EvalModel(self.train_config, self.model_wrapper,
                                                 new_train_parameter, new_train_performance,
-                                                new_test_parameter, new_test_performance, self.simulator, self.scaler)
+                                                new_test_parameter, new_test_performance, self.data_config, self.scaler)
                 subset_kfold_metrics_dict = result_eval_model.eval()
                 merge_metrics(kfold_metrics_dict, subset_kfold_metrics_dict)
                 merge_metrics(subset_metrics_dict, kfold_metrics_dict)
