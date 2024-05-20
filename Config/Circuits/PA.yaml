@@ -1,19 +1,19 @@
 parameter_list:
-  - PA-l1p
-  - PA-l1s
-  - PA-l3p
-  - PA-l3s
-  - PA-lm
-  - PA-wn1
-  - PA-wn2
+  - L1p
+  - L1s
+  - L3p
+  - L3s
+  - Lm
+  - Wn1
+  - Wn2
 performance_list:
-  - PA-S11
-  - PA-S22
-  - PA-largesignalpg
-  - PA-PAE
-  - PA-DE
-  - PA-PSAT
-  - PA-pw
+  - S11
+  - S22
+  - Large Signal Power Gain
+  - PAE
+  - Drain Efficiency
+  - PSAT
+  - Power Consumption
 order:
   - 5
   - 6
