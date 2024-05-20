@@ -7,7 +7,6 @@ from Utils.utils import load_train_config, load_visual_config, \
     save_result, checkAlias, generate_train_config_for_single_pipeline, \
     update_train_config_given_model_type, check_comparison_value_diff
 
-from Utils.utils import get_margin_error, get_relative_margin_error
 from Model.models import *
 from Utils.visualutils import plot_multiple_loss_with_confidence_comparison
 from datetime import datetime
@@ -72,12 +71,8 @@ def pipeline(configpath):
                 generate_circuit_status(parameter, performance, circuit_status_path)
 
             print("Pipeline Start")
-            if new_train_config["metric"] == "absolute":
-                use_metric = get_margin_error
-            else:
-                use_metric = get_relative_margin_error
 
-            model_pipeline = ModelEvaluator(parameter, performance, dataset, metric=use_metric, simulator=data_config,
+            model_pipeline = ModelEvaluator(parameter, performance, dataset, simulator=data_config,
                                         train_config=new_train_config, model=model)
 
             cur_time = str(datetime.now().strftime('%Y-%m-%d %H-%M'))

@@ -71,7 +71,6 @@ class PytorchModelWrapper:
         device = self.train_config["device"]
 
         for epoch in range(self.train_config["epochs"]):
-            print('epoch: ', epoch, '')
             self.model.train()
             avg_loss = 0
             val_avg_loss = 0
@@ -105,6 +104,8 @@ class PytorchModelWrapper:
 
             losses.append(avg_loss)
             val_losses.append(val_avg_loss)
+            
+            print(f'epoch: {"{:<4}".format(epoch)} train loss: {"{:1.4f}".format(avg_loss, 4)},  validation loss: {"{:1.4f}".format(val_avg_loss, 4)}')
 
             if self.logging:
                 wandb.log({'train_loss': avg_loss, 'val_loss': val_avg_loss, 'epoch': epoch, })
