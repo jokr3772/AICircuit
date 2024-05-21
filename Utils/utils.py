@@ -45,6 +45,36 @@ def load_visual_config(configpath=DEFAULT_VISUAL_CONFIG_PATH):
     return load_yaml(configpath)
 
 
+def load_data(data_config, circuit):
+    parameter_path = os.path.join(data_config.arguments["out"], "x.npy")
+    performance_path = os.path.join(data_config.arguments["out"], "y.npy")
+
+    if not os.path.exists(parameter_path) or not os.path.exists(performance_path):
+        print("Create numpy files of data")
+        csv_data_to_numpy(parameter_path, performance_path, data_config, circuit)
+
+    parameter= np.load(parameter_path, allow_pickle=True)
+    performance =np.load(performance_path, allow_pickle=True)
+
+    return parameter, performance
+
+
+def csv_data_to_numpy(parameter_path, performance_path, data_config, circuit):
+
+    path = os.path.join(data_config.arguments["out"], f'{circuit}.csv')
+
+    if not os.path.exists(path):
+        raise KeyError("The dataset doesn't exisst in the defined path")
+
+    data = pd.read_csv(path)
+
+    x = np.asarray(data.iloc[:,0:data_config.num_params])
+    np.save(parameter_path, x)
+
+    y = np.asarray(data.iloc[:,data_config.num_params:])
+    np.save(performance_path, y)
+
+
 def parsetxtToDict(file_path):
     with open(file_path, "r") as file:
         file_info = file.readlines()
