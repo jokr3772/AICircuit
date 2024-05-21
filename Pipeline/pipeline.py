@@ -72,7 +72,7 @@ def pipeline(configpath):
 
             print("Pipeline Start")
 
-            model_pipeline = ModelEvaluator(parameter, performance, dataset, simulator=data_config,
+            model_pipeline = ModelEvaluator(parameter, performance, dataset, data_config=data_config,
                                         train_config=new_train_config, model=model)
 
             cur_time = str(datetime.now().strftime('%Y-%m-%d %H-%M'))
