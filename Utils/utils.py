@@ -4,6 +4,7 @@ from os.path import join
 import numpy as np
 from torch.cuda import is_available
 import shutil
+import pandas as pd
 
 
 CONFIG_PATH = os.path.join(os.path.join(os.getcwd(), "config"))
@@ -87,10 +88,21 @@ def save_result(result, pipeline_save_name, config_path=None):
         shutil.copyfile(config_path, os.path.join(save_folder, "train_config.yaml"))
 
 
-def save_numpy(array, save_name, simulator, model_name):
+def save_numpy_results(array, save_name, simulator, model_name):
     path = join(simulator.arguments["out"], model_name, save_name)
     np.save(path, array)
     
+
+def save_csv_results(x, y, save_name, simulator, model_name):
+    
+    df = pd.DataFrame(columns=simulator.parameter_list + simulator.performance_list)
+
+    for i in range(x.shape[0]):
+        df.loc[i] = list(x[i]) + list(y[i])
+
+    path = join(simulator.arguments["out"], model_name, save_name)
+    df.to_csv(path, index=False)
+
 
 def saveDictToTxt(dict, save_path):
     with open(save_path, "w") as file:
