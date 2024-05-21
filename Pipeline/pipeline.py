@@ -26,9 +26,13 @@ def pipeline(configpath):
         if train_config["compare_method"]:
             print("Save comparison folder is {}".format(save_path))
 
-        compare_loss_mean_list = []
-        compare_loss_upper_bound_list = []
-        compare_loss_lower_bound_list = []
+        compare_loss_train_mean_list = []
+        compare_loss_train_upper_bound_list = []
+        compare_loss_train_lower_bound_list = []
+
+        compare_loss_test_mean_list = []
+        compare_loss_test_upper_bound_list = []
+        compare_loss_test_lower_bound_list = []
 
         label = []
 
@@ -88,12 +92,19 @@ def pipeline(configpath):
             if new_train_config["compare_method"]:
                 label.append(model_template_config["model"])
                 if new_train_config["loss_per_epoch"]:
-                    compare_loss_mean_list.append(result["multi_train_loss"])
-                    compare_loss_upper_bound_list.append(result["multi_train_loss_upper_bound"])
-                    compare_loss_lower_bound_list.append(result["multi_train_loss_lower_bound"])
+                    compare_loss_train_mean_list.append(result["multi_train_loss"])
+                    compare_loss_train_upper_bound_list.append(result["multi_train_loss_upper_bound"])
+                    compare_loss_train_lower_bound_list.append(result["multi_train_loss_lower_bound"])
+
+                    compare_loss_test_mean_list.append(result["multi_test_loss"])
+                    compare_loss_test_upper_bound_list.append(result["multi_test_loss_upper_bound"])
+                    compare_loss_test_lower_bound_list.append(result["multi_test_loss_lower_bound"])
 
 
         if train_config["compare_method"] and loss_per_epoch:
-                plot_multiple_loss_with_confidence_comparison(compare_loss_mean_list, compare_loss_upper_bound_list,
-                                                              compare_loss_lower_bound_list, label, train_config["subset"],
-                                                              save_path, visual_config, epochs)
+                plot_multiple_loss_with_confidence_comparison(compare_loss_train_mean_list, compare_loss_train_upper_bound_list,
+                                                              compare_loss_train_lower_bound_list, label, train_config["subset"],
+                                                              save_path, visual_config, epochs, circuit, 'Train')
+                plot_multiple_loss_with_confidence_comparison(compare_loss_test_mean_list, compare_loss_test_upper_bound_list,
+                                                              compare_loss_test_lower_bound_list, label, train_config["subset"],
+                                                              save_path, visual_config, epochs, circuit, 'Test')

@@ -6,7 +6,7 @@ from scipy import stats
 
 
 def plot_multiple_loss_with_confidence_comparison(loss_mean, loss_upper_bound, loss_lower_bound,
-                                                  labels, subsets, save_folder, visual_config, epochs):
+                                                  labels, subsets, save_folder, visual_config, epochs, data_name, data_type):
 
     if not os.path.exists(save_folder):
         os.mkdir(save_folder)
@@ -32,10 +32,11 @@ def plot_multiple_loss_with_confidence_comparison(loss_mean, loss_upper_bound, l
         ax.set_xlim([0, None])
         ax.set_ylim([0, None])
         ax.legend()
-        plt.ylabel("{} {} Loss".format("Train", "L1"))
+        plt.ylabel(f'{data_type} Loss')
         plt.xlabel("Epochs")
+        plt.title(f'{data_name}')
 
-        image_save_path = os.path.join(save_folder, "subset-{}-loss.png".format(subsets[percentage_index]))
+        image_save_path = os.path.join(save_folder, f'subset-{subsets[percentage_index]}-{data_type}-loss.png')
         plt.savefig(image_save_path, dpi=250)
 
 
