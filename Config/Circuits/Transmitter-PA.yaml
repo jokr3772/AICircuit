@@ -1,18 +1,18 @@
 parameter_list:
-  - PA-l1p
-  - PA-l1s
-  - PA-l3p
-  - PA-l3s
-  - PA-wn1
-  - PA-wn2
+  - L1p_PA
+  - L1s_PA
+  - L3p_PA
+  - L3s_PA
+  - Wn1_PA
+  - Wn2_PA
 performance_list:
-  - PA-cPowerConsumption/W
-  - PA-3dB_Bandwidth/Hz
-  - PA-OutputPower/dBm
-  - PA-VoltageSwing/V
-  - PA-largesignalpowergain
-  - PA-DE
-  - PA-PAE
+  - dcPowerConsumption/W
+  - 3dB_Bandwidth/Hz
+  - OutputPower/dBm
+  - VoltageSwing/V
+  - LargeSignal_PowerGain_PA/dB
+  - DrainEfficiency/%
+  - PAE/%
 order:
   - 3
   - 6
@@ -30,7 +30,5 @@ sign:
   - 1
   - 1
 arguments:
+  input: data/Transmitter-PA
   out: data/Transmitter-PA
-
-
-

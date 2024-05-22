@@ -1,17 +1,17 @@
 parameter_list:
-  - VCO-c1
-  - VCO-l1
-  - VCO-rp
-  - VCO-wn
-  - VCO-wn6
-  - VCO-wvar
+  - C1_VCO
+  - L1_VCO
+  - Rp_VCO
+  - Wn_VCO
+  - Wn6_VCO
+  - Wvar_VCO
 performance_list:
-  - VCO-dcPowerConsumption/W
-  - VCO-3dB_Bandwidth/Hz
-  - VCO-OutputPower/dBm
-  - VCO-VoltageSwing/V
-  - VCO-TuningRange
-  - VCO-PhaseNoise
+  - dcPowerConsumption/W
+  - 3dB_Bandwidth/Hz
+  - OutputPower/dBm
+  - VoltageSwing/V
+  - TuningRange_VCO/Hz
+  - PhaseNoise_VCO/(dBc/Hz)
 order:
   - 2
   - 5
@@ -27,7 +27,5 @@ sign:
   - 1
   - -1
 arguments:
+  input: data/Transmitter-VCO
   out: data/Transmitter-VCO
-
-
-
