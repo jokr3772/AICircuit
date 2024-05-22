@@ -63,8 +63,6 @@ def pipeline(configpath):
                 epochs = check_comparison_value_diff(new_train_config, epochs, "epochs")
                 
             print("Load from saved data")
-            # parameter= np.load(os.path.join(data_config.arguments["out"], "x.npy"), allow_pickle=True)
-            # performance =np.load(os.path.join(data_config.arguments["out"], "y.npy"), allow_pickle=True)
             parameter, performance = load_data(data_config, circuit)
 
             print("Check Alias Problem")
