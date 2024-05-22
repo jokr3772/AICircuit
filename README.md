@@ -13,6 +13,6 @@ abstract #TO BE ADDED
 
 To install the requirements you can use:
 
-```py
+```
 pip install -r requirements.txt
 ```
