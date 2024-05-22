@@ -1,14 +1,14 @@
 parameter_list:
-  - ts-c1
-  - ts-wnout
-  - ts-wpout
-  - ts-wcs
-  - ts-wn1
-  - ts-wp1
+  - C1
+  - WNOUT
+  - WPOUT
+  - WCS
+  - WN1
+  - WP1
 performance_list:
-  - ts-bw
-  - ts-pw
-  - ts-a0
+  - Bandwidth
+  - Power Consumption
+  - Voltage Gain
 order:
   - 0
   - 2
@@ -18,4 +18,5 @@ sign:
   - -1
   - 1
 arguments:
+  input: data/TwoStageAmplifier
   out: data/TwoStageAmplifier

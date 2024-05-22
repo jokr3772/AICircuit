@@ -1,12 +1,12 @@
 parameter_list:
-  - SingleStageAmplifier-vdd
-  - SingleStageAmplifier-vg
-  - SingleStageAmplifier-w
-  - SingleStageAmplifier-r
+  - VDD
+  - Vgate
+  - Wn
+  - Rd
 performance_list:
-  - SingleStageAmplifier-bw
-  - SingleStageAmplifier-pw
-  - SingleStageAmplifier-a0
+  - Bandwidth
+  - Power Consumption
+  - Voltage Gain
 order:
   - 0
   - 2
@@ -16,4 +16,5 @@ sign:
   - -1
   - 1
 arguments:
+  input: data/SingleStageAmplifier
   out: data/SingleStageAmplifier

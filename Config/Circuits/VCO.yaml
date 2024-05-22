@@ -1,17 +1,17 @@
 parameter_list:
-  - vco-c1
-  - vco-l1
-  - vco-rp
-  - vco-wn
-  - vco-wn5
-  - vco-wn6
-  - vco-wvar
+  - C1
+  - L1
+  - Rp
+  - Wn
+  - Wn5
+  - Wn6
+  - Wvar
 performance_list:
-  - vco-oscilationfreq
-  - vco-pw
-  - vco-outputpower
-  - vco-phasenoise
-  - vco-tuningrange
+  - Oscillation Frequency
+  - Power Consumption
+  - Output Power
+  - Phase Noise
+  - Tuning Range
 order: 
   - 0
   - 1
@@ -25,4 +25,5 @@ sign:
   - -1
   - 1
 arguments:
+  input: data/VCO
   out: data/VCO
