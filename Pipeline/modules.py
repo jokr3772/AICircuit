@@ -53,7 +53,7 @@ def generate_model_given_config(model_config,num_params,num_perf):
         return eval_model(**copy_model_config), 0
     
     elif model_config["model"] in dl_model_mapping.keys():
-        model_config['parameter_count'] = num_perf
+        model_config['input_count'] = num_perf
         model_config['output_count'] = num_params
         eval_model = dl_model_mapping[model_config["model"]]
         copy_model_config = dict(model_config)

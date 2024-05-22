@@ -46,8 +46,8 @@ def load_visual_config(configpath=DEFAULT_VISUAL_CONFIG_PATH):
 
 
 def load_data(data_config, circuit):
-    parameter_path = os.path.join(data_config.arguments["out"], "x.npy")
-    performance_path = os.path.join(data_config.arguments["out"], "y.npy")
+    parameter_path = os.path.join(data_config.arguments["input"], "x.npy")
+    performance_path = os.path.join(data_config.arguments["input"], "y.npy")
 
     if not os.path.exists(parameter_path) or not os.path.exists(performance_path):
         print("Create numpy files of data")
@@ -61,7 +61,7 @@ def load_data(data_config, circuit):
 
 def csv_data_to_numpy(parameter_path, performance_path, data_config, circuit):
 
-    path = os.path.join(data_config.arguments["out"], f'{circuit}.csv')
+    path = os.path.join(data_config.arguments["inp"], f'{circuit}.csv')
 
     if not os.path.exists(path):
         raise KeyError("The dataset doesn't exisst in the defined path")

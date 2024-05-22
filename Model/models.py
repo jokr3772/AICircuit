@@ -50,10 +50,10 @@ class KNeighbors():
     
 
 class Model500GELU(nn.Module):
-    def __init__(self, parameter_count=2, output_count=2):
+    def __init__(self, input_count=2, output_count=2):
         super(Model500GELU, self).__init__()
         self.network = nn.Sequential(
-            nn.Linear(parameter_count, 200),
+            nn.Linear(input_count, 200),
             nn.ReLU(),
             nn.Linear(200, 300),
             nn.ReLU(),
@@ -76,7 +76,7 @@ class Transformer(nn.Module):
 
     def __init__(
         self,
-        parameter_count=2, 
+        input_count=2, 
         output_count=2,
         dim_model=200,
         num_heads=2,
@@ -86,7 +86,7 @@ class Transformer(nn.Module):
     ):
         super(Transformer, self).__init__()
 
-        self.embedding = nn.Linear(parameter_count, dim_model)
+        self.embedding = nn.Linear(input_count, dim_model)
 
         encoder_layers = TransformerEncoderLayer(dim_model, num_heads, dim_hidden, dropout_p, batch_first=True)
         self.transformer = TransformerEncoder(encoder_layers, num_encoder_layers)
