@@ -1,13 +1,13 @@
 parameter_list:
-  - Mixer-c
-  - Mixer-r
-  - Mixer-wlo  
-  - Mixer-wrf
+  - C
+  - R
+  - WLO 
+  - RF
 performance_list:
-  - Mixer-pw
-  - Mixer-swing
-  - Mixer-conversiongain
-  - Mixer-noisefigure
+  - Power Consumption
+  - IF Voltage Swing
+  - Conversion Gain
+  - Noise Figure
 order:
   - 0
   - 3
@@ -19,4 +19,5 @@ sign:
   - 1
   - -1
 arguments:
+  input: data/Mixer
   out: data/Mixer

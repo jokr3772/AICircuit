@@ -1,12 +1,12 @@
 parameter_list:
-  - Cascode-wbias
-  - Cascode-r
-  - Cascode-w0
-  - Cascode-w1
+  - Wbias
+  - Rd
+  - Wn1
+  - Wn2
 performance_list:
-  - Cascode-bw
-  - Cascode-pw
-  - Cascode-a0
+  - Bandwidth
+  - Power Consumption
+  - Voltage Gain
 order:
   - 0
   - 2
@@ -16,4 +16,5 @@ sign:
   - -1
   - 1
 arguments:
+  input: data/Cascode
   out: data/Cascode

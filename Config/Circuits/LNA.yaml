@@ -1,17 +1,17 @@
 parameter_list:
-  - LNA-c1
-  - LNA-c2
-  - LNA-ld
-  - LNA-lg
-  - LNA-ls
-  - LNA-wn1
-  - LNA-wn2
+  - C1
+  - C2
+  - Ld
+  - Lg
+  - Ls
+  - WN1
+  - WN2
 performance_list:
-  - LNA-Gt
-  - LNA-s11
-  - LNA-nf
-  - LNA-bw
-  - LNA-pw
+  - GT
+  - S11
+  - NF
+  - Bandwidth
+  - Power Consumption
 order:
   - 1
   - 3
@@ -25,4 +25,5 @@ sign:
   - 1
   - -1
 arguments:
+  input: data/LNA
   out: data/LNA

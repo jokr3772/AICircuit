@@ -31,7 +31,5 @@ sign:
   - 1
   - -1
 arguments:
+  input: data/PA
   out: data/PA
-
-
-
