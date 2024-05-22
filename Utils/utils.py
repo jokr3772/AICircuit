@@ -61,7 +61,7 @@ def load_data(data_config, circuit):
 
 def csv_data_to_numpy(parameter_path, performance_path, data_config, circuit):
 
-    path = os.path.join(data_config.arguments["inp"], f'{circuit}.csv')
+    path = os.path.join(data_config.arguments["input"], f'{circuit}.csv')
 
     if not os.path.exists(path):
         raise KeyError("The dataset doesn't exist in the defined path")
