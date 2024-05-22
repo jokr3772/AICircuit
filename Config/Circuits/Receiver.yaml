@@ -1,28 +1,28 @@
 parameter_list:
-  - receiver-c1lna
-  - receiver-c2lna
-  - receiver-ldlna
-  - receiver-lglna
-  - receiver-lslna
-  - receiver-wn1lna
-  - receiver-wn2lna
-  - receiver-cmixer
-  - receiver-rmixer
-  - receiver-wlomixer
-  - receiver-wrfmixer
-  - receiver-rdamp
-  - receiver-wn1amp
-  - receiver-wn2amp
+  - C1_LNA
+  - C2_LNA
+  - Ld_LNA
+  - Lg_LNA
+  - Ls_LNA
+  - WN1_LNA
+  - WN2_LNA
+  - C_Mixer
+  - R_Mixer
+  - WLO_Mixer
+  - WRF_Mixer
+  - Rd_Amp
+  - Wn1_Amp
+  - Wn2_Amp
 performance_list:
-  - receiver-dcPowerConsumption_System/W
-  - receiver-VoltageGain_System/dB
-  - receiver-NoiseFigure_System/dB
-  - receiever-PowerGain_LNA/dB
-  - receiever-NoiseFigure_LNA/dB
-  - receiever-S11_LNA/dB
-  - receiever-ConversionGain_Mixer/dB
-  - receiever-VoltageSwing_Mixer/V
-  - receiever-VoltageGain_Amp/dB
+  - dcPowerConsumption_System
+  - VoltageGain_System_Value
+  - NoiseFigure_System_Value
+  - PowerGain_LNA/dB
+  - NoiseFigure_LNA/dB
+  - S11_LNA/dB
+  - ConversionGain_Mixer/dB
+  - VoltageSwing_Mixer/V
+  - VoltageGain_Amp/dB
 order: 
   - 2
   - 1
@@ -44,4 +44,5 @@ sign:
   - 1
   - 1
 arguments:
+  input: data/Receiver
   out: data/Receiver
