@@ -7,9 +7,6 @@ abstract #TO BE ADDED
   * [Usage](#usage)
     * [Simple Run](#simple-run)
     * [Description](#description)
-  * [Contributing](#contributing)
-  * [Support and Migration](#support-and-migration)
-  * [License](#license)
 
 ## Requirements
 
@@ -43,3 +40,13 @@ python3 main.py --path ./Config/train_config.yaml
 
 ### Description
 Here is a description for each parameter in the `train_config.yaml` file:
+
+  * `model_config`:
+  * `subset`:
+  * `circuits`:
+  * `epochs`:
+  * `loss_per_epoch`:
+  * `compare_method`:
+  * `kfold`:
+  * `independent_kfold`:
+  * `save_format`:
