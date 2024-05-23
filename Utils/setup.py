@@ -14,7 +14,7 @@ def setup():
 
     pwd = os.getcwd()
 
-    result_folder = os.path.join(pwd, "result_out")
+    result_folder = os.path.join(pwd, "out_result")
     create_folder(result_folder, "RESULTS")
 
     plot_folder = os.path.join(pwd, "out_plot")
@@ -25,8 +25,8 @@ def setup():
 
     print("\n")
 
-    circuits = ["SingleStageAmplifier", "Cascode", "LNA", "Mixer", "TwoStage", "VCO", "PA", "VCO_PA", "Receiver"] 
-    models = ["MultiLayerPerceptron", "RandomForest", "SupportVectorRegressor", "Transformer", "KNeighborsRegressor"]
+    circuits = ["SingleStageAmplifier", "Cascode", "LNA", "Mixer", "TwoStage", "VCO", "PA", "Transmitter", "Receiver"] 
+    models = ["MultiLayerPerceptron", "RandomForest", "SupportVector", "Transformer", "KNeighbors"]
 
     for circuit in circuits:
         p = os.path.join(data_folder, circuit)
