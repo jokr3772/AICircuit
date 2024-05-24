@@ -25,7 +25,7 @@ def setup():
 
     print("\n")
 
-    circuits = ["SingleStageAmplifier", "Cascode", "LNA", "Mixer", "TwoStage", "VCO", "PA", "Transmitter", "Receiver"] 
+    circuits = ["SingleStageAmplifier", "Cascode", "LNA", "Mixer", "TwoStageAmplifier", "VCO", "PA", "Transmitter", "Receiver"] 
     models = ["MultiLayerPerceptron", "RandomForest", "SupportVector", "Transformer", "KNeighbors"]
 
     for circuit in circuits:
