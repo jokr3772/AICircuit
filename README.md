@@ -1,7 +1,7 @@
 # circuitPilot
 abstract #TO BE ADDED
 
-## Table of Content
+## Table of Contents
 
   * [Requirements](#requirements)
   * [Usage](#usage)
@@ -23,7 +23,7 @@ pip install -r requirements.txt
 ## Usage
 
 ### Simple Run
-To run the code, first change the path for your input data and output results in **arguments** of config files in `./Config/Circuits` based on your needs. <br>
+To run the code, first change the path for your input data and output results in **arguments** of config files in `./Config/Circuits` based on your needs. <br><br>
 If you want to keep the paths as they are, use `setup.py` to arrange the initial folders.
 
 ```
@@ -36,7 +36,7 @@ Second, generate your own **train config** file, or use our default one. For usi
 python3 main.py
 ```
 
-If you want to address your own config path (for example):
+As an example, if you want to address your own config path:
 
 ```
 python3 main.py --path ./Config/train_config.yaml
@@ -46,7 +46,12 @@ python3 main.py --path ./Config/train_config.yaml
 Here is a description for each parameter in the `train_config.yaml` file:
 
   * `model_config`: a list of different model configs:
-    * model: KNeighbors, RandomForest, SupportVector, MultiLayerPerceptron, Transformer
+    * `model`: 
+      * KNeighbors
+      * RandomForest
+      * SupportVector
+      * MultiLayerPerceptron
+      * Transformer
   * `subset`: a list of the fraction of data used for training.
   * `circuits`: a list of circuits from this list:
     * SingleStageAmplifier
@@ -58,10 +63,10 @@ Here is a description for each parameter in the `train_config.yaml` file:
     * Transmitter
     * Receiver
   * `epochs`: used for MLP and Transformer model, default is 100.
-  * `loss_per_epoch`: if KNN, RF, or SVR is False, else can be True or False by config value. default is True for MLP and Transformer.
+  * `loss_per_epoch`: for KNN, RF, or SVR is False, else can be True or False by config value. default is True for MLP and Transformer.
   * `compare_method`:
-  * `kfold`: if True, k fold cross validation is performed. k is defined based on *subset* value. if False, no k fold cross validation.
-  * `independent_kfold`: if True, train and test data is selected independetly from previous folds, if false, dataset is divided to k parts at first and each time one part is selected for test and th remaining for train.
+  * `kfold`: if True, K fold cross validation is performed. K is defined based on *subset* value. if False, no K fold cross validation.
+  * `independent_kfold`: if True, train and test data is selected independently from previous folds, if false, dataset is divided to k parts at first and each time one part is selected for test and the remaining for train.
   * `save_format`: 
     * csv
     * numpy
