@@ -7,6 +7,10 @@ abstract #TO BE ADDED
   * [Usage](#usage)
     * [Simple Run](#simple-run)
     * [Description](#description)
+  * [Visualization](#visualization)
+  * [Documentation](#documentation)
+  * [Where to ask for help](#where-to-ask-for-help)
+  * [Contributors](#contributors)
 
 ## Requirements
 
@@ -41,12 +45,35 @@ python3 main.py --path ./Config/train_config.yaml
 ### Description
 Here is a description for each parameter in the `train_config.yaml` file:
 
-  * `model_config`:
-  * `subset`:
-  * `circuits`:
-  * `epochs`:
-  * `loss_per_epoch`:
+  * `model_config`: a list of different model configs:
+    * model: KNeighbors, RandomForest, SupportVector, MultiLayerPerceptron, Transformer
+  * `subset`: a list of the fraction of data used for training.
+  * `circuits`: a list of circuits from this list:
+    * SingleStageAmplifier
+    * TwoStageAmplifier
+    * VCO (Voltage Control Oscillator)
+    * PA (Power Amplifier)
+    * Cascode
+    * Mixer
+    * Transmitter
+    * Receiver
+  * `epochs`: used for MLP and Transformer model, default is 100.
+  * `loss_per_epoch`: if KNN, RF, or SVR is False, else can be True or False by config value. default is True for MLP and Transformer.
   * `compare_method`:
-  * `kfold`:
-  * `independent_kfold`:
-  * `save_format`:
+  * `kfold`: if True, k fold cross validation is performed. k is defined based on *subset* value. if False, no k fold cross validation.
+  * `independent_kfold`: if True, train and test data is selected independetly from previous folds, if false, dataset is divided to k parts at first and each time one part is selected for test and th remaining for train.
+  * `save_format`: 
+    * csv
+    * numpy
+    * anything else: no saving
+
+## Visualization
+
+
+## Documentation
+  
+  For more details, visit our paper [papertitle](link).
+
+## Where to ask for help
+
+## Contributors
