@@ -1,7 +1,7 @@
 from Dataset.dataset import *
 import os
 
-from Utils.utils import load_circuit, saveDictToTxt
+from Utils.utils import load_circuit, saveDictToTxt, make_plot_folder
 from Model.models import *
 from Utils.visualutils import plot_multiple_loss_with_confidence_entrypoint
 
@@ -65,17 +65,14 @@ def generate_model_given_config(model_config,num_params,num_perf):
         raise KeyError("The model you defined does not exist")
 
 
-def generate_visual_given_result(result, train_config, visual_config, pipeline_save_name):
-    folder_path = os.path.join(os.path.join(os.getcwd(), "out_plot"), pipeline_save_name)
-    try:
-        os.mkdir(folder_path)
-    except:
-        pass #if less than a minute passed
-    result_dict = dict()
+def generate_visual_given_result(result, train_config, visual_config, pipeline_save_name, circuit):
 
+    save_folder = make_plot_folder(pipeline_save_name)
+    result_dict = dict()
     if train_config["loss_per_epoch"]:
-        loss_plot_result = plot_multiple_loss_with_confidence_entrypoint(train_config, visual_config, result, pipeline_save_name)
+        loss_plot_result = plot_multiple_loss_with_confidence_entrypoint(train_config, visual_config, result, save_folder, circuit)
         result_dict.update(loss_plot_result)
+
     return result_dict
 
 

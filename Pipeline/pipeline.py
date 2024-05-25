@@ -83,8 +83,7 @@ def pipeline(configpath):
 
             print("Pipeline save name is {}".format(pipeline_save_name))
             result = model_pipeline.eval()
-            visual_result = generate_visual_given_result(result, new_train_config,
-                                                            visual_config, pipeline_save_name)
+            visual_result = generate_visual_given_result(result, new_train_config, visual_config, pipeline_save_name, circuit)
             result.update(visual_result)
             save_result(result, pipeline_save_name, configpath)
 

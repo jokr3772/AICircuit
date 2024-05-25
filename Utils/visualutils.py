@@ -36,18 +36,18 @@ def plot_multiple_loss_with_confidence_comparison(loss_mean, loss_upper_bound, l
         plt.xlabel("Epochs")
         plt.title(f'{data_name}')
 
-        image_save_path = os.path.join(save_folder, f'subset-{subsets[percentage_index]}-{data_type}-loss.png')
+        image_save_path = os.path.join(save_folder, f'Subset-{subsets[percentage_index]}-{data_type}-loss.png')
         plt.savefig(image_save_path, dpi=250)
 
 
-def plot_multiple_loss_with_confidence_entrypoint(train_config, visual_config, result, save_name):
+def plot_multiple_loss_with_confidence_entrypoint(train_config, visual_config, result, save_folder, circuit):
     
     plt.clf()
 
     multi_train_loss, multi_train_loss_lower_bounds, multi_train_loss_upper_bounds = generate_plot_loss_given_result(result["train_loss"],
-                                                                                                                        train_config, visual_config, save_name, "Train")
+                                                                                                                        train_config, visual_config, save_folder, "Train", circuit)
     multi_test_loss, multi_test_loss_lower_bounds, multi_test_loss_upper_bounds = generate_plot_loss_given_result(result["validation_loss"],
-                                                                                                                     train_config, visual_config, save_name, "Test")
+                                                                                                                     train_config, visual_config, save_folder, "Test", circuit)
 
     result_dict = dict()
     result_dict["multi_train_loss"] = multi_train_loss
@@ -60,14 +60,13 @@ def plot_multiple_loss_with_confidence_entrypoint(train_config, visual_config, r
     return result_dict
 
 
-def generate_plot_loss_given_result(loss, train_config, visual_config, save_folder, save_name):
+def generate_plot_loss_given_result(loss, train_config, visual_config, save_folder, data_type, circuit):
 
     multi_loss = []
     multi_loss_lower_bounds = []
     multi_loss_upper_bounds = []
 
-    save_path = os.path.join(os.path.join(os.path.join(os.getcwd(), "out_plot"), save_folder),
-                             save_name + "-loss.png")
+    save_path = os.path.join(save_folder, data_type + "-loss.png")
 
     for percentage_loss_index in range(len(loss)):
         temp_loss = [loss[percentage_loss_index][i][0] for i
@@ -79,7 +78,7 @@ def generate_plot_loss_given_result(loss, train_config, visual_config, save_fold
         multi_loss_lower_bounds.append(temp_loss_mean - temp_loss_std)
         multi_loss_upper_bounds.append(temp_loss_mean + temp_loss_std)
 
-    plot_loss(multi_loss, multi_loss_upper_bounds, multi_loss_lower_bounds, visual_config, train_config, save_path, save_folder.split("-")[0], save_name)
+    plot_loss(multi_loss, multi_loss_upper_bounds, multi_loss_lower_bounds, visual_config, train_config, save_path, circuit, data_type)
 
     return multi_loss, multi_loss_lower_bounds, multi_loss_upper_bounds
 

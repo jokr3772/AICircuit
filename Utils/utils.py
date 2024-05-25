@@ -7,10 +7,13 @@ import shutil
 import pandas as pd
 
 
-CONFIG_PATH = os.path.join(os.path.join(os.getcwd(), "config"))
+CONFIG_PATH = join(os.path.join(os.getcwd(), "config"))
 
-DEFAULT_TRAIN_CONFIG_PATH = os.path.join(CONFIG_PATH, "train_config.yaml")
-DEFAULT_VISUAL_CONFIG_PATH = os.path.join(CONFIG_PATH, "visual_config.yaml")
+DEFAULT_TRAIN_CONFIG_PATH = join(CONFIG_PATH, "train_config.yaml")
+DEFAULT_VISUAL_CONFIG_PATH = join(CONFIG_PATH, "visual_config.yaml")
+
+DEFAULT_RESULT_FOLDER_PATH = join(os.getcwd(), "out_result")
+DEFAULT_PLOT_FOLDER_PATH = os.path.join(os.getcwd(), "out_plot")
 
 
 def load_yaml(yaml_path):
@@ -46,8 +49,8 @@ def load_visual_config(configpath=DEFAULT_VISUAL_CONFIG_PATH):
 
 
 def load_data(data_config, circuit):
-    parameter_path = os.path.join(data_config.arguments["input"], "x.npy")
-    performance_path = os.path.join(data_config.arguments["input"], "y.npy")
+    parameter_path = join(data_config.arguments["input"], "x.npy")
+    performance_path = join(data_config.arguments["input"], "y.npy")
 
     if not os.path.exists(parameter_path) or not os.path.exists(performance_path):
         print("Create numpy files of data")
@@ -61,7 +64,7 @@ def load_data(data_config, circuit):
 
 def csv_data_to_numpy(parameter_path, performance_path, data_config, circuit):
 
-    path = os.path.join(data_config.arguments["input"], f'{circuit}.csv')
+    path = join(data_config.arguments["input"], f'{circuit}.csv')
 
     if not os.path.exists(path):
         raise KeyError("The dataset doesn't exist in the defined path")
@@ -108,33 +111,42 @@ def merge_metrics(parent_metrics, child_metrics):
 
 def save_result(result, pipeline_save_name, config_path=None):
 
-    save_folder = os.path.join(os.path.join(os.getcwd(), "out_result"), pipeline_save_name)
-    os.mkdir(save_folder)
+    save_folder = join(DEFAULT_RESULT_FOLDER_PATH, pipeline_save_name)
+    os.makedirs(save_folder)
     for k in result.keys():
-        out_variable_save_path = os.path.join(save_folder, k + ".npy")
+        out_variable_save_path = join(save_folder, k + ".npy")
         np.save(out_variable_save_path, result[k])
 
     if config_path is not None:
-        shutil.copyfile(config_path, os.path.join(save_folder, "train_config.yaml"))
+        shutil.copyfile(config_path, join(save_folder, "train_config.yaml"))
 
 
-def save_numpy_results(array, save_name, simulator, model_name):
-    path = join(simulator.arguments["out"], model_name, save_name)
+def save_numpy_results(array, save_name, simulator, model_name):  
+
+    save_folder = join(os.getcwd(), simulator.arguments["out"], model_name)
+    os.makedirs(save_folder, exist_ok=True)
+
+    path = join(save_folder, save_name)
     np.save(path, array)
     
 
 def save_csv_results(x, y, save_name, simulator, model_name):
-    
+
+    save_folder = join(os.getcwd(), simulator.arguments["out"], model_name)
+    os.makedirs(save_folder, exist_ok=True)
+
     df = pd.DataFrame(columns=simulator.parameter_list + simulator.performance_list)
 
     for i in range(x.shape[0]):
         df.loc[i] = list(x[i]) + list(y[i])
 
-    path = join(simulator.arguments["out"], model_name, save_name)
+    path = join(save_folder, save_name)
     df.to_csv(path, index=False)
 
 
 def saveDictToTxt(dict, save_path):
+
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
     with open(save_path, "w") as file:
         count = 0
         for k,v in dict.items():
@@ -214,3 +226,10 @@ def check_comparison_value_diff(train_config, value, key):
             raise ValueError("The {} across different comparison is not the same".format(key))
         else:
             return value
+        
+
+def make_plot_folder(pipeline_save_name):
+
+    save_folder = join(DEFAULT_PLOT_FOLDER_PATH, pipeline_save_name)
+    os.makedirs(save_folder)
+    return save_folder

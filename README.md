@@ -24,11 +24,6 @@ pip install -r requirements.txt
 
 ### Simple Run
 To run the code, first change the path for your input data and output results in **arguments** of config files in `./Config/Circuits` based on your needs. <br><br>
-If you want to keep the paths as they are, use `setup.py` to arrange the initial folders.
-
-```
-python3 Utils/setup.py
-```
 
 Second, generate your own **train config** file, or use our default one. For using the default config file:
 
@@ -52,6 +47,7 @@ Here is a description for each parameter in the `train_config.yaml` file:
       * SupportVector
       * MultiLayerPerceptron
       * Transformer
+    * `extra_args`: #TO BE ADDED
   * `subset`: a list of the fraction of data used for training.
   * `circuits`: a list of circuits from this list:
     * SingleStageAmplifier
@@ -64,7 +60,7 @@ Here is a description for each parameter in the `train_config.yaml` file:
     * Receiver
   * `epochs`: used for MLP and Transformer model, default is 100.
   * `loss_per_epoch`: for KNN, RF, or SVR is False, else can be True or False by config value. default is True for MLP and Transformer.
-  * `compare_method`:
+  * `compare_method`: #TO BE ADDED
   * `kfold`: if True, K fold cross validation is performed. K is defined based on *subset* value. if False, no K fold cross validation.
   * `independent_kfold`: if True, train and test data is selected independently from previous folds, if false, dataset is divided to k parts at first and each time one part is selected for test and the remaining for train.
   * `save_format`: 
@@ -72,8 +68,13 @@ Here is a description for each parameter in the `train_config.yaml` file:
     * numpy
     * anything else: no saving
 
-## Visualization
+### Results
+ 
+#TO BE ADDED
 
+## Visualization
+ 
+#TO BE ADDED
 
 ## Documentation
   
@@ -81,4 +82,8 @@ Here is a description for each parameter in the `train_config.yaml` file:
 
 ## Where to ask for help
 
+#TO BE ADDED
+
 ## Contributors
+
+#TO BE ADDED
