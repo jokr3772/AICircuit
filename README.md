@@ -47,7 +47,8 @@ Here is a description for each parameter in the `train_config.yaml` file:
       * SupportVector
       * MultiLayerPerceptron
       * Transformer
-    * `extra_args`: #TO BE ADDED
+    * other model args: add desired model arguments to the `model_config` (no ordering). For now, you can add Transformer parameters: `dim_model`,
+    `num_heads`, `num_encoder_layers`, `dim_hidden`, `dropout_p`. if no model args added, uses the default ones.
   * `subset`: a list of the fraction of data used for training.
   * `circuits`: a list of circuits from this list:
     * SingleStageAmplifier
@@ -61,7 +62,7 @@ Here is a description for each parameter in the `train_config.yaml` file:
   * `epochs`: used for MLP and Transformer model, default is 100.
   * `loss_per_epoch`: for KNN, RF, or SVR is False, else can be True or False by config value. default is True for MLP and Transformer.
   * `compare_method`: if True, for each subset and circuit, plots different models' loss (MLP and Transformer) on the same figure. 
-  * `kfold`: if True, K fold cross validation is performed. K is defined based on *subset* value. if False, no K fold cross validation.
+  * `kfold`: if True, K fold cross validation is performed. K is defined based on `subset` value. if False, no K fold cross validation.
   * `independent_kfold`: if True, train and test data is selected independently from previous folds, if false, dataset is divided to k parts at first and each time one part is selected for test and the remaining for train.
   * `save_format`: 
     * csv
