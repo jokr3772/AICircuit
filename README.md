@@ -72,7 +72,7 @@ Here is a description for each parameter in the `train_config.yaml` file:
 
 ### Results
  
-#TO BE ADDED
+In each run, find plots in the corresponding folder in `out_plot` folder and loss values in the corresponding folder in `out_result` folder. Also if you set the `train_config.yaml` in a way that it saves the predictions, you can find the prediction files in the mentioned directory at the circuit's yaml file.
 
 ## Visualization
  
