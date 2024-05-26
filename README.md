@@ -84,7 +84,7 @@ In each run, find plots in the corresponding folder in `out_plot` folder and los
 
 ## Where to ask for help
 
-#TO BE ADDED
+If you have any questions, feel free to open a [discussion](link) and ask your question.
 
 ## Contributors
 
