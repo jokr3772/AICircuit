@@ -21,7 +21,7 @@ def pipeline(configpath):
         print("Pipeline with {} circuit".format(circuit))
         pipeline_cur_time = str(datetime.now().strftime('%Y-%m-%d %H-%M'))
         
-        save_path = os.path.join(os.getcwd(), "out_plot", pipeline_cur_time + "-" + "compare-method-" + circuit)
+        save_path = os.path.join(os.getcwd(), "out_plot", "compare-method-" + circuit + "-" + pipeline_cur_time)
         
         if train_config["compare_method"]:
             print("Save comparison folder is {}".format(save_path))

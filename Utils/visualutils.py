@@ -96,19 +96,21 @@ def plot_loss(multi_loss_mean, multi_loss_upper_bounds, multi_loss_lower_bounds,
     epochs = train_config["epochs"]
 
     for i in range(len(multi_loss_mean)):
-        if subset[i] <= 0.5:
-            temp_label = "{}% data".format(subset[i] * 100)
+        
+        if data_type == 'Train':
+            temp_label = "{:3.1f}% data".format(subset[i] * 100)
         else:
-            split_size = np.gcd(int(subset[i] * 100), 100)
-            fold = int(100 / split_size)
-            temp_label = "{}-fold".format(fold)
+            temp_label = "{:3.1f}% data".format((1-subset[i]) * 100)
 
         ax.plot(np.arange(epochs), multi_loss_mean[i], label=temp_label, color=color[i], linewidth=3)
         ax.fill_between(np.arange(epochs), multi_loss_lower_bounds[i], multi_loss_upper_bounds[i], alpha=.3, color=color[i])
 
         ax.set_xlim([0, epochs + 1])
         ax.set_ylim([0, None])
-        # ax.legend()
+
+        if len(subset) > 1:
+            ax.legend()
+
         plt.title(f'{data_name}')
         plt.ylabel(f'{data_type} Loss')
         plt.xlabel("Epochs")
