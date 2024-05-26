@@ -7,6 +7,7 @@ abstract #TO BE ADDED
   * [Usage](#usage)
     * [Simple Run](#simple-run)
     * [Description](#description)
+    * [Results](#results)
   * [Visualization](#visualization)
   * [Documentation](#documentation)
   * [Where to ask for help](#where-to-ask-for-help)
