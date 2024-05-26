@@ -24,7 +24,7 @@ pip install -r requirements.txt
 ## Usage
 
 ### Simple Run
-To run the code, first change the path for your input data and output results in **arguments** of config files in `./Config/Circuits` based on your needs. <br>
+To run the code, first change the path for your input data and output results in **arguments** of config files in `Config/Circuits` based on your needs. <br>
 
 Second, generate your own **train config** file, or use our default one. For using the default config file:
 
