@@ -18,21 +18,17 @@ def pipeline(configpath):
     visual_config = load_visual_config()
 
     for circuit in train_config['circuits']:
+
         print("Pipeline with {} circuit".format(circuit))
+
         pipeline_cur_time = str(datetime.now().strftime('%Y-%m-%d %H-%M'))
         
-        save_path = os.path.join(os.getcwd(), "out_plot", "compare-method-" + circuit + "-" + pipeline_cur_time)
-        
         if train_config["compare_method"]:
+            save_path = os.path.join(os.getcwd(), "out_plot", "compare-method-" + circuit + "-" + pipeline_cur_time)
             print("Save comparison folder is {}".format(save_path))
 
-        compare_loss_train_mean_list = []
-        compare_loss_train_upper_bound_list = []
-        compare_loss_train_lower_bound_list = []
-
-        compare_loss_test_mean_list = []
-        compare_loss_test_upper_bound_list = []
-        compare_loss_test_lower_bound_list = []
+        compare_loss_train = {"mean_list": [] , "upper_bound_list": [], "lower_bound_list": []}
+        compare_loss_test = {"mean_list": [] , "upper_bound_list": [], "lower_bound_list": []}
 
         label = []
 
@@ -54,6 +50,7 @@ def pipeline(configpath):
             model, model_type = generate_model_given_config(dict(model_template_config),num_params=data_config.num_params,
                                                                 num_perf=data_config.num_perf)
             update_train_config_given_model_type(model_type, new_train_config)
+
             new_train_config["model_type"] = model_type
             new_train_config["model_name"] = model_template_config["model"]
 
@@ -74,7 +71,7 @@ def pipeline(configpath):
                 generate_circuit_status(parameter, performance, circuit_status_path)
 
             print("Pipeline Start")
-
+            print(new_train_config)
             model_pipeline = ModelEvaluator(parameter, performance, dataset, data_config=data_config,
                                         train_config=new_train_config, model=model)
 
@@ -90,19 +87,17 @@ def pipeline(configpath):
             if new_train_config["compare_method"]:
                 label.append(model_template_config["model"])
                 if new_train_config["loss_per_epoch"]:
-                    compare_loss_train_mean_list.append(result["multi_train_loss"])
-                    compare_loss_train_upper_bound_list.append(result["multi_train_loss_upper_bound"])
-                    compare_loss_train_lower_bound_list.append(result["multi_train_loss_lower_bound"])
+                    compare_loss_train["mean_list"].append(result["multi_train_loss"])
+                    compare_loss_train["upper_bound_list"].append(result["multi_train_loss_upper_bound"])
+                    compare_loss_train["lower_bound_list"].append(result["multi_train_loss_lower_bound"])
 
-                    compare_loss_test_mean_list.append(result["multi_test_loss"])
-                    compare_loss_test_upper_bound_list.append(result["multi_test_loss_upper_bound"])
-                    compare_loss_test_lower_bound_list.append(result["multi_test_loss_lower_bound"])
+                    compare_loss_test["mean_list"].append(result["multi_test_loss"])
+                    compare_loss_test["upper_bound_list"].append(result["multi_test_loss_upper_bound"])
+                    compare_loss_test["lower_bound_list"].append(result["multi_test_loss_lower_bound"])
 
 
         if train_config["compare_method"] and loss_per_epoch:
-                plot_multiple_loss_with_confidence_comparison(compare_loss_train_mean_list, compare_loss_train_upper_bound_list,
-                                                              compare_loss_train_lower_bound_list, label, train_config["subset"],
-                                                              save_path, visual_config, epochs, circuit, 'Train')
-                plot_multiple_loss_with_confidence_comparison(compare_loss_test_mean_list, compare_loss_test_upper_bound_list,
-                                                              compare_loss_test_lower_bound_list, label, train_config["subset"],
-                                                              save_path, visual_config, epochs, circuit, 'Test')
+                plot_multiple_loss_with_confidence_comparison(compare_loss_train, label, train_config["subset"],
+                                                              visual_config, epochs, circuit, 'Train', save_path)
+                plot_multiple_loss_with_confidence_comparison(compare_loss_test, label, train_config["subset"],
+                                                              visual_config, epochs, circuit, 'Test', save_path)
