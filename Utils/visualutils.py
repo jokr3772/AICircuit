@@ -16,14 +16,14 @@ def plot_method_comparison(compare_loss_train, compare_loss_test, label, train_c
                                                   visual_config, epochs, circuit, 'Test', save_folder)
 
 
-def plot_loss_with_subset_comparison(train_config, visual_config, result, save_folder, circuit):
+def plot_loss(train_config, visual_config, result, save_folder, circuit):
     
     plt.clf()
 
     train_loss_dict = generate_loss_statistics(result["train_loss"])
-    plot_loss(train_loss_dict, visual_config, train_config, save_folder, "Train", circuit)
+    plot_loss_with_subset_comparison(train_loss_dict, visual_config, train_config, save_folder, "Train", circuit)
     test_loss_dict = generate_loss_statistics(result["validation_loss"])
-    plot_loss(test_loss_dict, visual_config, train_config, save_folder, "Test", circuit)
+    plot_loss_with_subset_comparison(test_loss_dict, visual_config, train_config, save_folder, "Test", circuit)
 
     result_dict = dict()
     result_dict["multi_train_loss"] = train_loss_dict["multi_loss"]
@@ -67,7 +67,7 @@ def plot_loss_with_method_comparison(compare_loss, labels, subsets, visual_confi
         plt.savefig(image_save_path, dpi=250)
 
 
-def plot_loss(loss_dict, visual_config, train_config, save_folder, data_type, data_name):
+def plot_loss_with_subset_comparison(loss_dict, visual_config, train_config, save_folder, data_type, data_name):
 
     font_size = visual_config["font_size"]
     plt.rcParams.update({'font.size': font_size})

@@ -3,7 +3,7 @@ import os
 
 from Utils.utils import load_circuit, saveDictToTxt, make_plot_folder
 from Model.models import *
-from Utils.visualutils import plot_loss_with_subset_comparison
+from Utils.visualutils import plot_loss
 
 
 def generate_dataset_given_config(circuit_config):
@@ -68,7 +68,7 @@ def generate_visual_given_result(result, train_config, visual_config, pipeline_s
     save_folder = make_plot_folder(pipeline_save_name)
     result_dict = dict()
     if train_config["loss_per_epoch"]:
-        loss_plot_result = plot_loss_with_subset_comparison(train_config, visual_config, result, save_folder, circuit)
+        loss_plot_result = plot_loss(train_config, visual_config, result, save_folder, circuit)
         result_dict.update(loss_plot_result)
 
     return result_dict
