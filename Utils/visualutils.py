@@ -5,15 +5,13 @@ import numpy as np
 from scipy import stats
 
 
-def plot_method_comparison(compare_loss_train, compare_loss_test, label, train_config, visual_config, epochs, circuit, save_folder):
+def plot_method_comparison(compare_loss_train, compare_loss_test, label, subsets, visual_config, epochs, circuit, save_folder):
     
     if not os.path.exists(save_folder):
         os.mkdir(save_folder)
 
-    plot_loss_with_method_comparison(compare_loss_train, label, train_config["subset"],
-                                                  visual_config, epochs, circuit, 'Train', save_folder)
-    plot_loss_with_method_comparison(compare_loss_test, label, train_config["subset"],
-                                                  visual_config, epochs, circuit, 'Test', save_folder)
+    plot_loss_with_method_comparison(compare_loss_train, label, subsets, visual_config, epochs, circuit, 'Train', save_folder)
+    plot_loss_with_method_comparison(compare_loss_test, label, subsets, visual_config, epochs, circuit, 'Test', save_folder)
 
 
 def plot_loss(train_config, visual_config, result, save_folder, circuit):
