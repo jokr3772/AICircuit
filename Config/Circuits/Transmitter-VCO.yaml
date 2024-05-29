@@ -6,24 +6,12 @@ parameter_list:
   - Wn6_VCO
   - Wvar_VCO
 performance_list:
-  - dcPowerConsumption/W
-  - 3dB_Bandwidth/Hz
-  - OutputPower/dBm
-  - VoltageSwing/V
   - TuningRange_VCO/Hz
   - PhaseNoise_VCO/(dBc/Hz)
 order:
-  - 2
-  - 5
-  - 3
-  - 4
   - 0
   - 1
 sign:
-  - -1
-  - 1
-  - 1
-  - 1
   - 1
   - -1
 arguments:

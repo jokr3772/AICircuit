@@ -6,26 +6,14 @@ parameter_list:
   - Wn1_PA
   - Wn2_PA
 performance_list:
-  - dcPowerConsumption/W
-  - 3dB_Bandwidth/Hz
-  - OutputPower/dBm
-  - VoltageSwing/V
   - LargeSignal_PowerGain_PA/dB
   - DrainEfficiency/%
   - PAE/%
 order:
-  - 3
-  - 6
-  - 4
-  - 5
   - 0
   - 1
   - 2
 sign:
-  - -1
-  - 1
-  - 1
-  - 1
   - 1
   - 1
   - 1
