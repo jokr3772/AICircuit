@@ -5,10 +5,18 @@ import numpy as np
 from scipy import stats
 
 
-def plot_multiple_loss_with_confidence_comparison(compare_loss, labels, subsets, visual_config, epochs, data_name, data_type, save_folder):
-
+def plot_method_comparison(compare_loss_train, compare_loss_test, label, train_config, visual_config, epochs, circuit, save_folder):
+    
     if not os.path.exists(save_folder):
         os.mkdir(save_folder)
+
+    plot_loss_with_confidence_comparison(compare_loss_train, label, train_config["subset"],
+                                                  visual_config, epochs, circuit, 'Train', save_folder)
+    plot_loss_with_confidence_comparison(compare_loss_test, label, train_config["subset"],
+                                                  visual_config, epochs, circuit, 'Test', save_folder)
+
+
+def plot_loss_with_confidence_comparison(compare_loss, labels, subsets, visual_config, epochs, data_name, data_type, save_folder):
 
     color = visual_config["color"]
     font_size = visual_config["font_size"]
@@ -39,12 +47,14 @@ def plot_multiple_loss_with_confidence_comparison(compare_loss, labels, subsets,
         plt.savefig(image_save_path, dpi=250)
 
 
-def plot_multiple_loss_with_confidence_entrypoint(train_config, visual_config, result, save_folder, circuit):
+def plot_loss_with_confidence_entrypoint(train_config, visual_config, result, save_folder, circuit):
     
     plt.clf()
 
-    train_loss_dict = generate_plot_loss_given_result(result["train_loss"], train_config, visual_config, save_folder, "Train", circuit)
-    test_loss_dict = generate_plot_loss_given_result(result["validation_loss"], train_config, visual_config, save_folder, "Test", circuit)
+    train_loss_dict = generate_loss_statistics(result["train_loss"])
+    plot_loss(train_loss_dict, visual_config, train_config, save_folder, "Train", circuit)
+    test_loss_dict = generate_loss_statistics(result["validation_loss"])
+    plot_loss(test_loss_dict, visual_config, train_config, save_folder, "Test", circuit)
 
     result_dict = dict()
     result_dict["multi_train_loss"] = train_loss_dict["multi_loss"]
@@ -57,11 +67,9 @@ def plot_multiple_loss_with_confidence_entrypoint(train_config, visual_config, r
     return result_dict
 
 
-def generate_plot_loss_given_result(loss, train_config, visual_config, save_folder, data_type, circuit):
+def generate_loss_statistics(loss):
 
     loss_dict = {"multi_loss": [], "multi_loss_lower_bounds": [], "multi_loss_upper_bounds": []}
-
-    save_path = os.path.join(save_folder, data_type + "-loss.png")
 
     for percentage_loss_index in range(len(loss)):
         temp_loss = [loss[percentage_loss_index][i][0] for i
@@ -73,12 +81,10 @@ def generate_plot_loss_given_result(loss, train_config, visual_config, save_fold
         loss_dict["multi_loss_lower_bounds"].append(temp_loss_mean - temp_loss_std)
         loss_dict["multi_loss_upper_bounds"].append(temp_loss_mean + temp_loss_std)
 
-    plot_loss(loss_dict, visual_config, train_config, save_path, data_type, circuit)
-
     return loss_dict
 
 
-def plot_loss(loss_dict, visual_config, train_config, save_name, data_type, data_name):
+def plot_loss(loss_dict, visual_config, train_config, save_folder, data_type, data_name):
 
     font_size = visual_config["font_size"]
     plt.rcParams.update({'font.size': font_size})
@@ -106,7 +112,9 @@ def plot_loss(loss_dict, visual_config, train_config, save_name, data_type, data
         if len(subset) > 1:
             ax.legend()
 
-        plt.title(f'{data_name}')
         plt.ylabel(f'{data_type} Loss')
         plt.xlabel("Epochs")
-        plt.savefig(save_name, dpi=250)
+        plt.title(f'{data_name}')
+            
+        image_save_path = os.path.join(save_folder, data_type + "-loss.png")
+        plt.savefig(image_save_path, dpi=250)

@@ -3,7 +3,7 @@ import os
 
 from Utils.utils import load_circuit, saveDictToTxt, make_plot_folder
 from Model.models import *
-from Utils.visualutils import plot_multiple_loss_with_confidence_entrypoint
+from Utils.visualutils import plot_loss_with_confidence_entrypoint
 
 
 def generate_dataset_given_config(circuit_config):
@@ -12,7 +12,7 @@ def generate_dataset_given_config(circuit_config):
     return BaseDataset(circuit_config["order"], circuit_config["sign"])
 
 
-def generate_circuit_given_config(circuit_name):
+def circuit_config_creator(circuit_name):
 
     config_path = os.path.join(os.path.join(os.getcwd(), "Config"), "Circuits")
 
@@ -68,7 +68,7 @@ def generate_visual_given_result(result, train_config, visual_config, pipeline_s
     save_folder = make_plot_folder(pipeline_save_name)
     result_dict = dict()
     if train_config["loss_per_epoch"]:
-        loss_plot_result = plot_multiple_loss_with_confidence_entrypoint(train_config, visual_config, result, save_folder, circuit)
+        loss_plot_result = plot_loss_with_confidence_entrypoint(train_config, visual_config, result, save_folder, circuit)
         result_dict.update(loss_plot_result)
 
     return result_dict

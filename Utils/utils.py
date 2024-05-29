@@ -189,7 +189,7 @@ def checkAlias(parameter, performance):
         raise ValueError("THERE ARE ALIASING IN THE RESULT")
 
 
-def generate_train_config_for_single_pipeline(train_config, model_config):
+def single_pipeline_train_config_creator(train_config, model_config):
 
     new_train_config = dict(train_config)
 
@@ -203,7 +203,7 @@ def generate_train_config_for_single_pipeline(train_config, model_config):
     return new_train_config
 
 
-def update_train_config_given_model_type(model_type, train_config):
+def update_train_config_given_model_type(model_type, train_config, single_model_config):
 
     train_config["loss_per_epoch"] = True if "loss_per_epoch" not in train_config else train_config["loss_per_epoch"]
 
@@ -213,6 +213,9 @@ def update_train_config_given_model_type(model_type, train_config):
     else:
         #Pytorch model, so have loss per epoch
         train_config["epochs"] = 100 if "epochs" not in train_config else train_config["epochs"]
+
+    train_config["model_type"] = model_type
+    train_config["model_name"] = single_model_config["model"]
 
 
 def check_comparison_value_diff(train_config, value, key):

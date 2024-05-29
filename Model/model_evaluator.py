@@ -45,7 +45,7 @@ def subset_split(X, y, train_percentage, kfold=False, independent=False):
                 break
 
 
-class EvalModel:
+class Model:
     def __init__(self, train_config, model, train_parameter, train_performance, test_parameter, test_performance, data_config, scaler):
         self.train_config = train_config
         self.model = model
@@ -56,14 +56,21 @@ class EvalModel:
         self.data_config = data_config
         self.scaler = scaler
 
-    def eval(self):
-        
+    def train(self):
         train_result = self.model.fit(self.train_performance, self.train_parameter, self.test_performance, self.test_parameter)
+        return train_result
+    
+    def eval(self):
 
         test_parameter_prediction = self.model.predict(self.test_performance)
         train_parameter_prediction = self.model.predict(self.train_performance)
         inverse_test_parameter, inverse_test_performance = BaseDataset.inverse_transform(test_parameter_prediction, self.test_performance, self.scaler)
         inverse_train_parameter, inverse_train_performance = BaseDataset.inverse_transform(train_parameter_prediction, self.train_performance, self.scaler)
+
+        self.save_evaluation(inverse_train_parameter, inverse_train_performance, inverse_test_parameter, inverse_test_performance)
+        self.model.reset()
+
+    def save_evaluation(self, inverse_train_parameter, inverse_train_performance, inverse_test_parameter, inverse_test_performance):
 
         if self.train_config["save_format"] == "csv":
             save_csv_results(inverse_test_parameter, inverse_test_performance, "test.csv", self.data_config, self.train_config["model_name"])
@@ -74,11 +81,8 @@ class EvalModel:
             save_numpy_results(inverse_train_parameter, "train_x.npy", self.data_config, self.train_config["model_name"])
             save_numpy_results(inverse_train_performance, "train_y.npy", self.data_config, self.train_config["model_name"])
 
-        self.model.reset()
-        return train_result
 
-
-class ModelEvaluator:
+class ModelPipeline:
     def __init__(self, parameter, performance, eval_dataset, data_config, train_config, model):
 
         if np.any(performance == 0):
@@ -98,7 +102,7 @@ class ModelEvaluator:
         else:
             self.model_wrapper = PytorchModelWrapper(model, train_config, data_config)
 
-    def eval(self):
+    def run(self):
 
         subset = self.train_config["subset"]
         metrics_dict = generate_metrics_given_config(self.train_config)
@@ -131,10 +135,13 @@ class ModelEvaluator:
                                                                                             performance_test,
                                                                                             train=False)
 
-                result_eval_model = EvalModel(self.train_config, self.model_wrapper,
+                eval_model = Model(self.train_config, self.model_wrapper,
                                                 new_train_parameter, new_train_performance,
                                                 new_test_parameter, new_test_performance, self.data_config, self.scaler)
-                subset_kfold_metrics_dict = result_eval_model.eval()
+                
+                subset_kfold_metrics_dict = eval_model.train()
+                eval_model.eval()
+                
                 merge_metrics(kfold_metrics_dict, subset_kfold_metrics_dict)
                 merge_metrics(subset_metrics_dict, kfold_metrics_dict)
 
