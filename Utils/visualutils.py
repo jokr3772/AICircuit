@@ -10,13 +10,33 @@ def plot_method_comparison(compare_loss_train, compare_loss_test, label, train_c
     if not os.path.exists(save_folder):
         os.mkdir(save_folder)
 
-    plot_loss_with_confidence_comparison(compare_loss_train, label, train_config["subset"],
+    plot_loss_with_method_comparison(compare_loss_train, label, train_config["subset"],
                                                   visual_config, epochs, circuit, 'Train', save_folder)
-    plot_loss_with_confidence_comparison(compare_loss_test, label, train_config["subset"],
+    plot_loss_with_method_comparison(compare_loss_test, label, train_config["subset"],
                                                   visual_config, epochs, circuit, 'Test', save_folder)
 
 
-def plot_loss_with_confidence_comparison(compare_loss, labels, subsets, visual_config, epochs, data_name, data_type, save_folder):
+def plot_loss_with_subset_comparison(train_config, visual_config, result, save_folder, circuit):
+    
+    plt.clf()
+
+    train_loss_dict = generate_loss_statistics(result["train_loss"])
+    plot_loss(train_loss_dict, visual_config, train_config, save_folder, "Train", circuit)
+    test_loss_dict = generate_loss_statistics(result["validation_loss"])
+    plot_loss(test_loss_dict, visual_config, train_config, save_folder, "Test", circuit)
+
+    result_dict = dict()
+    result_dict["multi_train_loss"] = train_loss_dict["multi_loss"]
+    result_dict["multi_test_loss"] = test_loss_dict["multi_loss"]
+    result_dict["multi_train_loss_lower_bound"] = train_loss_dict["multi_loss_lower_bounds"]
+    result_dict["multi_test_loss_lower_bound"] = test_loss_dict["multi_loss_lower_bounds"]
+    result_dict["multi_train_loss_upper_bound"] = train_loss_dict["multi_loss_upper_bounds"]
+    result_dict["multi_test_loss_upper_bound"] = test_loss_dict["multi_loss_upper_bounds"]
+
+    return result_dict
+
+
+def plot_loss_with_method_comparison(compare_loss, labels, subsets, visual_config, epochs, data_name, data_type, save_folder):
 
     color = visual_config["color"]
     font_size = visual_config["font_size"]
@@ -45,43 +65,6 @@ def plot_loss_with_confidence_comparison(compare_loss, labels, subsets, visual_c
 
         image_save_path = os.path.join(save_folder, f'Subset-{subsets[percentage_index]}-{data_type}-loss.png')
         plt.savefig(image_save_path, dpi=250)
-
-
-def plot_loss_with_confidence_entrypoint(train_config, visual_config, result, save_folder, circuit):
-    
-    plt.clf()
-
-    train_loss_dict = generate_loss_statistics(result["train_loss"])
-    plot_loss(train_loss_dict, visual_config, train_config, save_folder, "Train", circuit)
-    test_loss_dict = generate_loss_statistics(result["validation_loss"])
-    plot_loss(test_loss_dict, visual_config, train_config, save_folder, "Test", circuit)
-
-    result_dict = dict()
-    result_dict["multi_train_loss"] = train_loss_dict["multi_loss"]
-    result_dict["multi_test_loss"] = test_loss_dict["multi_loss"]
-    result_dict["multi_train_loss_lower_bound"] = train_loss_dict["multi_loss_lower_bounds"]
-    result_dict["multi_test_loss_lower_bound"] = test_loss_dict["multi_loss_lower_bounds"]
-    result_dict["multi_train_loss_upper_bound"] = train_loss_dict["multi_loss_upper_bounds"]
-    result_dict["multi_test_loss_upper_bound"] = test_loss_dict["multi_loss_upper_bounds"]
-
-    return result_dict
-
-
-def generate_loss_statistics(loss):
-
-    loss_dict = {"multi_loss": [], "multi_loss_lower_bounds": [], "multi_loss_upper_bounds": []}
-
-    for percentage_loss_index in range(len(loss)):
-        temp_loss = [loss[percentage_loss_index][i][0] for i
-                     in range(len(loss[percentage_loss_index]))]
-        temp_loss_mean = np.average(temp_loss, axis=0)
-        temp_loss_std = stats.sem(temp_loss, axis=0) if len(temp_loss) > 1 else [np.nan for i in range(len(temp_loss[0]))]
-
-        loss_dict["multi_loss"].append(temp_loss_mean)
-        loss_dict["multi_loss_lower_bounds"].append(temp_loss_mean - temp_loss_std)
-        loss_dict["multi_loss_upper_bounds"].append(temp_loss_mean + temp_loss_std)
-
-    return loss_dict
 
 
 def plot_loss(loss_dict, visual_config, train_config, save_folder, data_type, data_name):
@@ -118,3 +101,20 @@ def plot_loss(loss_dict, visual_config, train_config, save_folder, data_type, da
             
         image_save_path = os.path.join(save_folder, data_type + "-loss.png")
         plt.savefig(image_save_path, dpi=250)
+
+
+def generate_loss_statistics(loss):
+
+    loss_dict = {"multi_loss": [], "multi_loss_lower_bounds": [], "multi_loss_upper_bounds": []}
+
+    for percentage_loss_index in range(len(loss)):
+        temp_loss = [loss[percentage_loss_index][i][0] for i
+                     in range(len(loss[percentage_loss_index]))]
+        temp_loss_mean = np.average(temp_loss, axis=0)
+        temp_loss_std = stats.sem(temp_loss, axis=0) if len(temp_loss) > 1 else [np.nan for i in range(len(temp_loss[0]))]
+
+        loss_dict["multi_loss"].append(temp_loss_mean)
+        loss_dict["multi_loss_lower_bounds"].append(temp_loss_mean - temp_loss_std)
+        loss_dict["multi_loss_upper_bounds"].append(temp_loss_mean + temp_loss_std)
+
+    return loss_dict
