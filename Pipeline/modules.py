@@ -18,7 +18,7 @@ def circuit_config_creator(circuit_name):
 
     circuits = ["SingleStageAmplifier", "TwoStageAmplifier", "Cascode", "LNA", "Mixer", "VCO", "PA", 
                 "Transmitter", "Receiver", 
-                "Transmitter-PA", "Transmitter-VCO", "Receiver-LNA", "Receiver-Mixer", "Receiver-Amp"]
+                "Transmitter-PA", "Transmitter-VCO", "Receiver-LNA", "Receiver-Mixer", "Receiver-Cascode"]
     circuit_mapping = dict()
 
     for circuit in circuits:
