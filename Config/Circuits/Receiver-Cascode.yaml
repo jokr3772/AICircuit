@@ -1,0 +1,13 @@
+parameter_list:
+  - Rd_Amp
+  - Wn1_Amp
+  - Wn2_Amp
+performance_list:
+  - VoltageGain_Amp/dB
+order: 
+  - 0
+sign:
+  - 1
+arguments:
+  input: data/Receiver-Cascode
+  out: data/Receiver-Cascode
