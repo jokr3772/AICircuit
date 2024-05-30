@@ -1,4 +1,4 @@
-# circuitPilot
+# AICircuit
 abstract #TO BE ADDED
 
 ## Table of Contents
