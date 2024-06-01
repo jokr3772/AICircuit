@@ -1,4 +1,5 @@
-# AICircuit: A Multi-Level Dataset and Benchmark for AI-Driven Analog Integrated Circuit Design
+# AICircuit: A Multi-Level Dataset and Benchmark for AI-Driven Analog Integrated Circuit Design (NeurIPS 2024)
+
 abstract #TO BE ADDED
 
 ## Table of Contents
@@ -84,8 +85,8 @@ In each run, find plots in the corresponding folder in `out_plot` folder and los
 
 ## Where to ask for help
 
-If you have any questions, feel free to open a [discussion](link) and ask your question.
+If you have any questions, feel free to open a [discussion](https://github.com/AsalMehradfar/AICircuit/discussions) and ask your question.
 
 ## Contributors
 
-#TO BE ADDED
+[Asal Mehradfar](https://github.com/AsalMehradfar), [Xuzhe Zhao](https://github.com/XuzheZ827), [Yue Niu](https://github.com/yuehniu), [Sara Babakniya](link), [Mahdi Alesheikh](https://github.com/malshei), [Hamidreza Aghasi](https://github.com/haghasi), [Salman Avestimehr](link)
