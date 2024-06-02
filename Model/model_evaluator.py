@@ -1,7 +1,7 @@
 import numpy as np
-from Dataset.dataset import BaseDataset
 
 from Utils.utils import generate_metrics_given_config, merge_metrics, save_numpy_results, save_csv_results
+from Utils.data_utils import *
 from Model.model_wrapper import *
 
 
@@ -64,8 +64,8 @@ class Model:
 
         test_parameter_prediction = self.model.predict(self.test_performance)
         train_parameter_prediction = self.model.predict(self.train_performance)
-        inverse_test_parameter, inverse_test_performance = BaseDataset.inverse_transform(test_parameter_prediction, self.test_performance, self.scaler)
-        inverse_train_parameter, inverse_train_performance = BaseDataset.inverse_transform(train_parameter_prediction, self.train_performance, self.scaler)
+        inverse_test_parameter, inverse_test_performance = inverse_transform(test_parameter_prediction, self.test_performance, self.scaler)
+        inverse_train_parameter, inverse_train_performance = inverse_transform(train_parameter_prediction, self.train_performance, self.scaler)
 
         self.save_evaluation(inverse_train_parameter, inverse_train_performance, inverse_test_parameter, inverse_test_performance)
         self.model.reset()
@@ -83,17 +83,17 @@ class Model:
 
 
 class ModelPipeline:
-    def __init__(self, parameter, performance, eval_dataset, data_config, train_config, model):
+    def __init__(self, parameter, performance, data_config, train_config, model):
 
         if np.any(performance == 0):
             raise ValueError("There is 0 in performance before scaling")
 
-        new_parameter, new_performance, data_scaler = eval_dataset.transform_data(parameter, performance)
+        new_parameter, new_performance, data_scaler = transform_data(parameter, performance)
 
         self.parameter = new_parameter
         self.performance = new_performance
         self.data_config = data_config
-        self.eval_dataset = eval_dataset
+        # self.eval_dataset = eval_dataset
         self.train_config = train_config
         self.scaler = data_scaler
 
@@ -124,16 +124,8 @@ class ModelPipeline:
                 print("Run with {} percentage of training data, Run number {}".format(percentage, count))
                 kfold_metrics_dict = generate_metrics_given_config(self.train_config)
 
-                new_train_parameter, new_train_performance, _ = self.eval_dataset.modify_data(parameter_train,
-                                                                                                performance_train,
-                                                                                                parameter_test,
-                                                                                                performance_test,
-                                                                                                train=True)
-                new_test_parameter, new_test_performance, _ = self.eval_dataset.modify_data(parameter_train,
-                                                                                            performance_train,
-                                                                                            parameter_test,
-                                                                                            performance_test,
-                                                                                            train=False)
+                new_train_parameter, new_train_performance = modify_data(parameter_train, performance_train, parameter_test, performance_test, train=True)
+                new_test_parameter, new_test_performance = modify_data(parameter_train, performance_train, parameter_test, performance_test, train=False)
 
                 eval_model = Model(self.train_config, self.model_wrapper,
                                                 new_train_parameter, new_train_performance,

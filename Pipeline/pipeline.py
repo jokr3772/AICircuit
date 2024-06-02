@@ -42,7 +42,7 @@ def pipeline(configpath):
             data_config = data_config_creator(circuit_config)
             new_train_config = single_pipeline_train_config_creator(train_config, single_model_config)
 
-            dataset = generate_dataset_given_config(circuit_config)
+            # dataset = generate_dataset_given_config()
 
             model, model_type = generate_model_given_config(dict(single_model_config),num_params=data_config.num_params,
                                                                 num_perf=data_config.num_perf)
@@ -68,7 +68,7 @@ def pipeline(configpath):
             pipeline_save_name = "{}-circuit-{}-method-{}".format(circuit, single_model_config["model"], cur_time)
             print("Pipeline save name is {}".format(pipeline_save_name))
 
-            model_pipeline = ModelPipeline(parameter, performance, dataset, data_config=data_config,
+            model_pipeline = ModelPipeline(parameter, performance, data_config=data_config,
                                         train_config=new_train_config, model=model)
             result = model_pipeline.run()
 

@@ -6,10 +6,10 @@ from Model.models import *
 from Utils.visualutils import plot_loss
 
 
-def generate_dataset_given_config(circuit_config):
+# def generate_dataset_given_config():
 
-    print("Return Dataset")
-    return BaseDataset(circuit_config["order"], circuit_config["sign"])
+#     print("Return Dataset")
+#     return BaseDataset()
 
 
 def circuit_config_creator(circuit_name):
