@@ -8,12 +8,6 @@ parameter_list:
 performance_list:
   - TuningRange_VCO/Hz
   - PhaseNoise_VCO/(dBc/Hz)
-order:
-  - 0
-  - 1
-sign:
-  - 1
-  - -1
 arguments:
   input: data/Transmitter-VCO
   out: data/Transmitter-VCO

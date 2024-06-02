@@ -14,22 +14,6 @@ performance_list:
   - Drain Efficiency
   - PSAT
   - Power Consumption
-order:
-  - 5
-  - 6
-  - 0
-  - 1
-  - 2
-  - 3
-  - 4
-sign:
-  - -1
-  - -1
-  - 1
-  - 1
-  - 1
-  - 1
-  - -1
 arguments:
   input: data/PA
   out: data/PA

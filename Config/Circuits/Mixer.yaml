@@ -8,16 +8,6 @@ performance_list:
   - IF Voltage Swing
   - Conversion Gain
   - Noise Figure
-order:
-  - 0
-  - 3
-  - 1
-  - 2
-sign:
-  - -1
-  - 1
-  - 1
-  - -1
 arguments:
   input: data/Mixer
   out: data/Mixer

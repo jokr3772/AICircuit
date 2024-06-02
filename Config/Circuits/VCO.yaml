@@ -12,18 +12,6 @@ performance_list:
   - Output Power
   - Phase Noise
   - Tuning Range
-order: 
-  - 0
-  - 1
-  - 2
-  - 3
-  - 4
-sign:
-  - 1
-  - -1
-  - 1
-  - -1
-  - 1
 arguments:
   input: data/VCO
   out: data/VCO

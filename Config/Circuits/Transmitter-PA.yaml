@@ -9,14 +9,6 @@ performance_list:
   - LargeSignal_PowerGain_PA/dB
   - DrainEfficiency/%
   - PAE/%
-order:
-  - 0
-  - 1
-  - 2
-sign:
-  - 1
-  - 1
-  - 1
 arguments:
   input: data/Transmitter-PA
   out: data/Transmitter-PA

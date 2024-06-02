@@ -10,14 +10,6 @@ performance_list:
   - PowerGain_LNA/dB
   - NoiseFigure_LNA/dB
   - S11_LNA/dB
-order: 
-  - 2
-  - 0
-  - 1
-sign:
-  - 1
-  - -1
-  - -1
 arguments:
   input: data/Receiver-LNA
   out: data/Receiver-LNA

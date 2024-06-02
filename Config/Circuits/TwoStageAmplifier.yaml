@@ -9,14 +9,6 @@ performance_list:
   - Bandwidth
   - Power Consumption
   - Voltage Gain
-order:
-  - 0
-  - 2
-  - 1
-sign:
-  - 1
-  - -1
-  - 1
 arguments:
   input: data/TwoStageAmplifier
   out: data/TwoStageAmplifier

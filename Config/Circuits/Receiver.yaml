@@ -23,26 +23,6 @@ performance_list:
   - ConversionGain_Mixer/dB
   - VoltageSwing_Mixer/V
   - VoltageGain_Amp/dB
-order: 
-  - 2
-  - 1
-  - 0
-  - 5
-  - 3
-  - 4
-  - 6
-  - 7
-  - 8
-sign:
-  - -1
-  - 1
-  - -1
-  - 1
-  - -1
-  - -1
-  - 1
-  - 1
-  - 1
 arguments:
   input: data/Receiver
   out: data/Receiver
