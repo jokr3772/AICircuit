@@ -6,12 +6,6 @@ from Model.models import *
 from Utils.visualutils import plot_loss
 
 
-# def generate_dataset_given_config():
-
-#     print("Return Dataset")
-#     return BaseDataset()
-
-
 def circuit_config_creator(circuit_name):
 
     config_path = os.path.join(os.path.join(os.getcwd(), "Config"), "Circuits")

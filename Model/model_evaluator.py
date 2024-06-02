@@ -93,7 +93,6 @@ class ModelPipeline:
         self.parameter = new_parameter
         self.performance = new_performance
         self.data_config = data_config
-        # self.eval_dataset = eval_dataset
         self.train_config = train_config
         self.scaler = data_scaler
 
