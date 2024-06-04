@@ -30,10 +30,9 @@ class SklearnModelWrapper:
 
 
 class PytorchModelWrapper:
-    def __init__(self, model, train_config, simulator):
+    def __init__(self, model, train_config):
         self.model = model
         self.train_config = train_config
-        self.simulator = simulator
         self.logging = train_config['log_experiments']
         if self.logging :
             wandb.init(project="circuit_training", config=train_config)
@@ -54,14 +53,14 @@ class PytorchModelWrapper:
         test_dataset = BasePytorchModelDataset(test_X, test_y)
         train_dataloader = DataLoader(train_dataset, batch_size=100)
         test_dataloader = DataLoader(test_dataset, batch_size=100)
-        train_result = self.model_train(train_X, test_X, train_dataloader, test_dataloader)
+        train_result = self.model_train(train_dataloader, test_dataloader)
         return train_result
 
     def predict(self, X):
         self.model.eval()
         return self.model(torch.Tensor(X).to(self.train_config["device"])).to('cpu').detach().numpy()
 
-    def model_train(self, train_X, test_X, train_dataloader, test_dataloader):
+    def model_train(self, train_dataloader, test_dataloader):
         train_loss = nn.L1Loss()
 
         optimizer = optim.Adam(self.model.parameters())

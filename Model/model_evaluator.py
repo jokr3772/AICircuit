@@ -99,7 +99,7 @@ class ModelPipeline:
         if train_config["model_type"] == 0:
             self.model_wrapper = SklearnModelWrapper(model)
         else:
-            self.model_wrapper = PytorchModelWrapper(model, train_config, data_config)
+            self.model_wrapper = PytorchModelWrapper(model, train_config)
 
     def run(self):
 
