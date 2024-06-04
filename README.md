@@ -91,4 +91,4 @@ If you have any questions, feel free to open a [discussion](https://github.com/A
 
 ## Contributors
 
-[Asal Mehradfar](https://github.com/AsalMehradfar), [Xuzhe Zhao](https://github.com/XuzheZ827), [Yue Niu](https://github.com/yuehniu), [Sara Babakniya](link), [Mahdi Alesheikh](https://github.com/malshei), [Hamidreza Aghasi](https://github.com/haghasi), [Salman Avestimehr](link)
+[Asal Mehradfar](https://github.com/AsalMehradfar), [Xuzhe Zhao](https://github.com/XuzheZ827), [Yue Niu](https://github.com/yuehniu), [Sara Babakniya](https://github.com/SaraBabakN), [Mahdi Alesheikh](https://github.com/malshei), [Hamidreza Aghasi](https://hie.eng.uci.edu/), [Salman Avestimehr](https://www.avestimehr.com/)
