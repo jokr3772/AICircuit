@@ -22,5 +22,5 @@ performance_list:
   - DrainEfficiency_PA/%
   - PAE_PA/%
 arguments:
-  input: data/Transmitter
-  out: data/Transmitter
+  input: Dataset/Transmitter
+  out: Dataset/Transmitter

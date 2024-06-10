@@ -1,0 +1,12 @@
+parameter_list:
+  - VDD
+  - Vgate
+  - Wn
+  - Rd
+performance_list:
+  - Bandwidth
+  - Power Consumption
+  - Voltage Gain
+arguments:
+  input: Dataset/CSVA
+  out: Dataset/CSVA
