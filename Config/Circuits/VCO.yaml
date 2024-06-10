@@ -13,5 +13,5 @@ performance_list:
   - Phase Noise
   - Tuning Range
 arguments:
-  input: data/VCO
-  out: data/VCO
+  input: Dataset/VCO
+  out: Dataset/VCO

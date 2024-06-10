@@ -10,5 +10,5 @@ performance_list:
   - Power Consumption
   - Voltage Gain
 arguments:
-  input: data/TwoStageAmplifier
-  out: data/TwoStageAmplifier
+  input: Dataset/TSVA
+  out: Dataset/TSVA
