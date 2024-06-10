@@ -11,15 +11,14 @@ from torch.nn import TransformerEncoder, TransformerEncoderLayer
 
 
 class RandomForest():
-    def __init__(self):
-        self.model = RandomForestRegressor()
+    def __init__(self, n_estimators=100, criterion="squared_error"):
+        self.model = RandomForestRegressor(n_estimators=n_estimators, criterion=criterion)
 
     def fit(self,x,y):
         self.model.fit(x,y)
         return self.model
     
     def predict(self,x):
-        #Never called
         return self.model.predict(x)
     
 
@@ -32,20 +31,18 @@ class SupportVector():
         return self.model
     
     def predict(self,x):
-        #Never called
         return self.model.predict(x)
 
 
 class KNeighbors():
-    def __init__(self):
-        self.model = KNeighborsRegressor()
+    def __init__(self, n_neighbors=5, weights="uniform"):
+        self.model = KNeighborsRegressor(n_neighbors=n_neighbors, weights=weights)
 
     def fit(self,x,y):
         self.model.fit(x,y)
         return self.model
     
     def predict(self,x):
-        #Never called
         return self.model.predict(x)
     
 
