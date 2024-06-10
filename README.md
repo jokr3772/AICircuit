@@ -51,11 +51,10 @@ Here is a description for each parameter in the `train_config.yaml` file:
       * SupportVector
       * MultiLayerPerceptron
       * Transformer
-    * other model args: add desired model arguments to the `model_config` (no ordering). For now, you can add:
+    * other model args: add desired model arguments to the `model_config` (no ordering). if no model args added, uses the default ones. For now, you can add:
       * KNeighbors parameters: `n_neighbors`, `weights`
       * RandomForest parameters: `n_estimators`, `criterion`
       * Transformer parameters: `dim_model`, `num_heads`, `num_encoder_layers`, `dim_hidden`, `dropout_p`. 
-    if no model args added, uses the default ones.
   * `subset`: a list of the fraction of data used for training.
   * `circuits`: a list of circuits from this list:
     * CSVA: Common-Source Voltage Amplifier (CSVA)
