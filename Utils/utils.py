@@ -5,6 +5,8 @@ import numpy as np
 from torch.cuda import is_available
 import shutil
 import pandas as pd
+import torch
+import random
 
 
 CONFIG_PATH = join(os.path.join(os.getcwd(), "config"))
@@ -14,6 +16,11 @@ DEFAULT_VISUAL_CONFIG_PATH = join(CONFIG_PATH, "visual_config.yaml")
 
 DEFAULT_RESULT_FOLDER_PATH = join(os.getcwd(), "out_result")
 DEFAULT_PLOT_FOLDER_PATH = os.path.join(os.getcwd(), "out_plot")
+
+
+def seed_everything(seed=0):
+    np.random.seed(seed)
+    torch.manual_seed(seed)
 
 
 def load_yaml(yaml_path):
