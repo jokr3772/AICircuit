@@ -1,9 +1,14 @@
 .DS_Store
 **/__pycache__/
 .ipynb_checkpoints
-./Training/.ipynb_checkpoints
-data/
 out_plot/
-out/
 out_result/
 wandb/*
+MultiLayerPerceptron/
+Transformer/
+RandomForest/
+KNeighbors/
+SupportVector/
+x.npy
+y.npy
+circuit_stats.txt
