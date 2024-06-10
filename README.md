@@ -12,7 +12,7 @@ AICircuit is a comprehensive multi-level dataset and benchmark for developing an
     * [Description](#description)
     * [Results](#results)
   * [Visualization](#visualization)
-  * [Contributors](#contributors)
+  <!-- * [Contributors](#contributors) -->
   <!-- * [Documentation](#documentation)
   * [Where to ask for help](#where-to-ask-for-help) -->
 
@@ -92,6 +92,6 @@ In each run, find plots in the corresponding folder in `out_plot` folder and los
 
 If you have any questions, feel free to open a [discussion](https://github.com/AsalMehradfar/AICircuit/discussions) and ask your question. -->
 
-## Contributors
+<!-- ## Contributors
 
-[Asal Mehradfar](https://github.com/AsalMehradfar), [Xuzhe Zhao](https://github.com/XuzheZ827), [Yue Niu](https://github.com/yuehniu), [Sara Babakniya](https://github.com/SaraBabakN), [Mahdi Alesheikh](https://github.com/malshei), [Hamidreza Aghasi](https://hie.eng.uci.edu/), [Salman Avestimehr](https://www.avestimehr.com/)
+[Asal Mehradfar](https://github.com/AsalMehradfar), [Xuzhe Zhao](https://github.com/XuzheZ827), [Yue Niu](https://github.com/yuehniu), [Sara Babakniya](https://github.com/SaraBabakN), [Mahdi Alesheikh](https://github.com/malshei), [Hamidreza Aghasi](https://hie.eng.uci.edu/), [Salman Avestimehr](https://www.avestimehr.com/) -->
