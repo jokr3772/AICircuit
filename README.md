@@ -57,8 +57,8 @@ Here is a description for each parameter in the `train_config.yaml` file:
       * Transformer parameters: `dim_model`, `num_heads`, `num_encoder_layers`, `dim_hidden`, `dropout_p`. 
   * `subset`: a list of the fraction of data used for training.
   * `circuits`: a list of circuits from this list:
-    * CSVA: Common-Source Voltage Amplifier (CSVA)
-    * CVA: Cascode Amplifier
+    * CSVA: Common-Source Voltage Amplifier
+    * CVA: Cascode Voltage Amplifier
     * TSVA: Two-Stage Voltage Amplifier
     * LNA: Low-Noise Amplifier
     * Mixer
