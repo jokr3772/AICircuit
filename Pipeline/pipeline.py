@@ -1,4 +1,4 @@
-from Dataset.dataset import *
+from Pipeline.dataset import *
 from Pipeline.modules import *
 
 from Model.model_evaluator import ModelPipeline

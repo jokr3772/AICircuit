@@ -1,4 +1,4 @@
-from Dataset.dataset import *
+from Pipeline.dataset import *
 import os
 
 from Utils.utils import load_circuit, saveDictToTxt, make_plot_folder
