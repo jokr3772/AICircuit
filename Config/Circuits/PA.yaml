@@ -15,5 +15,5 @@ performance_list:
   - PSAT
   - Power Consumption
 arguments:
-  input: data/PA
-  out: data/PA
+  input: Dataset/PA
+  out: Dataset/PA

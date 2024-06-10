@@ -13,5 +13,5 @@ performance_list:
   - Bandwidth
   - Power Consumption
 arguments:
-  input: data/LNA
-  out: data/LNA
+  input: Dataset/LNA
+  out: Dataset/LNA

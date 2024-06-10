@@ -9,5 +9,5 @@ performance_list:
   - Conversion Gain
   - Noise Figure
 arguments:
-  input: data/Mixer
-  out: data/Mixer
+  input: Dataset/Mixer
+  out: Dataset/Mixer
