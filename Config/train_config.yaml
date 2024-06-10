@@ -6,7 +6,7 @@ epochs: 100
 subset:
   - 0.9
 circuits:
-  - Cascode
+  - CVA
 compare_method: False
 kfold: False
 independent_kfold: True
