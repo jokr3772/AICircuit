@@ -35,10 +35,10 @@ Second, generate your own **train config** file, or use our default one. For usi
 python3 main.py
 ```
 
-As an example, if you want to address your own config path:
+As an example, if you want to address your own config path and a special seed:
 
 ```
-python3 main.py --path ./Config/train_config.yaml
+python3 main.py --path ./Config/train_config.yaml --seed 0
 ```
 
 ### Description
