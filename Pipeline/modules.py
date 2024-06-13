@@ -11,8 +11,7 @@ def circuit_config_creator(circuit_name):
     config_path = os.path.join(os.path.join(os.getcwd(), "Config"), "Circuits")
 
     circuits = ["CSVA", "TSVA", "CVA", "LNA", "Mixer", "VCO", "PA", 
-                "Transmitter", "Receiver", 
-                "Transmitter-PA", "Transmitter-VCO", "Receiver-LNA", "Receiver-Mixer", "Receiver-Cascode"]
+                "Transmitter", "Receiver"]
     circuit_mapping = dict()
 
     for circuit in circuits:
