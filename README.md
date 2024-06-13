@@ -89,7 +89,7 @@ In each run, find plots in the corresponding folder in `out_plot` folder and los
  
 Some of our visual results are as follows. For Two-Stage Voltage Amplifier(TSVA), we have:
 
-TO BE ADDED
+[Two-Stage Voltage Amplifier](plot/tsva.png)
 
 For Transmitter:
 
