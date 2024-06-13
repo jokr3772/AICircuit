@@ -1,5 +1,5 @@
 ---
-circuit: SingleStageAmplifier
+circuit: CSVA
 parameters:
     VDD: 0
     Vgate: 0
@@ -13,7 +13,7 @@ ocean: /home/julien/docker/Shared/Projects/Ocean
 oceandocker: /home/julien/Shared/Projects/Ocean
 dataset: /project/ml-circuit
 ---
-circuit: TwoStageAmplifier
+circuit: TSVA
 parameters:
     WCS: 0
     WN1: 0
@@ -30,7 +30,7 @@ ocean: /home/julien/docker/Shared/Projects/Ocean
 oceandocker: /home/julien/Shared/Projects/Ocean
 dataset: /project/ml-circuit
 ---
-circuit: Cascode
+circuit: CVA
 parameters:
     Wbias: 0
     Rd: 0
