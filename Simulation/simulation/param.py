@@ -11,7 +11,7 @@
 import yaml
 from yaml.loader import SafeLoader
 
-with open('simulation/config.yml', 'r') as f:
+with open('../Config/sim_config.yml', 'r') as f:
     config = list(yaml.load_all(f, Loader=SafeLoader))
 
 
