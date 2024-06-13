@@ -31,7 +31,6 @@ def alter_circ_param(new_params_values, ocean_path):
     ocean_file_new.writelines(lines)
             
 
-
 def dec_ac_text(path):
     ac_file = open(path, 'r')
     lines = ac_file.readlines()
