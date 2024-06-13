@@ -3,9 +3,6 @@ import numpy as np
 
 
 def transform_data(parameter, performance):
-    """
-    Preprocess data to be used in the model by scaling the data to be in the range of [-1, 1]
-    """
     data = np.hstack((np.copy(parameter), np.copy(performance)))
     scaler = MinMaxScaler(feature_range=(-1, 1))
     scaler.fit(data)
@@ -14,9 +11,6 @@ def transform_data(parameter, performance):
 
 
 def inverse_transform(parameter, performance, scaler):
-    """
-    Inverse transform the data to the original scale
-    """
     data = np.hstack((parameter, performance))
     data = scaler.inverse_transform(data)
     return data[:, :parameter.shape[1]], data[:, parameter.shape[1]:]

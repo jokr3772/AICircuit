@@ -6,7 +6,6 @@ from torch.cuda import is_available
 import shutil
 import pandas as pd
 import torch
-import random
 
 
 CONFIG_PATH = join(os.path.join(os.getcwd(), "config"))
