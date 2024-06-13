@@ -5,8 +5,8 @@
 import csv
 import math
 import subprocess
-from Utils.sim_utils import bw_by_iterp
-from Utils import text_generator
+from Simulation.utils.bw import bw_by_iterp
+from Simulation.utils import text
 
 
 class Simulator:
@@ -63,7 +63,7 @@ class Simulator:
                 
                 # extract data needed
                 text_ac_path = self.circuit_path + '/ac.txt'
-                freq, vout_mag = text_generator.dec_ac_text(text_ac_path)
+                freq, vout_mag = text.dec_ac_text(text_ac_path)
                 
                 # cur_sim_result['ac'] = [freq, vout_mag]
                 cur_sim_result['Bandwidth/Hz'] = bw_by_iterp(vout_mag, freq)
@@ -79,7 +79,7 @@ class Simulator:
                     print('[ERROR] cmd is not properly executed!!!')
 
                 text_dc_path = self.circuit_path + '/dcOp.txt'
-                pw = text_generator.dec_dc_text(text_dc_path)
+                pw = text.dec_dc_text(text_dc_path)
 
                 cur_sim_result['dcPowerConsumption/W'] = pw
                 cur_sim_result['Error_dcPowerConsumption/W'] = 0.0
@@ -116,7 +116,7 @@ class Simulator:
                     self.circuit_params[p] = line[p]
             
                 # edit circuit parameters in .scs file
-                text_generator.alter_circ_param(self.circuit_params, self.circuit_def)
+                text.alter_circ_param(self.circuit_params, self.circuit_def)
 
                 # start simulation
                 self.run_sim()
