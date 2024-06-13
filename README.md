@@ -41,6 +41,11 @@ As an example, if you want to address your own config path and a special seed:
 python3 main.py --path ./Config/train_config.yaml --seed 0
 ```
 
+### Run simulation
+```
+python simulation.py --circuit=Mixer --model=NLP
+```
+
 ### Description
 Here is a description for each parameter in the `train_config.yaml` file:
 
