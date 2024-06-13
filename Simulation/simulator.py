@@ -5,7 +5,8 @@
 import csv
 import math
 import subprocess
-from utils import bw, text
+from Utils import find_bw
+from Utils import text
 
 
 class Simulator:
@@ -65,7 +66,7 @@ class Simulator:
                 freq, vout_mag = text.dec_ac_text(text_ac_path)
                 
                 # cur_sim_result['ac'] = [freq, vout_mag]
-                cur_sim_result['Bandwidth/Hz'] = bw.bw_by_iterp(vout_mag, freq)
+                cur_sim_result['Bandwidth/Hz'] = find_bw.bw_by_iterp(vout_mag, freq)
                 cur_sim_result['VoltageGain/dB'] = 20 * math.log10(vout_mag[0])
                 cur_sim_result['Error_Bandwidth/Hz'] = 0.0
                 cur_sim_result['Error_VoltageGain/dB'] = 0.0

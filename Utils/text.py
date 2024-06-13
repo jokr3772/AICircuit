@@ -1,7 +1,7 @@
 # Decode results from result text file
 #
 # Desc:
-# Cadence generae simulation results in text format.
+# Cadence generate simulation results in text format.
 # This script contains necessary functions for decoding results from text files.
 #
 # Author: Yue (Julien) Niu

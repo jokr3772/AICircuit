@@ -1,7 +1,7 @@
 # Analyze results
 #
 # Desc:
-# Analyse results such as training loss, training and testing error
+# Analyze results such as training loss, training and testing error
 #
 # Author: Yue(Julien) Niu
 
