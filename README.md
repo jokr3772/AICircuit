@@ -43,7 +43,7 @@ python3 main.py --path ./Config/train_config.yaml --seed 0
 
 ### Run simulation
 ```
-python simulation.py --circuit=Mixer --model=NLP
+python simulation.py --circuit=Mixer --model=MLP
 ```
 
 ### Description
