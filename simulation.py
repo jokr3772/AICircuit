@@ -2,8 +2,8 @@
 
 from Simulation.simulator import Simulator
 from Simulation.param import get_circ_params, get_circ_path, get_dataset_path
-from Utils import sim_utils
-from args import args
+from Simulation.utils import result
+from Simulation.args import args
 
 circuit_params = get_circ_params(args.circuit)
 circuit_path, circuit_path_docker = get_circ_path(args.circuit)
@@ -14,7 +14,7 @@ simulator = Simulator(circuit_path, circuit_path_docker, circuit_params, params_
 simulator.run_all(n=args.npoints)
 
 # print simulation results
-sim_utils.calc_hist(simulator.sim_results)
+result.calc_hist(simulator.sim_results)
 
 #for item in simulator.sim_results:
 #    print(item)
