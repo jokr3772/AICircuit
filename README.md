@@ -9,6 +9,7 @@ AICircuit is a comprehensive multi-level dataset and benchmark for developing an
   * [Requirements](#requirements)
   * [Usage](#usage)
     * [Simple Run](#simple-run)
+    * [Run Simulation](#run-simulation)
     * [Description](#description)
     * [Results](#results)
   * [Visualization](#visualization)
@@ -41,7 +42,7 @@ As an example, if you want to address your own config path and a special seed:
 python3 main.py --path ./Config/train_config.yaml --seed 0
 ```
 
-### Run simulation
+### Run Simulation
 
 To run the simulation, use the following code:
 
