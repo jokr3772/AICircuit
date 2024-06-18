@@ -93,11 +93,13 @@ In each run, find plots in the corresponding folder in `out_plot` folder and los
  
 Some of our visual results are as follows. For Two-Stage Voltage Amplifier(TSVA), we have:
 
-![Two-Stage Voltage Amplifier](plot/tsva.png)
+<!-- ![Two-Stage Voltage Amplifier](plot/ts.png) -->
+<img align="center" src="Images/TSVA.png">
 
 For Transmitter:
 
-![Transmitter](plot/transmitter.png)
+<!-- ![Transmitter](plot/transmitter.png) -->
+<img align="center" src="Images/Transmitter.png">
 
 <!-- ## Documentation
   
