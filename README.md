@@ -8,7 +8,7 @@ AICircuit is a comprehensive multi-level dataset and benchmark for developing an
 
   * [Requirements](#requirements)
   * [Usage](#usage)
-    * [Simple Run](#simple-run)
+    * [Simple Run](#simple-model-run)
     * [Run Simulation](#run-simulation)
     * [Description](#description)
     * [Results](#results)
@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-### Simple Run
+### Simple Model Run
 To run the code, first change the path for your input data and output results in **arguments** of config files in `Config/Circuits` based on your needs. <br>
 
 Second, generate your own **train config** file, or use our default one. For using the default config file:
@@ -93,12 +93,10 @@ In each run, find plots in the corresponding folder in `out_plot` folder and los
  
 Some of our visual results are as follows. For Two-Stage Voltage Amplifier(TSVA), we have:
 
-<!-- ![Two-Stage Voltage Amplifier](plot/ts.png) -->
 <img align="center" src="Images/TSVA.png">
 
 For Transmitter:
 
-<!-- ![Transmitter](plot/transmitter.png) -->
 <img align="center" src="Images/Transmitter.png">
 
 <!-- ## Documentation
