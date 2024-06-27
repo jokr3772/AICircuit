@@ -6,7 +6,7 @@
 
 AICircuit is a comprehensive multi-level dataset and benchmark for developing and evaluating ML algorithms in analog and radio-frequency circuit design. AICircuit comprises seven commonly used basic circuits and two complex wireless transceiver systems composed of multiple circuit blocks, encompassing a wide array of design scenarios encountered in real-world applications. We extensively evaluate various ML algorithms on the dataset, revealing the potential of ML algorithms in learning the mapping from the design specifications to the desired circuit parameters. 
 
-## Table of Contents
+## 📖 Table of Contents
 
   * [Requirements](#requirements)
   * [Usage](#usage)
@@ -19,7 +19,7 @@ AICircuit is a comprehensive multi-level dataset and benchmark for developing an
   <!-- * [Documentation](#documentation)
   * [Where to ask for help](#where-to-ask-for-help) -->
 
-## Requirements
+## 🔧 Requirements
 
 To install the requirements you can use:
 
@@ -27,7 +27,7 @@ To install the requirements you can use:
 pip install -r requirements.txt
 ```
 
-## Usage
+## 🚀 Usage
 
 ### Simple Model Run
 To run the code, first change the path for your input data and output results in **arguments** of config files in `Config/Circuits` based on your needs. <br>
@@ -91,7 +91,7 @@ Here is a description for each parameter in the `train_config.yaml` file:
  
 In each run, find plots in the corresponding folder in `out_plot` folder and loss values in the corresponding folder in `out_result` folder. Also if you set the `train_config.yaml` in a way that it saves the predictions, you can find the prediction files in the mentioned directory at the circuit's yaml file.
 
-## Visualization
+## 📈 Visualization
  
 Some of our visual results are as follows. For Two-Stage Voltage Amplifier(TSVA), we have:
 
