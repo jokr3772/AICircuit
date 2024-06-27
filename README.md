@@ -1,4 +1,6 @@
-# AICircuit: A Multi-Level Dataset and Benchmark for AI-Driven Analog Integrated Circuit Design (NeurIPS 2024)
+# 🎓 AICircuit: A Multi-Level Dataset and Benchmark for AI-Driven Analog Integrated Circuit Design (NeurIPS 2024)
+
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/MIT)
 
 ## Overview
 
