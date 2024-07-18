@@ -104,6 +104,7 @@ For **Transmitter**:
   For more details, visit our paper [here](link). -->
 
 <!-- ## Citation -->
+<!-- If you use AICircuit in a research paper, please cite our work as follows: -->
 
 ## ❓ Where to Ask for Help
 
