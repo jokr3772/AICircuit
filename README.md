@@ -13,9 +13,9 @@ AICircuit is a comprehensive multi-level dataset and benchmark for developing an
     * [Description](#description)
     * [Results](#results)
   * [Visualization](#-visualization)
+  * [Where to Ask for Help](#-where-to-ask-for-help)
   <!-- * [Contributors](#contributors) -->
   <!-- * [Documentation](#documentation) -->
-  * [Where to Ask for Help](#-where-to-ask-for-help)
 
 ## 🔧 Requirements
 
