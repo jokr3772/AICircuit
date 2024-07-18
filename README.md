@@ -14,8 +14,8 @@ AICircuit is a comprehensive multi-level dataset and benchmark for developing an
     * [Results](#results)
   * [Visualization](#-visualization)
   <!-- * [Contributors](#contributors) -->
-  <!-- * [Documentation](#documentation)
-  * [Where to ask for help](#where-to-ask-for-help) -->
+  <!-- * [Documentation](#documentation) -->
+  * [Where to Ask for Help](#-where-to-ask-for-help)
 
 ## 🔧 Requirements
 
@@ -101,12 +101,8 @@ For **Transmitter**:
 
 <!-- ## Documentation
   
-  For more details, visit our paper [here](link).
+  For more details, visit our paper [here](link). -->
 
-## Where to ask for help
+## ❓ Where to Ask for Help
 
-If you have any questions, feel free to open a [discussion](https://github.com/AsalMehradfar/AICircuit/discussions) and ask your question. -->
-
-<!-- ## Contributors
-
-[Asal Mehradfar](https://github.com/AsalMehradfar), [Xuzhe Zhao](https://github.com/XuzheZ827), [Yue Niu](https://github.com/yuehniu), [Sara Babakniya](https://github.com/SaraBabakN), [Mahdi Alesheikh](https://github.com/malshei), [Hamidreza Aghasi](https://hie.eng.uci.edu/), [Salman Avestimehr](https://www.avestimehr.com/) -->
+If you have any questions, feel free to open a [discussion](https://github.com/AvestimehrResearchGroup/AICircuit/discussions) and ask your question. You can also email mehradfa@usc.edu (Asal Mehradfar).
