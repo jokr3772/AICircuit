@@ -103,6 +103,8 @@ For **Transmitter**:
   
   For more details, visit our paper [here](link). -->
 
+<!-- ## Citation -->
+
 ## ❓ Where to Ask for Help
 
 If you have any questions, feel free to open a [discussion](https://github.com/AvestimehrResearchGroup/AICircuit/discussions) and ask your question. You can also email mehradfa@usc.edu (Asal Mehradfar).
