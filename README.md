@@ -99,7 +99,7 @@ For **Transmitter**:
 
 <img align="center" src="Images/Transmitter.png">
 
-<!-- ## Documentation
+<!-- ## 📚 Documentation
   
   For more details, visit our paper [here](link). -->
 
@@ -108,4 +108,4 @@ For **Transmitter**:
 
 ## ❓ Where to Ask for Help
 
-If you have any questions, feel free to open a [discussion](https://github.com/AvestimehrResearchGroup/AICircuit/discussions) and ask your question. You can also email mehradfa@usc.edu (Asal Mehradfar).
+If you have any questions, feel free to open a [Discussion](https://github.com/AvestimehrResearchGroup/AICircuit/discussions) and ask your question. You can also email mehradfa@usc.edu (Asal Mehradfar).
