@@ -1,4 +1,4 @@
-# 🎓 AICircuit: A Multi-Level Dataset and Benchmark for AI-Driven Analog Integrated Circuit Design 
+# 🚀 AICircuit: A Multi-Level Dataset and Benchmark for AI-Driven Analog Integrated Circuit Design 
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/MIT)
 
