@@ -103,20 +103,18 @@ For **Transmitter**:
   
   For more details, visit our paper [here](https://arxiv.org/abs/2407.18272).
 
-<!-- ## 🎯 Citation 
+## 🎯 Citation 
 
 If you use AICircuit in a research paper, please cite our work as follows:
 
 ```
-@article{,
-  title={},
-  author={},
-  journal={},
-  year={2024},
-  pages={},
-  url={}
+@article{Mehradfar2024AICircuit,
+      title={AICircuit: A Multi-Level Dataset and Benchmark for AI-Driven Analog Integrated Circuit Design}, 
+      author={Asal Mehradfar and Xuzhe Zhao and Yue Niu and Sara Babakniya and Mahdi Alesheikh and Hamidreza Aghasi and Salman Avestimehr},
+      year={2024},
+      url={https://arxiv.org/abs/2407.18272}, 
 }
-``` -->
+```
 
 ## ❓ Where to Ask for Help
 
