@@ -99,13 +99,24 @@ For **Transmitter**:
 
 <img align="center" src="Images/Transmitter.png">
 
-<!-- ## 📚 Documentation
+## 📚 Documentation
   
-  For more details, visit our paper [here](link). -->
+  For more details, visit our paper [here](https://arxiv.org/abs/2407.18272).
 
-<!-- ## 🎯 Citation -->
+<!-- ## 🎯 Citation 
 
-<!-- If you use AICircuit in a research paper, please cite our work as follows: -->
+If you use AICircuit in a research paper, please cite our work as follows:
+
+```
+@article{,
+  title={},
+  author={},
+  journal={},
+  year={2024},
+  pages={},
+  url={}
+}
+``` -->
 
 ## ❓ Where to Ask for Help
 
