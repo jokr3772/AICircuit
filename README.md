@@ -25,7 +25,7 @@ To install the requirements you can use:
 pip install -r requirements.txt
 ```
 
-## 🚀 🏃‍♂️‍➡️ 🏆💡 🔦🏃‍➡️ Usage
+## 💡 🏃‍➡️ Usage
 
 ### Simple Model Run
 To run the code, first change the path for your input data and output results in **arguments** of config files in `Config/Circuits` based on your needs. <br>
