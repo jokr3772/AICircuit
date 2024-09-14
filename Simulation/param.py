@@ -56,9 +56,9 @@ def get_dataset_path(circuit: str, model: str, train=False):
     for item in config:
         if circuit == item['circuit']:
             if train:
-                return item['dataset'] + '/' + model + '/' + circuit + '/train.csv'
+                return item['dataset'] + '/' + circuit + '/' + model + '/train.csv'
             else:
-                return item['dataset'] + '/' + model + '/' + circuit + '/test.csv'
+                return item['dataset'] + '/' + circuit + '/' + model + '/test.csv'
 
     if not dataset_path:
         raise NotImplementedError

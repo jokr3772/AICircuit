@@ -1,0 +1,12 @@
+
+
+Simulated performance ...
+
+
+VoltageGain:   1.05037e+01   
+
+
+Bandwidth:     2.77018e+08   
+
+
+PowerConsumption: 1.19551e-03   

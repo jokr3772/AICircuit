@@ -9,9 +9,9 @@ metrics:
     Bandwidth: 0
     PowerConsumption: 0
     VoltageGain: 0
-ocean: /home/julien/docker/Shared/Projects/Ocean
+ocean: Simulation/Ocean
 oceandocker: /home/julien/Shared/Projects/Ocean
-dataset: /project/ml-circuit
+dataset: Dataset
 ---
 circuit: TSVA
 parameters:
@@ -26,9 +26,9 @@ metrics:
     Bandwidth: 0
     PowerConsumption: 0
     VoltageGain: 0
-ocean: /home/julien/docker/Shared/Projects/Ocean
+ocean: Simulation/Ocean
 oceandocker: /home/julien/Shared/Projects/Ocean
-dataset: /project/ml-circuit
+dataset: Dataset
 ---
 circuit: CVA
 parameters:
@@ -40,9 +40,9 @@ metrics:
     Bandwidth: 0
     PowerConsumption: 0
     VoltageGain: 0
-ocean: /home/julien/docker/Shared/Projects/Ocean
+ocean: Simulation/Ocean
 oceandocker: /home/julien/Shared/Projects/Ocean
-dataset: /project/ml-circuit
+dataset: Dataset
 ---
 circuit: VCO
 parameters:
@@ -59,9 +59,9 @@ metrics:
     OutputPower: 0
     PhaseNoise: 0
     TuningRange: 0
-ocean: /home/julien/docker/Shared/Projects/Ocean
+ocean: Simulation/Ocean
 oceandocker: /home/julien/Shared/Projects/Ocean
-dataset: /project/ml-circuit
+dataset: Dataset
 ---
 circuit: Mixer
 parameters:
@@ -74,9 +74,9 @@ metrics:
     IFVoltageSwing: 0
     ConversionGain: 0
     NoiseFigure: 0
-ocean: /home/julien/docker/Shared/Projects/Ocean
+ocean: Simulation/Ocean
 oceandocker: /home/julien/Shared/Projects/Ocean
-dataset: /project/ml-circuit
+dataset: Dataset
 ---
 circuit: PA
 parameters:
@@ -93,9 +93,9 @@ metrics:
     DrainEfficiency: 0
     PSAT: 0
     PowerConsumption: 0
-ocean: /home/julien/docker/Shared/Projects/Ocean
+ocean: Simulation/Ocean
 oceandocker: /home/julien/Shared/Projects/Ocean
-dataset: /project/ml-circuit
+dataset: Dataset
 ---
 circuit: LNA
 parameters:
@@ -112,9 +112,9 @@ metrics:
     NFMin: 0
     Bandwidth: 0
     PowerConsumption: 0
-ocean: /home/julien/docker/Shared/Projects/Ocean
+ocean: Simulation/Ocean
 oceandocker: /home/julien/Shared/Projects/Ocean
-dataset: /project/ml-circuit
+dataset: Dataset
 ---
 circuit: Transmitter
 parameters:
@@ -140,9 +140,9 @@ metrics:
     OutputPower: 0
     Bandwidth: 0
     PowerConsumption: 0
-ocean: /home/julien/docker/Shared/Projects/Ocean
+ocean: Simulation/Ocean
 oceandocker: /home/julien/Shared/Projects/Ocean
-dataset: /project/ml-circuit
+dataset: Dataset
 ---
 circuit: Receiver
 parameters:
@@ -170,6 +170,6 @@ metrics:
     NoiseFigure: 0
     VoltageGain: 0
     PowerConsumption: 0
-ocean: /home/julien/docker/Shared/Projects/Ocean
+ocean: Simulation/Ocean
 oceandocker: /home/julien/Shared/Projects/Ocean
-dataset: /project/ml-circuit
+dataset: Dataset
