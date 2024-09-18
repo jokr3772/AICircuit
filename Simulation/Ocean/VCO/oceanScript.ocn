@@ -2,7 +2,7 @@ simulator( 'spectre )
 design(  "/home/julien/simulation/VCO_testbench/spectre/schematic/netlist/netlist")
 resultsDir( "/home/julien/simulation/VCO_testbench/spectre/schematic" )
 modelFile( 
-    '("/opt/cadence/installs/ncsu-cdk-1.6.0/models/45n270AModels.sp" "")
+    '("Simulation/Model/45n270AModels.sp" "")
 )
 analysis('tran ?stop "20n"  ?errpreset "conservative"  )
 analysis('hb ?tstabenvlp_autosteady ""  ?tstabenvlpstop ""  ?saveinit "yes"  

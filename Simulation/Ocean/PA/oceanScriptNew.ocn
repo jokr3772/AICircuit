@@ -2,7 +2,7 @@ simulator( 'spectre )
 design(  "/home/julien/Shared/Projects/simulation/PA_testbench/spectre/schematic/netlist/netlist")
 resultsDir( "/home/julien/Shared/Projects/simulation/PA_testbench/spectre/schematic" )
 modelFile( 
-    '("/opt/cadence/installs/ncsu-cdk-1.6.0/models/45n270AModels.sp" "")
+    '("Simulation/Model/45n270AModels.sp" "")
 )
 analysis('sp ?ports list("/PORT0" "/PORT1")  ?start "0"  ?stop "50G"  
 		?step "0.5G"  )

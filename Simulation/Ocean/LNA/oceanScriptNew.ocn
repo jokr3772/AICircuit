@@ -2,7 +2,7 @@ simulator( 'spectre )
 design(  "Simulation/Netlists/LNA/netlist")
 resultsDir( "/home/julien/Shared/Projects/simulation/LNA_testbench/spectre/schematic" )
 modelFile( 
-    '("/opt/cadence/installs/ncsu-cdk-1.6.0/models/45n270AModels.sp" "")
+    '("Simulation/Model/45n270AModels.sp" "")
 )
 analysis('sp ?ports list("/PORT0" "/PORT1")  ?start "1G"  ?stop "10G"  
 		?donoise "yes"  ?oprobe "/PORT1"  ?iprobe "/PORT0"  )

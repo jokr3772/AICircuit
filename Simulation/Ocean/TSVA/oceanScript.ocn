@@ -2,7 +2,7 @@ simulator( 'spectre )
 design(	 "Simulation/Netlists/TSVA/netlist")
 resultsDir( "/home/julien/Shared/Projects/simulation/TwoStage/spectre/schematic" )
 modelFile( 
-    '("/opt/cadence/installs/ncsu-cdk-1.6.0/models/45n270AModels.sp" "")
+    '("Simulation/Model/45n270AModels.sp" "")
 )
 analysis('ac ?start "10"  ?stop "100G"  )
 analysis('dc ?saveOppoint t  )

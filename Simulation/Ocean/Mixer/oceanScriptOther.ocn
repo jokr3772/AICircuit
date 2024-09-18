@@ -2,7 +2,7 @@ simulator( 'spectre )
 design(  "/home/julien/Shared/Projects/simulation/Mixer_testbench/spectre/schematic/netlist/netlist")
 resultsDir( "/home/julien/Shared/Projects/simulation/Mixer_testbench/spectre/schematic" )
 modelFile( 
-    '("/opt/cadence/installs/ncsu-cdk-1.6.0/models/45n270AModels.sp" "")
+    '("Simulation/Model/45n270AModels.sp" "")
 )
 analysis('pss ?engine "Harmonic Balance"  ?flexbalance "yes"  ?oversamplefactor ""  
 		?fund "5.5G"  ?harms "10"  ?errpreset "moderate"  ?tstabenvlpstopHB ""  
