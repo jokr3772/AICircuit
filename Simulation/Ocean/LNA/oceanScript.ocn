@@ -1,5 +1,5 @@
 simulator( 'spectre )
-design(  "/home/julien/Shared/Projects/simulation/LNA_testbench/spectre/schematic/netlist/netlist")
+design(  "Simulation/Netlists/LNA/netlist")
 resultsDir( "/home/julien/Shared/Projects/simulation/LNA_testbench/spectre/schematic" )
 modelFile( 
     '("/opt/cadence/installs/ncsu-cdk-1.6.0/models/45n270AModels.sp" "")
