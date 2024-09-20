@@ -1,5 +1,5 @@
 simulator( 'spectre )
-design(	 "/home/julien/simulation/Mixer_testbench/spectre/schematic/netlist/netlist")
+design(	 "Simulation/Netlists/Mixer/netlist")
 resultsDir( "/home/julien/simulation/Mixer_testbench/spectre/schematic" )
 modelFile( 
     '("Simulation/Model/45n270AModels.sp" "")
