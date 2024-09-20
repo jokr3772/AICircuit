@@ -1,5 +1,5 @@
 simulator( 'spectre )
-design(  "/home/julien/Shared/Projects/simulation/Cascode/spectre/schematic/netlist/netlist")
+design(  "Simulation/Netlists/CVA/netlist")
 resultsDir( "/home/julien/Shared/Projects/simulation/Cascode/spectre/schematic" )
 modelFile( 
     '("Simulation/Model/45n270AModels.sp" "")
