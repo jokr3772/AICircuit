@@ -1,6 +1,6 @@
 
 // Library name: CVA
-// Cell name: CVA
+// Cell name: Cascode
 // View name: schematic
 N4 (net3 Vbias 0 GND) nmos w=Wbias l=45n m=1 region=sat
 N3 (net2 Vin\- net3 GND) nmos w=Wn1  l=45n m=1 region=sat

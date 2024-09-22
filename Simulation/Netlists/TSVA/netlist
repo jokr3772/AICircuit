@@ -1,6 +1,6 @@
 
 // Library name: TSVA
-// Cell name: TSVA
+// Cell name: TwoStage
 // View name: schematic
 N6 (Vout\- Vb5 0 GND) nmos w=WNOUT l=45.0n as=WNOUT * 2.5 * (45.0n) ad=WNOUT * 2.5 * (45.0n) \
          ps=(2 * WNOUT) + (5 * (45.0n)) pd=(2 * WNOUT) + (5 * (45.0n)) m=5 \

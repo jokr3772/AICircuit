@@ -75,7 +75,7 @@ subckt Diff_twostage_PA VDD Vin\+ Vin\- Vout\+ Vout\-
 ends Diff_twostage_PA
 // End of subcircuit definition.
 
-// Library name: PA
+// Library name: PowerAmplifier
 // Cell name: PA_testbench
 // View name: schematic
 PORT0 (net5 0) port r=50 num=1 type=sine freq=fin dbm=pin pacdbm=pin \

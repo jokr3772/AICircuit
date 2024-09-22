@@ -1,6 +1,6 @@
 
 // Library name: CSVA
-// Cell name: CSVA
+// Cell name: SingleStage
 // View name: schematic
 N0 (Vout Vin 0 0) nmos w=Wn l=45n m=1 region=sat
 C0 (Vout 0) capacitor c=1p
