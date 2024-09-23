@@ -1,0 +1,12 @@
+
+
+Simulated performance ...
+
+
+PowerConsumption: 3.15783e-02   
+
+
+VoltageGain:   1.44241e+01   
+
+
+NoiseFigure:   7.12000e+00   
