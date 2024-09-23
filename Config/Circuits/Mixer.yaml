@@ -4,10 +4,10 @@ parameter_list:
   - WLO 
   - RF
 performance_list:
-  - Power Consumption
-  - IF Voltage Swing
-  - Conversion Gain
-  - Noise Figure
+  - PowerConsumption
+  - IFVoltageSwing
+  - ConversionGain
+  - NoiseFigure
 arguments:
   input: Dataset/Mixer
   out: Dataset/Mixer
