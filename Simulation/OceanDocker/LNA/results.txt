@@ -1,0 +1,18 @@
+
+
+Simulated performance ...
+
+
+S11Min:        -1.69282e+01  
+
+
+GTMax:         1.60882e+01   
+
+
+NFMin:         1.74412e+00   
+
+
+Bandwidth:     4.24570e+09   
+
+
+PowerConsumption: 1.68157e-02   
