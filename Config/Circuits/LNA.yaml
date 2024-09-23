@@ -11,7 +11,7 @@ performance_list:
   - S11
   - NF
   - Bandwidth
-  - Power Consumption
+  - PowerConsumption
 arguments:
   input: Dataset/LNA
   out: Dataset/LNA
