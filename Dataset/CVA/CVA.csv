@@ -1,4 +1,4 @@
-Wbias,Rd,Wn1,Wn2,Bandwidth,Power Consumption,Voltage Gain
+Wbias,Rd,Wn1,Wn2,Bandwidth,PowerConsumption,VoltageGain
 4.5e-06,2000,6e-06,5e-06,94400000.0,0.000718,15.18
 4.5e-06,2000,6e-06,6e-06,94200000.0,0.000722,15.45
 4.5e-06,2000,6e-06,7e-06,94000000.0,0.000726,15.62

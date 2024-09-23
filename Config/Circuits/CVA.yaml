@@ -5,8 +5,8 @@ parameter_list:
   - Wn2
 performance_list:
   - Bandwidth
-  - Power Consumption
-  - Voltage Gain
+  - PowerConsumption
+  - VoltageGain
 arguments:
   input: Dataset/CVA
   out: Dataset/CVA
