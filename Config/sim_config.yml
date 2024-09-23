@@ -10,7 +10,7 @@ metrics:
     PowerConsumption: 0
     VoltageGain: 0
 ocean: Simulation/Ocean
-oceandocker: Simulation/OceanDocker
+oceandocker: OceanDocker
 dataset: Dataset
 ---
 circuit: TSVA
@@ -27,7 +27,7 @@ metrics:
     PowerConsumption: 0
     VoltageGain: 0
 ocean: Simulation/Ocean
-oceandocker: Simulation/OceanDocker
+oceandocker: OceanDocker
 dataset: Dataset
 ---
 circuit: CVA
@@ -41,7 +41,7 @@ metrics:
     PowerConsumption: 0
     VoltageGain: 0
 ocean: Simulation/Ocean
-oceandocker: Simulation/OceanDocker
+oceandocker: OceanDocker
 dataset: Dataset
 ---
 circuit: VCO
@@ -60,7 +60,7 @@ metrics:
     PhaseNoise: 0
     TuningRange: 0
 ocean: Simulation/Ocean
-oceandocker: Simulation/OceanDocker
+oceandocker: OceanDocker
 dataset: Dataset
 ---
 circuit: Mixer
@@ -75,7 +75,7 @@ metrics:
     ConversionGain: 0
     NoiseFigure: 0
 ocean: Simulation/Ocean
-oceandocker: Simulation/OceanDocker
+oceandocker: OceanDocker
 dataset: Dataset
 ---
 circuit: PA
@@ -94,7 +94,7 @@ metrics:
     PSAT: 0
     PowerConsumption: 0
 ocean: Simulation/Ocean
-oceandocker: Simulation/OceanDocker
+oceandocker: OceanDocker
 dataset: Dataset
 ---
 circuit: LNA
@@ -113,7 +113,7 @@ metrics:
     Bandwidth: 0
     PowerConsumption: 0
 ocean: Simulation/Ocean
-oceandocker: Simulation/OceanDocker
+oceandocker: OceanDocker
 dataset: Dataset
 ---
 circuit: Transmitter
@@ -141,7 +141,7 @@ metrics:
     Bandwidth: 0
     PowerConsumption: 0
 ocean: Simulation/Ocean
-oceandocker: Simulation/OceanDocker
+oceandocker: OceanDocker
 dataset: Dataset
 ---
 circuit: Receiver
@@ -171,5 +171,5 @@ metrics:
     VoltageGain: 0
     PowerConsumption: 0
 ocean: Simulation/Ocean
-oceandocker: Simulation/OceanDocker
+oceandocker: OceanDocker
 dataset: Dataset
