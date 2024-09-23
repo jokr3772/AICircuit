@@ -2,11 +2,11 @@ model_config:
   - model: MultiLayerPerceptron
 device: cpu
 log_experiments: False
-epochs: 100
+epochs: 10
 subset:
   - 0.9
 circuits:
-  - CVA
+  - CSVA
 compare_method: False
 kfold: False
 independent_kfold: True
