@@ -130,7 +130,7 @@ class Simulator:
                 if display and i > 10 and i % 100 == 0:
                     print('{} points simulated.'.format(i+1))
 
-                if n != -1 and i == n: break
+                if n != -1 and i == n - 1: break
 
     def calc_error(self, perf_ref):
         """Calculate error compared to reference values
@@ -153,4 +153,3 @@ class Simulator:
                     rel_error = abs(val_ref - val_actual) / abs(val_ref)
 
                 self.sim_results[-1]['Error_' + key] = rel_error
-
