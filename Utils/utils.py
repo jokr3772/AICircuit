@@ -8,7 +8,7 @@ import pandas as pd
 import torch
 
 
-CONFIG_PATH = join(os.path.join(os.getcwd(), "config"))
+CONFIG_PATH = join(os.path.join(os.getcwd(), "Config"))
 
 DEFAULT_TRAIN_CONFIG_PATH = join(CONFIG_PATH, "train_config.yaml")
 DEFAULT_VISUAL_CONFIG_PATH = join(CONFIG_PATH, "visual_config.yaml")
