@@ -7,6 +7,7 @@ import subprocess
 
 
 DOCKER_CMD = 'docker exec --user=julien rlinux8-1 /bin/tcsh -c'
+OCEAN_FILENAME = 'oceanScript.ocn'
 
 
 class Simulator:
@@ -19,7 +20,7 @@ class Simulator:
         :param params_path: circuit parameter value path
         """
         self.circuit_path = circuit_path
-        self.circuit_def = circuit_path + '/oceanScript.ocn'
+        self.circuit_def = circuit_path + '/' + OCEAN_FILENAME
         self.circuit_params = circuit_params
         self.params_path = params_path
         
