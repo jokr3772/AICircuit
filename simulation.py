@@ -1,7 +1,7 @@
 # This is the top entry of the codebase
 
 from Simulation.simulator import Simulator
-from Simulation.param import get_circ_params, get_circ_path, get_dataset_path
+from Simulation.utils.param import get_circ_params, get_circ_path, get_dataset_path
 from Simulation.utils import result
 from Simulation.args import args
 
