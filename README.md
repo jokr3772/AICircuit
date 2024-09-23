@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 ## 💡 Usage
 
-### Simple Model Run
+### Run Model
 To run the code, first change the path for your input data and output results in **arguments** of config files in `Config/Circuits` based on your needs. <br>
 
 Second, generate your own **train config** file, or use our default one. For using the default config file:
@@ -47,7 +47,7 @@ python3 main.py --path ./Config/train_config.yaml --seed 0
 To run the simulation, use the following code:
 
 ```
-python simulation.py --circuit=Mixer --model=MLP
+python simulation.py --circuit=CVA --model=MultiLayerPerceptron --npoints=100
 ```
 
 ### Description
