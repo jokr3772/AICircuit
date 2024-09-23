@@ -1,6 +1,6 @@
 simulator( 'spectre )
-design(	 "/home/julien/Shared/Projects/simulation/VCO_PA/spectre/schematic/netlist/netlist")
-resultsDir( "/home/julien/Shared/Projects/simulation/VCO_PA/spectre/schematic" )
+design(	 "Simulation/Netlists/Transmitter/netlist/netlist")
+resultsDir( "Simulation/Results/Transmitter/" )
 modelFile( 
     '("Simulation/Model/45n270AModels.sp" "")
 )
