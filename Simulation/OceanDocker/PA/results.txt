@@ -1,0 +1,24 @@
+
+
+Simulated performance ...
+
+
+S11:           -4.04190e+00  
+
+
+S22:           -1.47493e+00  
+
+
+LargeSignalPowerGain: 5.59715e+00   
+
+
+PAE:           6.03789e-01   
+
+
+DrainEfficiency: 1.65629e+00   
+
+
+PSAT:          -5.41832e+00  
+
+
+PowerConsumption: 1.45191e-02   
