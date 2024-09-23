@@ -44,7 +44,7 @@ python3 main.py --path ./Config/train_config.yaml --seed 0
 
 ### Run Simulation
 
-To run the simulation, set the desired docker command in the top of `simulator.py` file. Then, copy the directory `Simulation/Ocean` with the name `Simulation/OceanDocker` to the docker directory (you can change the name in `Config/sim_config.yaml`). Then, use the following code:
+To run the simulation, set the desired docker command in the top of `Simulation/simulator.py` file. Then, copy the directory `Simulation/Ocean` with the name `Simulation/OceanDocker` to the docker directory (you can change the directory in `Config/sim_config.yaml`). Then, use the following code:
 
 ```
 python simulation.py --circuit=CVA --model=MultiLayerPerceptron --npoints=100
