@@ -9,11 +9,11 @@ parameter_list:
 performance_list:
   - S11
   - S22
-  - Large Signal Power Gain
+  - LargeSignalPowerGain
   - PAE
-  - Drain Efficiency
+  - DrainEfficiency
   - PSAT
-  - Power Consumption
+  - PowerConsumption
 arguments:
   input: Dataset/PA
   out: Dataset/PA

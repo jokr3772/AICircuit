@@ -1,4 +1,4 @@
-L1p,L1s,L3p,L3s,Lm,Wn1,Wn2,S11,S22,Large Signal Power Gain,PAE,Drain Efficiency,PSAT,Power Consumption
+L1p,L1s,L3p,L3s,Lm,Wn1,Wn2,S11,S22,LargeSignalPowerGain,PAE,DrainEfficiency,PSAT,PowerConsumption
 3.5e-10,8e-11,4.75e-10,6e-11,1.75e-10,2.2e-05,3.2e-05,-27.23,-31.08,14.94,10.62,11.47,2.285,0.0146
 3.5e-10,8e-11,4.75e-10,6e-11,1.75e-10,1.6e-05,3.2e-05,-9.55,-26.41,13.45,6.852,7.287,-0.292,0.0126
 3.5e-10,8e-11,4.75e-10,6e-11,1.75e-10,1.6e-05,2.8e-05,-9.646,-10.71,15.66,7.449,7.743,-0.315,0.0117
