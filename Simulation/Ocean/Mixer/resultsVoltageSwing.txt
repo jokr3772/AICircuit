@@ -1,6 +1,0 @@
-
-
-Simulated performance ...
-
-
-IFVoltageSwing: 6.77821e-16   
