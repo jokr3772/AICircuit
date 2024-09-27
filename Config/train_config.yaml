@@ -2,7 +2,7 @@ model_config:
   - model: MultiLayerPerceptron
 device: cpu
 log_experiments: False
-epochs: 10
+epochs: 100
 subset:
   - 0.9
 circuits:
