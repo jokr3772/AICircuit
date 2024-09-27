@@ -6,7 +6,8 @@ import csv
 import subprocess
 
 
-DOCKER_CMD = 'docker exec --user=julien rlinux8-1 /bin/tcsh -c'
+# DOCKER_CMD = 'docker exec --user=julien rlinux8-1 /bin/tcsh -c -v /home/asal/AICircuit/Simulation:./'
+DOCKER_CMD = 'docker exec --user=asal rlinux8-2 /bin/tcsh -c'
 OCEAN_FILENAME = 'oceanScript.ocn'
 
 
@@ -40,6 +41,7 @@ class Simulator:
         
         bash_cmds = f'\"cd {self.circuit_path_docker}; ocean -nograph -replay oceanScriptNew.ocn"'
         sim_cmd = f'{self.docker_cmd} {bash_cmds}'
+        # raise ValueError(sim_cmd, bash_cmds)
         # print(sim_cmd)
         ret = subprocess.call(sim_cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         

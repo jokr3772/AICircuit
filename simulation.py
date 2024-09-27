@@ -14,7 +14,9 @@ simulator = Simulator(circuit_path, circuit_path_docker, circuit_params, params_
 simulator.run_all(n=args.npoints)
 
 # print simulation results
-result.calc_hist(simulator.sim_results)
 
-#for item in simulator.sim_results:
-#    print(item)
+# print(simulator.sim_results)
+
+result.calc_hist(simulator.sim_results)
+for item in simulator.sim_results:
+   print(item)
