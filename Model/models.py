@@ -16,7 +16,6 @@ class RandomForest():
 
     def fit(self,x,y):
         self.model.fit(x,y)
-        return self.model
     
     def predict(self,x):
         return self.model.predict(x)
@@ -28,7 +27,6 @@ class SupportVector():
 
     def fit(self,x,y):
         self.model.fit(x,y)
-        return self.model
     
     def predict(self,x):
         return self.model.predict(x)
@@ -40,7 +38,6 @@ class KNeighbors():
 
     def fit(self,x,y):
         self.model.fit(x,y)
-        return self.model
     
     def predict(self,x):
         return self.model.predict(x)

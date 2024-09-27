@@ -14,7 +14,7 @@ class SklearnModelWrapper:
         self.model = model
 
     def fit(self, train_X, train_y, test_X, test_y):
-        self.model = self.model.fit(train_X, train_y)
+        self.model.fit(train_X, train_y)
         return {}
 
     def predict(self, X):
