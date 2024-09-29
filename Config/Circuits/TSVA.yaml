@@ -7,8 +7,8 @@ parameter_list:
   - WP1
 performance_list:
   - Bandwidth
-  - Power Consumption
-  - Voltage Gain
+  - PowerConsumption
+  - VoltageGain
 arguments:
   input: Dataset/TSVA
   out: Dataset/TSVA

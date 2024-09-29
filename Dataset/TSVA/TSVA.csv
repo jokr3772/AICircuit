@@ -1,4 +1,4 @@
-C1,WNOUT,WPOUT,WCS,WN1,WP1,Bandwidth,Power Consumption,Voltage Gain
+C1,WNOUT,WPOUT,WCS,WN1,WP1,Bandwidth,PowerConsumption,VoltageGain
 2e-13,1.5e-06,1.5e-06,6e-06,3e-06,3e-06,12300000.0,0.0366,33.41
 2e-13,1.5e-06,2.5e-06,6e-06,3e-06,3e-06,13400000.0,0.0586,28.54
 2e-13,1.5e-06,3.5e-06,6e-06,3e-06,3e-06,13300000.0,0.0801,27.07
