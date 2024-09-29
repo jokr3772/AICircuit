@@ -89,7 +89,6 @@ class Simulator:
                 self.get_results()
 
                 # calculate relative error
-                print(line)
                 self.calc_error(line)
 
                 if display and i > 10 and i % 50 == 0:
