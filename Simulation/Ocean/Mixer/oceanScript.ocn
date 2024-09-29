@@ -1,8 +1,8 @@
 simulator( 'spectre )
-design(	 "Simulation/Netlists/Mixer/netlist/netlist")
-resultsDir( "Simulation/Results/Mixer/" )
+design(	 "/home/asal/Shared/Netlists/Mixer/netlist")
+resultsDir( "/home/asal/Shared/Results/Mixer" )
 modelFile( 
-    '("Simulation/Model/45n270AModels.sp" "")
+    '("/home/asal/Shared/Model/45n270AModels.sp" "")
 )
 analysis('tran ?stop "20n"  ?triseTemp "1.0"  )
 analysis('dc ?saveOppoint t  )
