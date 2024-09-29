@@ -7,9 +7,9 @@ parameter_list:
   - WN1
   - WN2
 performance_list:
-  - GT
-  - S11
-  - NF
+  - GTMax
+  - S11Min
+  - NFMin
   - Bandwidth
   - PowerConsumption
 arguments:
