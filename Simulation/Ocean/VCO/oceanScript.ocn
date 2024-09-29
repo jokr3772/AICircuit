@@ -1,8 +1,8 @@
 simulator( 'spectre )
-design(  "Simulation/Netlists/VCO/netlist/netlist")
-resultsDir( "Simulation/Results/VCO/" )
+design(  "/home/asal/Shared/Netlists/VCO/netlist")
+resultsDir( "/home/asal/Shared/Results/VCO" )
 modelFile( 
-    '("Simulation/Model/45n270AModels.sp" "")
+    '("/home/asal/Shared/Model/45n270AModels.sp" "")
 )
 analysis('tran ?stop "20n"  ?errpreset "conservative"  )
 analysis('hb ?tstabenvlp_autosteady ""  ?tstabenvlpstop ""  ?saveinit "yes"  
