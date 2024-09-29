@@ -1,8 +1,8 @@
 simulator( 'spectre )
-design(  "Simulation/Netlists/PA/netlist/netlist")
-resultsDir( "Simulation/Results/PA/" )
+design(  "/home/asal/Shared/Netlists/PA/netlist")
+resultsDir( "/home/asal/Shared/Results/PA" )
 modelFile( 
-    '("Simulation/Model/45n270AModels.sp" "")
+    '("/home/asal/Shared/Model/45n270AModels.sp" "")
 )
 analysis('sp ?ports list("/PORT0" "/PORT1")  ?start "0"  ?stop "50G"  
 		?step "0.5G"  )
