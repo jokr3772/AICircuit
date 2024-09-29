@@ -1,8 +1,8 @@
 simulator( 'spectre )
-design(  "Simulation/Netlists/LNA/netlist/netlist")
-resultsDir( "Simulation/Results/LNA/" )
+design(  "/home/asal/Shared/Netlists/LNA/netlist")
+resultsDir( "/home/asal/Shared/Results/LNA" )
 modelFile( 
-    '("Simulation/Model/45n270AModels.sp" "")
+    '("/home/asal/Shared/Model/45n270AModels.sp" "")
 )
 analysis('sp ?ports list("/PORT0" "/PORT1")  ?start "1G"  ?stop "10G"  
 		?donoise "yes"  ?oprobe "/PORT1"  ?iprobe "/PORT0"  )
