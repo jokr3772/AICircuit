@@ -1,8 +1,8 @@
 simulator( 'spectre )
-design(	 "Simulation/Netlists/TSVA/netlist/netlist")
-resultsDir( "Simulation/Results/TSVA/" )
+design(	 "/home/asal/Shared/Netlists/TSVA/netlist")
+resultsDir( "/home/asal/Shared/Results/TSVA" )
 modelFile( 
-    '("Simulation/Model/45n270AModels.sp" "")
+    '("/home/asal/Shared/Model/45n270AModels.sp" "")
 )
 analysis('ac ?start "10"  ?stop "100G"  )
 analysis('dc ?saveOppoint t  )
