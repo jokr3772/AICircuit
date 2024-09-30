@@ -12,15 +12,15 @@ parameter_list:
   - Wn1_PA
   - Wn2_PA
 performance_list:
-  - dcPowerConsumption/W
-  - 3dB_Bandwidth/Hz
-  - OutputPower/dBm
-  - VoltageSwing/V
-  - TuningRange_VCO/Hz
-  - PhaseNoise_VCO/(dBc/Hz)
-  - LargeSignal_PowerGain_PA/dB
-  - DrainEfficiency_PA/%
-  - PAE_PA/%
+  - PowerConsumption
+  - Bandwidth
+  - OutputPower
+  - VoltageSwing
+  - TuningRange_VCO
+  - PhaseNoise_VCO
+  - LargeSignal_PowerGain_PA
+  - DrainEfficiency_PA
+  - PAE_PA
 arguments:
   input: Dataset/Transmitter
   out: Dataset/Transmitter
