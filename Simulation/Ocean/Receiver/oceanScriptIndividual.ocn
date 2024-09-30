@@ -1,8 +1,8 @@
 simulator( 'spectre )
-design(	 "Simulation/Netlists/Receiver/netlist/netlist")
-resultsDir( "Simulation/Results/Receiver/" )
+design(	 "/home/asal/Shared/Netlists/Receiver/netlist")
+resultsDir( "/home/asal/Shared/Results/Receiver" )
 modelFile( 
-    '("Simulation/Model/45n270AModels.sp" "")
+    '("/home/asal/Shared/Model/45n270AModels.sp" "")
 )
 analysis('qpss ?funds list("LO" "RF")  ?maxharms list("1" "1")  ?errpreset "conservative"  )
 analysis('sp ?ports list("/PORT0" "/PORT3")  ?start "1G"  ?stop "50G"  
