@@ -1,8 +1,8 @@
 simulator( 'spectre )
-design(	 "Simulation/Netlists/Transmitter/netlist/netlist")
-resultsDir( "Simulation/Results/Transmitter/" )
+design(	 "/home/asal/Shared/Netlists/Transmitter/netlist")
+resultsDir( "/home/asal/Shared/Results/Transmitter" )
 modelFile( 
-    '("Simulation/Model/45n270AModels.sp" "")
+    '("/home/asal/Shared/Model/45n270AModels.sp" "")
 )
 analysis('sp ?ports list("/PORT0" "/PORT1")  ?start "1G"  ?stop "50G"  )
 analysis('pnoise ?sweeptype "relative"  ?relharmnum "1"  ?start "10k"  
